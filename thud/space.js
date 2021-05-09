@@ -4,8 +4,8 @@ class Space {
 
   constructor(board, row_index, column_index) {
     this.board = board;
-    this.x = row_index;
-    this.y = column_index;
+    this.x = column_index;
+    this.y = row_index;
     this.colour_index = ((this.x + this.y) % 2);
   }
 

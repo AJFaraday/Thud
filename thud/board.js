@@ -79,7 +79,9 @@ class Board {
       board.all_spaces = [];
       board.rows.forEach(
         function(row) {
-          board.all_spaces = board.all_spaces.concat(row);
+          board.all_spaces = board.all_spaces.concat(
+            row.filter(Boolean)
+          );
         }
       );
       return board.all_spaces;
