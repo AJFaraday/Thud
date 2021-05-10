@@ -55,13 +55,15 @@ class Board {
     this.reporters.push(new Reporters[name](this));
   }
 
-  report(event, attrs) {
+  report(event, args) {
     this.reporters.forEach(
       function (reporter) {
-        reporter[event](attrs);
+        reporter[event](args);
       }
     )
   }
+
+
 
   space(x, y) {
     if (this.rows[x]) {

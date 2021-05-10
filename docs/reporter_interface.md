@@ -1,4 +1,4 @@
-# Reporter interface
+# Reporter Interface
 
 Each game board can have one or more reporters attached. These will respond 
 to the interface below and implement varoius methods of reporting the progress 
