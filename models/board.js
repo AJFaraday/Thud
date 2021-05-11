@@ -18,8 +18,9 @@ class Board {
     "#####dd dd#####"
   ]
 
-  constructor() {
+  constructor(game) {
     var board = this;
+    board.game = game;
     board.build_spaces();
     this.reporters = [];
   }
@@ -33,7 +34,7 @@ class Board {
         row.split('').forEach(
           function (char, column_index) {
             if (char != '#') {
-              board.rows[row_index][column_index] = new Space(board, row_index, column_index);
+              board.rows[row_index][column_index] = new Space(board.game, board, row_index, column_index, char);
             }
           }
         )
@@ -50,20 +51,6 @@ class Board {
       }
     )
   }
-
-  attach_reporter(name) {
-    this.reporters.push(new Reporters[name](this));
-  }
-
-  report(event, args) {
-    this.reporters.forEach(
-      function (reporter) {
-        reporter[event](args);
-      }
-    )
-  }
-
-
 
   space(x, y) {
     if (this.rows[x]) {

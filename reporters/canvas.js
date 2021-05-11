@@ -7,9 +7,10 @@ Reporters['Canvas'] = class Canvas {
   static space_colours = ['lightgrey', 'darkgrey']
   static space_size = 30;
 
-  constructor(board) {
+  constructor(game) {
     var reporter = this;
-    reporter.board = board;
+    reporter.game = game;
+    reporter.board = game.board;
     reporter.canvas = Utils.build_element(
       'canvas',
       {
@@ -19,7 +20,7 @@ Reporters['Canvas'] = class Canvas {
       }
     );
     reporter.context = reporter.canvas.getContext('2d');
-    document.body.append(reporter.canvas);
+    document.getElementById('thud_board').append(reporter.canvas);
     reporter.draw_board();
   }
 
@@ -33,6 +34,16 @@ Reporters['Canvas'] = class Canvas {
             reporter.draw_space(space, reporter);
           }
         )
+      }
+    );
+    reporter.game.dwarves.forEach(
+      function(dwarf) {
+        reporter.draw_peice(dwarf, 'blue');
+      }
+    );
+    reporter.game.trolls.forEach(
+      function(dwarf) {
+        reporter.draw_peice(dwarf, 'green');
       }
     );
   }
@@ -70,12 +81,24 @@ Reporters['Canvas'] = class Canvas {
     }
   }
 
+  draw_peice(space, colour) {
+    this.context.beginPath();
+    this.context.arc(
+      (Reporters.Canvas.space_size * space.x) + (Reporters.Canvas.space_size / 2),
+      Reporters.Canvas.space_size * space.y + (Reporters.Canvas.space_size / 2),
+      (Reporters.Canvas.space_size / 2) * 0.8,
+      0,
+      2 * Math.PI);
+    this.context.fillStyle = colour;
+    this.context.fill();
+  }
+
   // Main interface:
 
   // Reports the current state of the board
   // this.board.spaces
-  board_state() {
-
+  board_state(attrs) {
+    this.draw_board();
   }
 
   // It's the start of a player's turn

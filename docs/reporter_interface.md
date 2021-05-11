@@ -5,7 +5,7 @@ to the interface below and implement varoius methods of reporting the progress
 of the game either to a user or an automated game runner.
 
 * `constructor(board)`
-* `board_state()`
+* `board_state({})`
 * `turn starts({side: 'D'})` - Side is 'D' or 'T'
 * `highlight_space({x: 10, y: 10})`
 * `select_space({x: 10, y: 10})`
@@ -33,13 +33,14 @@ if (typeof Reporters == 'undefined') {
 }
 
 Reporters['Dummy'] = class Dummy {
-  constructor(board) {
-    this.board = board;
+  constructor(game) {
+    this.game = game;
+    this.board = game.board;
   }
   
   // Reports the current state of the board
   // this.board.spaces
-  board_state() {
+  board_state({}) {
     
   }
 
@@ -92,7 +93,7 @@ Reporters['Dummy'] = class Dummy {
   
   // Someone's earned soem points
   // args.side
-  // this.board.scores[args.side]
+  // this.game.scores[args.side]
   score_changed(args) {
     
   }
