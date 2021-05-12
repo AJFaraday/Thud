@@ -5,6 +5,7 @@
   <title>Thud!</title>
   <script src="lib/utils.js"></script>
   <script src="lib/direction.js"></script>
+  <script src="lib/move_calculator.js"></script>
   <script src="lib/controller.js"></script>
   <script src="reporters/canvas.js"></script>
   <script src="models/game.js"></script>
@@ -12,6 +13,8 @@
   <script src="models/troll.js"></script>
   <script src="models/space.js"></script>
   <script src="models/board.js"></script>
+
+  <script src="clients/manual.js"></script>
 </head>
 
 <body>
@@ -20,7 +23,9 @@
 <script type="text/javascript">
   game = new Game(
     {
-      reporters: ['Canvas']
+      reporters: ['Canvas'],
+      dwarf_client: 'Manual',
+      troll_client: 'Manual'
     }
   );
 </script>

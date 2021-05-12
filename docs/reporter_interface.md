@@ -6,8 +6,8 @@ of the game either to a user or an automated game runner.
 
 * `constructor(board)`
 * `board_state({})`
-* `turn starts({side: 'D'})` - Side is 'D' or 'T'
-* `highlight_space({x: 10, y: 10})`
+* `turn starts({side: 'D', turn: 1})` - Side is 'D' or 'T'
+* `highlight_space({x: 10, y: 10, moves: [{x: 10, y: 11, type: 'walk'}, ...]})`
 * `select_space({x: 10, y: 10})`
 * `highlight_move({x: 10, y: 10})`
 * `move({start: {x:10, y: 10}, end: {x:11, y: 10}})`
@@ -46,6 +46,7 @@ Reporters['Dummy'] = class Dummy {
 
   // It's the start of a player's turn
   // attrs.side
+  // attrs.turn
   turn_starts(args) {
   
   }

@@ -72,6 +72,7 @@ Reporters['Canvas'] = class Canvas {
   outline_space(space, colour) {
     if (space) {
       this.context.strokeStyle = colour;
+      this.context.lineWidth = 3;
       this.context.strokeRect(
         Reporters.Canvas.space_size * space.x,
         Reporters.Canvas.space_size * space.y,
@@ -112,8 +113,15 @@ Reporters['Canvas'] = class Canvas {
   // args.x
   // args.y
   highlight_space(args) {
-    this.outline_space(this.board.space(args.x, args.y), 'yellow');
+    var reporter = this;
+    reporter.draw_board();
+    reporter.outline_space({x: args.x, y: args.y}, 'lightgreen');
     // TODO and the rest!
+    args.moves.forEach(
+      function(move) {
+        reporter.outline_space(move, 'yellow')
+      }
+    )
   }
 
   // The player has decided to move this piece.
