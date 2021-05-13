@@ -81,6 +81,7 @@ class Game {
   end_turn() {
     this.current_client().end_turn();
     this.swap_side();
+    this.report('board_state', {});
     this.turn();
   }
 

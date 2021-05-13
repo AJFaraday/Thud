@@ -17,6 +17,9 @@ contract below:
   * `select_space(x, y)` - The player decides to move a piece at space.
   * `check_move(x, y)` - Find out what will happen if you move to a place
   * `move(x, y)` - The player moves the current piece to the selected space.
+* Utility:
+  * `current_space` - Currently selected space (not a function)
+  * `clear_space()` - Empties currently selected space
 
 Every game will have two controllers, dwarf and troll, belonging to two players, 
 dwarf and troll.

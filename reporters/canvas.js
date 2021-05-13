@@ -5,13 +5,24 @@ if (typeof Reporters == 'undefined') {
 Reporters['Canvas'] = class Canvas {
 
   static space_colours = ['lightgrey', 'darkgrey']
-  static space_size = 30;
+  static space_size = 40;
+  static move_colours = {
+    walk: 'yellow',
+    hurl: 'red',
+    shove: 'red'
+  }
 
   constructor(game) {
     var reporter = this;
     reporter.game = game;
     reporter.board = game.board;
-    reporter.canvas = Utils.build_element(
+    this.build_canvas();
+    this.build_dashboard()
+    reporter.draw_board();
+  }
+
+  build_canvas() {
+    this.canvas = Utils.build_element(
       'canvas',
       {
         height: Reporters.Canvas.space_size * 15,
@@ -19,9 +30,30 @@ Reporters['Canvas'] = class Canvas {
         style: 'background-color: white;'
       }
     );
-    reporter.context = reporter.canvas.getContext('2d');
-    document.getElementById('thud_board').append(reporter.canvas);
-    reporter.draw_board();
+    this.context = this.canvas.getContext('2d');
+    document.getElementById('thud_board').append(this.canvas);
+  }
+
+  build_dashboard() {
+    this.dashboard = document.getElementById('thud_dashboard');
+    this.dwarf_side = this.build_side('blue');
+    this.troll_side = this.build_side('green');
+    this.dashboard.append(this.dwarf_side);
+    this.dashboard.append(this.troll_side);
+  }
+
+  build_side(colour) {
+    return Utils.build_element(
+      'div',
+      {},
+      {
+        float: 'left',
+        'background-color': colour,
+        opacity: 0.2,
+        width: (Reporters.Canvas.space_size * 15 / 2) + 'px',
+        height: '60px'
+      }
+    );
   }
 
   draw_board() {
@@ -37,12 +69,12 @@ Reporters['Canvas'] = class Canvas {
       }
     );
     reporter.game.dwarves.forEach(
-      function(dwarf) {
+      function (dwarf) {
         reporter.draw_peice(dwarf, 'blue');
       }
     );
     reporter.game.trolls.forEach(
-      function(dwarf) {
+      function (dwarf) {
         reporter.draw_peice(dwarf, 'green');
       }
     );
@@ -98,14 +130,21 @@ Reporters['Canvas'] = class Canvas {
 
   // Reports the current state of the board
   // this.board.spaces
-  board_state(attrs) {
+  board_state(args) {
     this.draw_board();
   }
 
   // It's the start of a player's turn
-  // attrs.side
+  // args.side
   turn_starts(args) {
-
+    if (args.side == 'd') {
+      this.dwarf_side.style.opacity = 1;
+      this.troll_side.style.opacity = 0.2;
+    } else if (args.side == 't') {
+      this.troll_side.style.opacity = 1;
+      this.dwarf_side.style.opacity = 0.2;
+    }
+    this.draw_board();
   }
 
   // The player is thinking about moving from this space
@@ -116,10 +155,10 @@ Reporters['Canvas'] = class Canvas {
     var reporter = this;
     reporter.draw_board();
     reporter.outline_space({x: args.x, y: args.y}, 'lightgreen');
-    // TODO and the rest!
     args.moves.forEach(
-      function(move) {
-        reporter.outline_space(move, 'yellow')
+      function (move) {
+        var colour = Reporters.Canvas.move_colours[move.type]
+        reporter.outline_space(move, colour)
       }
     )
   }

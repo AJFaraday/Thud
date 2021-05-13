@@ -9,24 +9,41 @@ Clients['Manual'] = class Manual {
     this.controller = controller;
     this.side = controller.side;
 
-    this.prev_x = 0;
-    this.prev_y = 0;
     this.canvas = document.querySelector("#thud_board canvas");
   }
 
   turn() {
     var client = this;
     console.log('turn() from client: ' + this.side);
-    this.canvas.addEventListener(
+    Utils.addListener(
+      client.canvas,
       'mousemove',
-      function(e) {
+      function (e) {
         client.mouseover(e);
-      }
+      },
+      false
     );
+    Utils.addListener(
+      client.canvas,
+      'mouseup',
+      function (e) {
+        client.mouseup(e);
+      },
+      false
+    );
+    Utils.addListener(
+      client.canvas,
+      'contextmenu',
+      function (e) {
+        client.debug_space(e);
+      }
+    )
   }
 
   end_turn() {
-    this.canvas.mousemove = null;
+    Utils.removeAllListeners(this.canvas, 'mousemove');
+    Utils.removeAllListeners(this.canvas, 'mouseup');
+    Utils.removeAllListeners(this.canvas, 'contextmenu');
     console.log('end_turn() from client: ' + this.side);
   }
 
@@ -34,20 +51,40 @@ Clients['Manual'] = class Manual {
   mouseover(event) {
     var space = this.space_at(event.offsetX, event.offsetY);
     if (space) {
-      this.controller.check_space(space.x, space.y);
+      if (this.controller.current_space) {
+        this.controller.check_move(space.x, space.y);
+      } else {
+        this.controller.check_space(space.x, space.y);
+      }
+    }
+  }
+
+  mouseup(event) {
+    var space = this.space_at(event.offsetX, event.offsetY);
+    if (space) {
+      if (this.controller.current_space) {
+        this.controller.move(space.x, space.y);
+      } else {
+        this.controller.select_space(space.x, space.y);
+      }
+    }
+  }
+
+  debug_space(event) {
+    event.preventDefault();
+    var space = this.space_at(event.offsetX, event.offsetY);
+    if (space.piece) {
+      console.log(space.piece)
+    } else {
+      console.log(space)
     }
   }
 
   space_at(x, y) {
-    var x = Math.floor(x / Reporters.Canvas.space_size);
-    var y = Math.floor(y / Reporters.Canvas.space_size);
-    if (x != this.prev_x || y != this.prev_y) {
-      this.prev_x = x;
-      this.prev_y = y;
-      return this.game.board.space(x, y);
-    } else {
-      return null;
-    }
+    return this.game.board.space(
+      Math.floor(x / Reporters.Canvas.space_size),
+      Math.floor(y / Reporters.Canvas.space_size)
+    );
   }
 
 }
