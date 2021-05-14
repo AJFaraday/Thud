@@ -91,4 +91,9 @@ class Game {
     }
   }
 
+  remove_piece(space) {
+    Utils.remove_from_array(this.trolls, space.piece);
+    Utils.remove_from_array(this.dwarves, space.piece);
+    space.piece = null;
+  }
 }

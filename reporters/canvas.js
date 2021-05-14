@@ -9,7 +9,7 @@ Reporters['Canvas'] = class Canvas {
   static move_colours = {
     walk: 'yellow',
     hurl: 'red',
-    shove: 'red'
+    shove: 'orange'
   }
 
   constructor(game) {
@@ -100,6 +100,19 @@ Reporters['Canvas'] = class Canvas {
     }
   }
 
+  heavy_outline_space(space, colour) {
+    if (space) {
+      this.context.strokeStyle = colour;
+      this.context.lineWidth = 5;
+      this.context.strokeRect(
+        Reporters.Canvas.space_size * space.x,
+        Reporters.Canvas.space_size * space.y,
+        Reporters.Canvas.space_size,
+        Reporters.Canvas.space_size
+      );
+    }
+  }
+
   draw_peice(space, colour) {
     this.context.beginPath();
     this.context.arc(
@@ -160,8 +173,23 @@ Reporters['Canvas'] = class Canvas {
   // In the UI, it's a mouse hover.
   // args.x
   // args.y
+  // args.type
+  // args.side
+  // args.targets [{x: 5, y, 9}, ...]
   highlight_move(args) {
-
+    var reporter = this;
+    reporter.draw_board();
+    reporter.highlight_space(reporter.game.current_client().controller.checked_space);
+    if(args.type == 'walk') {
+      reporter.heavy_outline_space({x: args.x, y: args.y}, 'lightgreen');
+    } else if (args.type == 'hurl') {
+      reporter.heavy_outline_space({x: args.x, y: args.y}, 'red');
+    } else if (args.tupe == 'shove') {
+      reporter.heavy_outline_space({x: args.x, y: args.y}, 'orange');
+    }
+    if(args.targets) {
+      args.targets.forEach(target => {reporter.outline_space(target, 'red')})
+    }
   }
 
   // The player makes a move.
