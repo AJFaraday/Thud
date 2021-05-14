@@ -15,29 +15,9 @@ Clients['Manual'] = class Manual {
   turn() {
     var client = this;
     console.log('turn() from client: ' + this.side);
-    Utils.addListener(
-      client.canvas,
-      'mousemove',
-      function (e) {
-        client.mouseover(e);
-      },
-      false
-    );
-    Utils.addListener(
-      client.canvas,
-      'mouseup',
-      function (e) {
-        client.mouseup(e);
-      },
-      false
-    );
-    Utils.addListener(
-      client.canvas,
-      'contextmenu',
-      function (e) {
-        client.debug_space(e);
-      }
-    )
+    Utils.addListener(client.canvas, 'mousemove', e => client.mouseover(e), false);
+    Utils.addListener(client.canvas, 'mouseup', e => client.mouseup(e), false);
+    Utils.addListener(client.canvas, 'contextmenu', e => client.debug_space(e), false);
   }
 
   end_turn() {

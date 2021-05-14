@@ -22,7 +22,7 @@ class Space {
     var space = this;
     space.directions = {};
     Space.direction_list.forEach(
-      function (compass_point) {
+      compass_point => {
         space.directions[compass_point] = new Direction(
           space.board,
           compass_point,
@@ -32,10 +32,22 @@ class Space {
       }
     );
     Object.values(space.directions).forEach(
-      function (direction, index) {
+       (direction, index) => {
         direction.opposite = space.directions[Space.direction_list[(index + 4) % 8]];
       }
-    )
+    );
+  }
+
+  get_neighbours() {
+    var space = this;
+    space.neighbours = [];
+    Object.values(this.directions).forEach(
+      direction => {
+        if(direction.spaces[1]) {
+          space.neighbours.push(direction.spaces[1]);
+        }
+      }
+    );
   }
 
 }

@@ -60,24 +60,10 @@ Reporters['Canvas'] = class Canvas {
     var reporter = this;
     reporter.clear_canvas();
     reporter.board.rows.forEach(
-      function (row, row_index) {
-        row.forEach(
-          function (space, column_index) {
-            reporter.draw_space(space, reporter);
-          }
-        )
-      }
+      row => row.forEach(space => reporter.draw_space(space, reporter))
     );
-    reporter.game.dwarves.forEach(
-      function (dwarf) {
-        reporter.draw_peice(dwarf, 'blue');
-      }
-    );
-    reporter.game.trolls.forEach(
-      function (dwarf) {
-        reporter.draw_peice(dwarf, 'green');
-      }
-    );
+    reporter.game.dwarves.forEach(dwarf => reporter.draw_peice(dwarf, 'blue'));
+    reporter.game.trolls.forEach(troll => reporter.draw_peice(troll, 'green'));
   }
 
   clear_canvas() {
@@ -156,11 +142,8 @@ Reporters['Canvas'] = class Canvas {
     reporter.draw_board();
     reporter.outline_space({x: args.x, y: args.y}, 'lightgreen');
     args.moves.forEach(
-      function (move) {
-        var colour = Reporters.Canvas.move_colours[move.type]
-        reporter.outline_space(move, colour)
-      }
-    )
+      move => reporter.outline_space(move, Reporters.Canvas.move_colours[move.type])
+    );
   }
 
   // The player has decided to move this piece.
@@ -168,7 +151,9 @@ Reporters['Canvas'] = class Canvas {
   // args.x
   // args.y
   select_space(args) {
-
+    var reporter = this;
+    reporter.draw_board();
+    reporter.highlight_space(reporter.game.current_client().current_space);
   }
 
   // The player is thinking of moving the piece from the selected space to this one.

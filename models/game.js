@@ -37,9 +37,7 @@ class Game {
     game.reporters = []
     if (attrs.reporters) {
       attrs.reporters.forEach(
-        function (reporter_name) {
-          game.attach_reporter(reporter_name);
-        }
+        reporter_name => game.attach_reporter(reporter_name)
       );
     }
   }
@@ -49,17 +47,13 @@ class Game {
   }
 
   report(event, args) {
-    this.reporters.forEach(
-      function (reporter) {
-        reporter[event](args);
-      }
-    )
+    this.reporters.forEach(reporter => reporter[event](args));
   }
 
   init_clients(attrs) {
     this.clients = {
       d: this.init_client(attrs.dwarf_client, this.dwarf_controller),
-      t: this.troll_client = this.init_client(attrs.troll_client, this.troll_controller)
+      t: this.init_client(attrs.troll_client, this.troll_controller)
     }
   }
 
