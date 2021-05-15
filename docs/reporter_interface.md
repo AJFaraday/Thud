@@ -9,10 +9,10 @@ of the game either to a user or an automated game runner.
 * `turn starts({side: 'D', turn: 1})` - Side is 'D' or 'T'
 * `highlight_space({x: 10, y: 10, moves: [{x: 10, y: 11, type: 'walk'}, ...]})`
 * `select_space({x: 10, y: 10})`
-* `highlight_move({x: 10, y: 10})`
-* `move({start: {x:10, y: 10}, end: {x:11, y: 10}})`
+* `highlight_move({x: 10, y: 10, side: 't', kills: 1, targets: [{x:7, y: 7}, ...]}]})`
+* `move({side: 't', start: {x:10, y: 10}, end: {x:11, y: 10}})`
 * `piece_taken({taken: {x: 10, y: 10}, by: {x: 11, y:10}})`
-* `score_changed({side: 'D'})` - Get score from `board` object.
+* `score_changed({})` - Get score from `board` object.
 * `game_ended({reason: 'timeout'})`
 
 Reporters can ignore any or all of the above events by implementing empty functions,
@@ -79,6 +79,8 @@ Reporters['Dummy'] = class Dummy {
   // In the UI, it's a click when a space is selected.
   // args.x
   // args.y
+  // args.side
+  // args.targets
   move(args) {
     
   }

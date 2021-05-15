@@ -9,6 +9,7 @@ Reporters['Canvas'] = class Canvas {
   static move_colours = {
     walk: 'yellow',
     hurl: 'red',
+    take: 'red',
     shove: 'orange'
   }
 
@@ -27,7 +28,7 @@ Reporters['Canvas'] = class Canvas {
       {
         height: Reporters.Canvas.space_size * 15,
         width: Reporters.Canvas.space_size * 15,
-        style: 'background-color: white;'
+        style: 'background-color: black;'
       }
     );
     this.context = this.canvas.getContext('2d');
@@ -36,22 +37,34 @@ Reporters['Canvas'] = class Canvas {
 
   build_dashboard() {
     this.dashboard = document.getElementById('thud_dashboard');
-    this.dwarf_side = this.build_side('blue');
-    this.troll_side = this.build_side('green');
+    this.dwarf_side = this.build_side('blue', 'Dwarves');
+    this.centre = this.build_centre();
+    this.troll_side = this.build_side('green', 'Trolls');
     this.dashboard.append(this.dwarf_side);
+    this.dashboard.append(this.centre);
     this.dashboard.append(this.troll_side);
   }
 
-  build_side(colour) {
+  build_side(colour, title) {
+    var side = Utils.build_element(
+      'div',
+      {class: 'dashboard_panel'},
+      {
+        'background-color': colour,
+        opacity: 0.7,
+        width: ((Reporters.Canvas.space_size * 6) - 5) + 'px'
+      }
+    );
+    side.innerHTML = title
+    return side;
+  }
+
+  build_centre() {
     return Utils.build_element(
       'div',
-      {},
+      {class: 'dashboard_centre'},
       {
-        float: 'left',
-        'background-color': colour,
-        opacity: 0.2,
-        width: (Reporters.Canvas.space_size * 15 / 2) + 'px',
-        height: '60px'
+        width: (Reporters.Canvas.space_size * 3) + 'px',
       }
     );
   }
@@ -138,10 +151,10 @@ Reporters['Canvas'] = class Canvas {
   turn_starts(args) {
     if (args.side == 'd') {
       this.dwarf_side.style.opacity = 1;
-      this.troll_side.style.opacity = 0.2;
+      this.troll_side.style.opacity = 0.6;
     } else if (args.side == 't') {
       this.troll_side.style.opacity = 1;
-      this.dwarf_side.style.opacity = 0.2;
+      this.dwarf_side.style.opacity = 0.6;
     }
     this.draw_board();
   }
@@ -180,40 +193,57 @@ Reporters['Canvas'] = class Canvas {
     var reporter = this;
     reporter.draw_board();
     reporter.highlight_space(reporter.game.current_client().controller.checked_space);
-    if(args.type == 'walk') {
-      reporter.heavy_outline_space({x: args.x, y: args.y}, 'lightgreen');
-    } else if (args.type == 'hurl') {
-      reporter.heavy_outline_space({x: args.x, y: args.y}, 'red');
-    } else if (args.tupe == 'shove') {
-      reporter.heavy_outline_space({x: args.x, y: args.y}, 'orange');
-    }
-    if(args.targets) {
-      args.targets.forEach(target => {reporter.outline_space(target, 'red')})
+    reporter.heavy_outline_space(
+      {x: args.x, y: args.y},
+      Reporters.Canvas.move_colours[args.type]
+    );
+
+    if (args.targets) {
+      args.targets.forEach(target => {
+        reporter.outline_space(target, 'red')
+      })
     }
   }
 
   // The player makes a move.
   // In the UI, it's a click when a space is selected.
-  // args.x
-  // args.y
+  // args.side
+  // args.from.x
+  // args.from.y
+  // args.to.x
+  // args.to.y
   move(args) {
-
+    console.log(`${args.side} ${args.type} from ${args.from.x}:${args.from.y} to ${args.to.x}:${args.to.y}`);
   }
 
   // A piece has taken another piece (takes place after a move)
-  // args.taken.x
-  // args.taken.y
-  // args.by.x
-  // args.by.y
+  // args.x
+  // args.y
+  // args.side
   piece_taken(args) {
-
+    console.log(`${args.side} taken at ${args.x}:${args.y}`);
   }
 
-  // Someone's earned soem points
-  // args.side
-  // this.board.scores[args.side]
-  score_changed(args) {
-
+  // Someone's earned some points
+  // game.get_score()
+  score(args) {
+    var score = this.game.get_score();
+    switch(score.winning) {
+      case 'd':
+        this.centre.classList.remove('troll');
+        this.centre.classList.add('dwarf');
+        break;
+      case 't':
+        this.centre.classList.remove('dwarf');
+        this.centre.classList.add('troll');
+        break;
+      case '?':
+        this.centre.classList.remove('dwarf');
+        this.centre.classList.remove('troll');
+    }
+    this.dwarf_side.innerHTML = `${this.game.dwarves.length} dwarves: ${score.dwarves}`;
+    this.troll_side.innerHTML = `${this.game.trolls.length} trolls: ${score.trolls}`;
+    this.centre.innerHTML = score.difference;
   }
 
   // The game's over, awww.

@@ -4,16 +4,13 @@ class Game {
     this.init_board();
     this.init_reporters(attrs);
     this.init_clients(attrs);
+    this.report('score');
     this.current_side = 'd';
     this.turn();
   }
 
   init_board() {
     this.board = new Board(this);
-    this.scores = {
-      d: this.dwarves.length,
-      t: (this.trolls.length * 4)
-    }
   }
 
   initialise_properties() {
@@ -46,7 +43,7 @@ class Game {
     this.reporters.push(new Reporters[name](this));
   }
 
-  report(event, args) {
+  report(event, args={}) {
     this.reporters.forEach(reporter => reporter[event](args));
   }
 
@@ -66,6 +63,21 @@ class Game {
     }
   }
 
+  get_score() {
+    var dwarf_score = this.dwarves.length
+    var troll_score = (this.trolls.length * 4)
+    var winning = ((dwarf_score > troll_score) ? 'd' : 't')
+    if (dwarf_score == troll_score) {
+      winning = '?'
+    }
+    return {
+      dwarves: dwarf_score,
+      trolls: troll_score,
+      difference: Math.abs(dwarf_score - troll_score),
+      winning: winning
+    }
+  }
+
   turn() {
     this.turn_number += 1;
     this.report('turn_starts', {side: this.current_side, turn: this.turn_number})
@@ -75,6 +87,7 @@ class Game {
   end_turn() {
     this.current_client().end_turn();
     this.swap_side();
+    this.report('score');
     this.report('board_state', {});
     this.turn();
   }
@@ -89,6 +102,29 @@ class Game {
     } else if (this.current_side == 't') {
       this.current_side = 'd'
     }
+  }
+
+  // from {x: 1, y: 2}
+  // to {x:2, y: 3}
+  // type 'd' or 't'
+  move_piece(from, to, type) {
+    this.report(
+      'move',
+      {
+        side: from.piece.type,
+        from: {x: from.x, y: from.y},
+        to: {x: to.x, y: to.y},
+        type: type
+      }
+    )
+    if (to.piece) {
+      this.report('piece_taken', {x: to.x, y: to.y, side: to.piece.type});
+      this.remove_piece(to);
+    }
+    to.piece = from.piece;
+    from.piece = null;
+    to.piece.x = to.x;
+    to.piece.y = to.y;
   }
 
   remove_piece(space) {

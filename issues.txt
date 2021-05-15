@@ -1,0 +1,7 @@
+Issues to resolve:
+
+* Is reporting the responsibility of Controller or Game?
+* Should move_peice() be in Game instead of Controller?
+* Replace string + operations with template literals
+* Can we use more inline ifs?
+* game.report calls don't need empty {}
