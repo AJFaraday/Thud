@@ -1,8 +1,6 @@
 Issues to resolve:
 
-* Replace string + operations with template literals
-* Can we use more inline ifs?
-* game.report calls don't need empty {}
+* Remove peice animation on overlay
 * Add end-game (at least report score and reason)
 * Update interface docs
 * Should Board.spaces be a function?

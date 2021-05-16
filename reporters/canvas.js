@@ -17,7 +17,7 @@ Reporters['Canvas'] = class Canvas {
     var reporter = this;
     reporter.game = game;
     reporter.board = game.board;
-    document.getElementById('thud').style['width'] = Reporters.Canvas.space_size * 15 + 'px'
+    document.getElementById('thud').style['width'] = `${Reporters.Canvas.space_size * 15}px`
     this.build_overlay_canvas();
     this.build_canvas();
     this.build_dashboard()
@@ -75,7 +75,7 @@ Reporters['Canvas'] = class Canvas {
       {
         'background-color': colour,
         opacity: 0.7,
-        width: ((Reporters.Canvas.space_size * 6) - 5) + 'px'
+        width: `${(Reporters.Canvas.space_size * 6) - 5}px`
       }
     );
     side.innerHTML = title
@@ -87,7 +87,7 @@ Reporters['Canvas'] = class Canvas {
       'div',
       {class: 'dashboard_centre'},
       {
-        width: (Reporters.Canvas.space_size * 3) + 'px',
+        width: `${Reporters.Canvas.space_size * 3}px`,
       }
     );
   }
@@ -244,8 +244,39 @@ Reporters['Canvas'] = class Canvas {
   // args.y
   // args.side
   piece_taken(args) {
-    // Fading red piece on overlay_canvas
-    console.log(`${args.side} taken at ${args.x}:${args.y}`);
+    var reporter = this;
+    function draw_marker(alpha) {
+      reporter.overlay_context.beginPath();
+      reporter.overlay_context.arc(
+        (Reporters.Canvas.space_size * args.x) + (Reporters.Canvas.space_size / 2),
+        Reporters.Canvas.space_size * args.y + (Reporters.Canvas.space_size / 2),
+        (Reporters.Canvas.space_size / 2) * 0.8,
+        0,
+        2 * Math.PI);
+      reporter.overlay_context.fillStyle = `rgba(255,0,0,${alpha})`;
+      reporter.overlay_context.fill();
+    }
+    function clear_square() {
+      reporter.overlay_context.clearRect(
+        Reporters.Canvas.space_size * args.x,
+        Reporters.Canvas.space_size * args.y,
+        Reporters.Canvas.space_size,
+        Reporters.Canvas.space_size
+      );
+    }
+    var alpha = 1;
+    var delta = 0.02;
+    draw_marker(alpha);
+    function fade() {
+      console.log(`fade ${alpha}`)
+      alpha -= delta;
+      clear_square();
+      draw_marker(alpha);
+      if(alpha >= 0) {
+        requestAnimationFrame(fade);
+      }
+    }
+    fade();
   }
 
   // Someone's earned some points

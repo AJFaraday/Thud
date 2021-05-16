@@ -88,7 +88,7 @@ class Game {
     this.current_client().end_turn();
     this.swap_side();
     this.report('score');
-    this.report('board_state', {});
+    this.report('board_state');
     this.turn();
   }
 
@@ -97,11 +97,7 @@ class Game {
   }
 
   swap_side() {
-    if (this.current_side == 'd') {
-      this.current_side = 't'
-    } else if (this.current_side == 't') {
-      this.current_side = 'd'
-    }
+    this.current_side = (this.current_side == 'd') ? 't' : 'd';
   }
 
   // move current piece (from select_space) to x, y

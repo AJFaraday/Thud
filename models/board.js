@@ -52,11 +52,7 @@ class Board {
   }
 
   space(x, y) {
-    if (this.rows[y]) {
-      return this.rows[y][x];
-    } else {
-      return null;
-    }
+    return this.rows[y] ? this.rows[y][x] : null;
   }
 
   spaces() {
