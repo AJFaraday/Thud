@@ -43,7 +43,7 @@ class Game {
     this.reporters.push(new Reporters[name](this));
   }
 
-  report(event, args={}) {
+  report(event, args = {}) {
     this.reporters.forEach(reporter => reporter[event](args));
   }
 
@@ -97,17 +97,20 @@ class Game {
   }
 
   swap_side() {
-    if(this.current_side == 'd') {
+    if (this.current_side == 'd') {
       this.current_side = 't'
     } else if (this.current_side == 't') {
       this.current_side = 'd'
     }
   }
 
-  // from {x: 1, y: 2}
-  // to {x:2, y: 3}
-  // type 'd' or 't'
-  move_piece(from, to, type) {
+  // move current piece (from select_space) to x, y
+  move_piece(x, y, type) {
+    var from = this.board.space(
+      this.current_client().controller.current_space.x,
+      this.current_client().controller.current_space.y
+    );
+    var to = this.board.space(x, y);
     this.report(
       'move',
       {

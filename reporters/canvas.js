@@ -17,6 +17,8 @@ Reporters['Canvas'] = class Canvas {
     var reporter = this;
     reporter.game = game;
     reporter.board = game.board;
+    document.getElementById('thud').style['width'] = Reporters.Canvas.space_size * 15 + 'px'
+    this.build_overlay_canvas();
     this.build_canvas();
     this.build_dashboard()
     reporter.draw_board();
@@ -28,11 +30,32 @@ Reporters['Canvas'] = class Canvas {
       {
         height: Reporters.Canvas.space_size * 15,
         width: Reporters.Canvas.space_size * 15,
-        style: 'background-color: black;'
+        class: 'thud_canvas'
+      },
+      {
+        'background-color': 'black',
+        'z-index': 0
       }
-    );
+    )
+    ;
     this.context = this.canvas.getContext('2d');
     document.getElementById('thud_board').append(this.canvas);
+  }
+
+  build_overlay_canvas() {
+    this.overlay_canvas = Utils.build_element(
+      'canvas',
+      {
+        height: Reporters.Canvas.space_size * 15,
+        width: Reporters.Canvas.space_size * 15,
+        class: 'thud_canvas'
+      },
+      {
+        'z-index': 1
+      }
+    );
+    this.overlay_context = this.overlay_canvas.getContext('2d');
+    document.getElementById('thud_board').append(this.overlay_canvas);
   }
 
   build_dashboard() {
@@ -221,6 +244,7 @@ Reporters['Canvas'] = class Canvas {
   // args.y
   // args.side
   piece_taken(args) {
+    // Fading red piece on overlay_canvas
     console.log(`${args.side} taken at ${args.x}:${args.y}`);
   }
 
@@ -228,7 +252,7 @@ Reporters['Canvas'] = class Canvas {
   // game.get_score()
   score(args) {
     var score = this.game.get_score();
-    switch(score.winning) {
+    switch (score.winning) {
       case 'd':
         this.centre.classList.remove('troll');
         this.centre.classList.add('dwarf');
@@ -249,7 +273,7 @@ Reporters['Canvas'] = class Canvas {
   // The game's over, awww.
   //args.reason
   game_ended(args) {
-
+    // TODO reason text on overlay canvas
   }
 
 };

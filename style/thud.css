@@ -2,6 +2,10 @@ body {
   background-color: black;
 }
 
+#thud {
+  margin: auto;
+}
+
 .dashboard_panel {
   float: left;
   color: white;
@@ -31,4 +35,14 @@ body {
 .dashboard_centre.troll {
   background-color: green;
   transition: 1s;
+}
+
+#thud_board {
+  position: relative;
+}
+
+.thud_canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
 }

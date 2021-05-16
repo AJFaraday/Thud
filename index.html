@@ -9,6 +9,7 @@
   <script src="lib/utils.js"></script>
   <script src="lib/direction.js"></script>
   <script src="lib/move_calculator.js"></script>
+  <script src="lib/controller_helper.js"></script>
   <script src="lib/controller.js"></script>
   <script src="reporters/canvas.js"></script>
   <script src="models/game.js"></script>
@@ -21,9 +22,11 @@
 </head>
 
 <body>
-<div id="thud_dashboard"></div>
-<br clear="both"/>
-<div id="thud_board"></div>
+<div id="thud">
+  <div id="thud_dashboard"></div>
+  <br clear="both"/>
+  <div id="thud_board"></div>
+</div>
 
 <script type="text/javascript">
   game = new Game(
