@@ -268,7 +268,6 @@ Reporters['Canvas'] = class Canvas {
     var delta = 0.02;
     draw_marker(alpha);
     function fade() {
-      console.log(`fade ${alpha}`)
       alpha -= delta;
       clear_square();
       draw_marker(alpha);
