@@ -1,4 +1,7 @@
 class Game {
+
+  static max_game_length = 200;
+
   constructor(attrs) {
     this.initialise_properties();
     this.init_board();
@@ -87,9 +90,14 @@ class Game {
   end_turn() {
     this.current_client().end_turn();
     this.swap_side();
-    this.report('score');
     this.report('board_state');
-    this.turn();
+    this.report('score');
+    var ending = this.check_ending_conditions();
+    if (ending) {
+      this.report('game_ended', ending);
+    } else {
+      this.turn();
+    }
   }
 
   current_client() {
@@ -130,5 +138,16 @@ class Game {
     Utils.remove_from_array(this.trolls, space.piece);
     Utils.remove_from_array(this.dwarves, space.piece);
     space.piece = null;
+  }
+
+  check_ending_conditions() {
+    if(this.turn_number >= Game.max_game_length) {
+      return {reason: 'Timeout'}
+    } else if (this.dwarves.length == 0) {
+      return {reason: 'No more dwarves'}
+    } else if (this.trolls.length == 0) {
+      return {reason: 'No more trolls'}
+    }
+    // TODO End game by consensus
   }
 }

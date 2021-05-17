@@ -301,9 +301,46 @@ Reporters['Canvas'] = class Canvas {
   }
 
   // The game's over, awww.
-  //args.reason
+  // args.reason
+  // this.game.get_score()
   game_ended(args) {
-    // TODO reason text on overlay canvas
+    var score = this.game.get_score();
+    var score_messages = {
+      d: `Dwarves win by ${score.difference} points`,
+      t: `Trolls win by ${score.difference} points`,
+      '?': 'Nobody wins'
+    }
+    console.log(`Game Over! ${args.reason}`)
+    console.log(score_messages[score.winning]);
+    this.overlay_context.font = '45px Arial';
+    if(score.winning=='d') {
+      this.overlay_context.fillStyle = 'blue';
+      this.overlay_context.strokeStyle = 'white';
+    } else if (score.winning=='t') {
+      this.overlay_context.fillStyle = 'green';
+      this.overlay_context.strokeStyle = 'white';
+    } else {
+      this.overlay_context.fillStyle = 'white';
+      this.overlay_context.strokeStyle = 'black';
+    }
+    this.overlay_context.textBaseline = 'middle';
+    this.overlay_context.textAlign = 'center';
+    this.end_text_line('Game Over!', 5);
+    this.end_text_line(args.reason, 7.5);
+    this.end_text_line(score_messages[score.winning], 10);
+  }
+
+  end_text_line(message, y) {
+    this.overlay_context.fillText(
+      message,
+      (Reporters.Canvas.space_size * 7.5),
+      (Reporters.Canvas.space_size * y)
+    );
+    this.overlay_context.strokeText(
+      message,
+      (Reporters.Canvas.space_size * 7.5),
+      (Reporters.Canvas.space_size * y)
+    );
   }
 
 };

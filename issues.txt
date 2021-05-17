@@ -1,6 +1,8 @@
 Issues to resolve:
 
-* Remove peice animation on overlay
 * Add end-game (at least report score and reason)
-* Update interface docs
+* Use private instance field to lock down Controller
 * Should Board.spaces be a function?
+* Merge Troll and Dwarf classes, just have Piece.
+* Add indexed_dwarves and indexed_trolls to controller interface (index remains static, could return null)
+* Update interface docs
