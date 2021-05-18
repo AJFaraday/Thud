@@ -12,6 +12,7 @@
   <script src="lib/controller_helper.js"></script>
   <script src="lib/controller.js"></script>
   <script src="reporters/canvas.js"></script>
+  <script src="reporters/console.js"></script>
   <script src="models/game.js"></script>
   <script src="models/dwarf.js"></script>
   <script src="models/troll.js"></script>
@@ -31,7 +32,7 @@
 <script type="text/javascript">
   game = new Game(
     {
-      reporters: ['Canvas'],
+      reporters: ['Canvas', 'Console'],
       dwarf_client: 'Manual',
       troll_client: 'Manual'
     }

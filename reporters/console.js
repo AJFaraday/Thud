@@ -1,54 +1,24 @@
-# Reporter Interface
-
-Each game board can have one or more reporters attached. These will respond 
-to the interface below and implement varoius methods of reporting the progress 
-of the game either to a user or an automated game runner.
-
-* `constructor(board)`
-* `board_state({})`
-* `turn starts({side: 'D', turn: 1})` - Side is 'd' or 't'
-* `highlight_space({x: 10, y: 10)`
-* `select_space({x: 10, y: 10})`
-* `highlight_move({x: 10, y: 10, type: 'walk'})`
-* `move({side: 't', from: {x:10, y: 10}, to: {x:11, y: 10}})`
-* `piece_taken({taken: {x: 10, y: 10}, side: 'd')`
-* `score({})` - Get score from `game` object.
-* `game_ended({reason: 'timeout'})`
-
-Reporters can ignore any or all of the above events by implementing empty functions,
-but they must implement the function.
-
-Likely reporter classes include:
-
-* `Canvas` - To the web UI
-* `Console` - Textual progress of the game
-* `Log` - Probably the same as Console, but saved to a file.
-* `Scoreboard` - adds the match result to a json file of matches and scores.
-
-Dummy Reporter class
-
-```js
 if (typeof Reporters == 'undefined') {
   Reporters = {}
 }
 
-Reporters['Dummy'] = class Dummy {
+Reporters['Console'] = class Console {
   constructor(game) {
     this.game = game;
     this.board = game.board;
   }
-  
+
   // Reports the current state of the board
   // this.board.spaces
   board_state({}) {
-    
+    // ignored
   }
 
   // It's the start of a player's turn
   // args.side
   // args.turn
   turn_starts(args) {
-  
+    console.log(`Turn ${args.turn} starts: ${this.get_side(args.side)} to move`);
   }
 
   // The player is thinking about moving from this space
@@ -56,7 +26,7 @@ Reporters['Dummy'] = class Dummy {
   // args.x
   // args.y
   highlight_space(args) {
-  
+    // ignored
   }
 
   // The player has decided to move this piece.
@@ -64,15 +34,15 @@ Reporters['Dummy'] = class Dummy {
   // args.x
   // args.y
   select_space(args) {
-
+    //ignored
   }
-  
+
   // The player is thinking of moving the piece from the selected space to this one.
   // In the UI, it's a mouse hover.
   // args.x
   // args.y
   highlight_move(args) {
-    
+    // ignored
   }
 
   // The player makes a move.
@@ -83,29 +53,40 @@ Reporters['Dummy'] = class Dummy {
   // args.to.x
   // args.to.y
   move(args) {
-    
+    console.log(`${this.get_side(args.side)} moves from ${args.from.x}:${args.from.y} to ${args.to.x}:${args.to.y}`);
   }
-  
+
   // A piece has taken another piece (takes place after a move)
   // args.x
   // args.y
   // args.side
   piece_taken(args) {
-    
+    console.log(`${this.get_side(args.side)} taken at ${args.x}:${args.y}`);
   }
-  
+
   // Someone's earned soem points
   // this.game.get_score()
   score(args) {
-    
+    var score = this.game.get_score();
+    console.log(`The score is now dwarves: ${score.dwarves}, trolls: ${score.trolls}... ${this.get_side(score.winning)} are winning by ${score.difference}`);
   }
-  
+
   // The game's over, awww.
-  //args.reason
+  // args.reason
   // this.game.get_score()
   game_ended(args) {
-    
+    var score = this.game.get_score();
+    console.log(`Game over! ${args.reason}! ${this.get_side(score.side)} wins by ${score.difference}`)
   }
-  
+
+  get_side(side) {
+    if (side == 'd') {
+      return 'dwarves'
+    } else if (side == 't') {
+      return 'trolls'
+    } else {
+      return 'nobody'
+    }
+  }
+
 }
-```

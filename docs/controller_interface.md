@@ -20,6 +20,8 @@ contract below:
 * Utility:
   * `current_space` - Currently selected space (not a function)
   * `clear_space()` - Empties currently selected space
+  * `declare(game_over)` - Say whether or not your player thinks no more progress can be made on the game.
+  * `opponent_declared()` - Has the opponent declared the game over?
 
 Every game will have two controllers, dwarf and troll, belonging to two players, 
 dwarf and troll.
@@ -182,3 +184,64 @@ This only returns true or false, any other results are seen via the reporters.
 This can be called multiple times, but subsequent calls will negate previous calls.
 
 If this is not called by the end of the turn, the game ends with an error.
+
+## Utility functions:
+
+### current_space
+
+Returns the space which was selected in `select_space` for future reference.
+
+```js
+controller.select_space(6, 0);
+controller.current_space
+//{x: 6, y: 0, piece: 'd'}
+```
+
+Note: This is not a function
+
+### clear_space()
+
+This is a convenience method which empties the current_space variable and 
+also reports the board state to reporters (so highlighted squares will disappear)
+
+```js
+controller.select_space(6, 0);
+controller.current_space
+//{x: 6, y: 0, piece: 'd'}
+controller.clear_space();
+controller.current_space
+// null
+```
+
+
+### TODO declare(game_over)
+
+Thud often ends in an attritional state where neither side can make any progress.
+The dwarves are huddled together for defence, so the trolls can't get near, so they
+don't try. The dwarves can't launch an assault without breaking their defensive huddle,
+so they don't try.
+
+When this happens, both players can agree the game is over and the current score will
+be treated as the final score. Use `declare(game_over)` to signal this intention.
+
+```js
+controller.declare(true);
+```
+
+You can also use this to retract your declaration that the game is over:
+
+```js
+controller.declare(false);
+```
+
+Note: You will still need to make a valid move to end your turn, because your opponent
+might not agree that it's over.
+
+### TODO opponent_declared()
+
+Returns a boolean of whether or not your opponent has declared the game over.
+
+```js
+controller.opponent_declared();
+// true
+```

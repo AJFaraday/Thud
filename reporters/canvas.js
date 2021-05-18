@@ -98,8 +98,8 @@ Reporters['Canvas'] = class Canvas {
     reporter.board.rows.forEach(
       row => row.forEach(space => reporter.draw_space(space, reporter))
     );
-    reporter.game.dwarves.forEach(dwarf => reporter.draw_peice(dwarf, 'blue'));
-    reporter.game.trolls.forEach(troll => reporter.draw_peice(troll, 'green'));
+    reporter.game.dwarves.forEach(dwarf => reporter.draw_piece(dwarf, 'blue'));
+    reporter.game.trolls.forEach(troll => reporter.draw_piece(troll, 'green'));
   }
 
   clear_canvas() {
@@ -149,7 +149,7 @@ Reporters['Canvas'] = class Canvas {
     }
   }
 
-  draw_peice(space, colour) {
+  draw_piece(space, colour) {
     this.context.beginPath();
     this.context.arc(
       (Reporters.Canvas.space_size * space.x) + (Reporters.Canvas.space_size / 2),
@@ -171,6 +171,7 @@ Reporters['Canvas'] = class Canvas {
 
   // It's the start of a player's turn
   // args.side
+  // args.turn
   turn_starts(args) {
     if (args.side == 'd') {
       this.dwarf_side.style.opacity = 1;
@@ -210,8 +211,6 @@ Reporters['Canvas'] = class Canvas {
   // args.x
   // args.y
   // args.type
-  // args.side
-  // args.targets [{x: 5, y, 9}, ...]
   highlight_move(args) {
     var reporter = this;
     reporter.draw_board();
@@ -236,7 +235,6 @@ Reporters['Canvas'] = class Canvas {
   // args.to.x
   // args.to.y
   move(args) {
-    console.log(`${args.side} ${args.type} from ${args.from.x}:${args.from.y} to ${args.to.x}:${args.to.y}`);
   }
 
   // A piece has taken another piece (takes place after a move)
@@ -310,8 +308,6 @@ Reporters['Canvas'] = class Canvas {
       t: `Trolls win by ${score.difference} points`,
       '?': 'Nobody wins'
     }
-    console.log(`Game Over! ${args.reason}`)
-    console.log(score_messages[score.winning]);
     this.overlay_context.font = '45px Arial';
     if(score.winning=='d') {
       this.overlay_context.fillStyle = 'blue';
