@@ -81,3 +81,5 @@ class MoveCalculator {
     return space.neighbours.some(neighbour => neighbour.piece && neighbour.piece.type == 'd');
   }
 }
+
+module.exports = MoveCalculator;

@@ -1,3 +1,5 @@
+const MoveCalculator = require('./move_calculator.js');
+
 class ControllerHelper {
 
   constructor(controller) {
@@ -51,6 +53,6 @@ class ControllerHelper {
     });
   }
 
-
-
 }
+
+module.exports = ControllerHelper;

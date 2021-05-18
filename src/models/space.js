@@ -1,3 +1,7 @@
+const Direction = require('./../lib/direction.js');
+const Dwarf = require('./dwarf.js');
+const Troll = require('./troll.js');
+
 class Space {
 
   static direction_list = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
@@ -51,3 +55,5 @@ class Space {
   }
 
 }
+
+module.exports = Space;

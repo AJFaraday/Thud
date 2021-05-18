@@ -38,4 +38,6 @@ Utils = {
       array.splice(array.indexOf(object), 1);
     }
   }
-}
+};
+
+module.exports = Utils;

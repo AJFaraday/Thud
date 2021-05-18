@@ -1,8 +1,4 @@
-if (typeof Reporters == 'undefined') {
-  Reporters = {}
-}
-
-Reporters['Console'] = class Console {
+class Console {
   constructor(game) {
     this.game = game;
     this.board = game.board;
@@ -90,3 +86,5 @@ Reporters['Console'] = class Console {
   }
 
 }
+
+module.exports = Console;

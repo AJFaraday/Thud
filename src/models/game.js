@@ -1,3 +1,9 @@
+const Controller = require('./../lib/controller.js');
+const Board = require('./board.js');
+const Reporters = require('../reporters.js');
+const Clients = require('../clients.js');
+const Utils = require('./../lib/utils.js');
+
 class Game {
 
   static max_game_length = 200;

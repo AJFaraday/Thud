@@ -7,3 +7,4 @@ class Troll {
     this.type = 't';
   }
 }
+module.exports = Troll;

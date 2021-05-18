@@ -7,3 +7,5 @@ class Dwarf {
     this.type = 'd';
   }
 }
+
+module.exports = Dwarf;

@@ -1,9 +1,8 @@
-if (typeof Clients == 'undefined') {
-  Clients = {}
-}
+const Utils = require('./../lib/utils.js');
+const Reporters = require('./../reporters.js');
 
 // This is strongly coupled with Reporters.Canvas
-Clients['Manual'] = class Manual {
+class Manual {
   constructor(game, controller) {
     this.game = game;
     this.controller = controller;
@@ -66,3 +65,5 @@ Clients['Manual'] = class Manual {
   }
 
 }
+
+module.exports = Manual;

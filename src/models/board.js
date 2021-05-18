@@ -1,3 +1,5 @@
+const Space = require('./space.js'); 
+
 class Board {
 
   static layout = [
@@ -39,7 +41,7 @@ class Board {
           }
         )
       }
-    )
+    );
     // It's important this is after all spaces are initialised!
     board.rows.forEach(
       row => {
@@ -70,3 +72,5 @@ class Board {
 
 
 }
+
+module.exports = Board;

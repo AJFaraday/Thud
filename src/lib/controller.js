@@ -1,3 +1,6 @@
+const ControllerHelper = require('./controller_helper.js');
+
+
 class Controller {
   constructor(game, side) {
     this.game = game;
@@ -160,4 +163,4 @@ class Controller {
   }
 }
 
-module.exports = {Controller: Controller};
+module.exports = Controller;
