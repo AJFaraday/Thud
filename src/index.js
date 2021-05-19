@@ -7,6 +7,4 @@ var game = new Game(
     troll_client: 'Manual'
   }
 );
-console.log(game);
-game.report('score');
 
