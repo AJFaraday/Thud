@@ -12,16 +12,17 @@ class Manual {
   }
 
   turn() {
-    var client = this;
-    Utils.addListener(client.canvas, 'mousemove', e => client.mouseover(e), false);
-    Utils.addListener(client.canvas, 'mouseup', e => client.mouseup(e), false);
-    Utils.addListener(client.canvas, 'contextmenu', e => client.debug_space(e), false);
+    Utils.addListener(this.canvas, 'mousemove', e => this.mouseover(e), false);
+    Utils.addListener(this.canvas, 'mouseup', e => this.mouseup(e), false);
+    Utils.addListener(this.canvas, 'contextmenu', e => this.debug_space(e), false);
+    Utils.addListener(this.declare_button(), 'mouseup', e => this.declare(), false);
   }
 
   end_turn() {
     Utils.removeAllListeners(this.canvas, 'mousemove');
     Utils.removeAllListeners(this.canvas, 'mouseup');
     Utils.removeAllListeners(this.canvas, 'contextmenu');
+    Utils.removeAllListeners(this.declare_button(), 'mouseup');
   }
 
 
@@ -62,6 +63,20 @@ class Manual {
       Math.floor(x / Reporters.Canvas.space_size),
       Math.floor(y / Reporters.Canvas.space_size)
     );
+  }
+
+  declare_button() {
+    if (this.side == 'd') {
+      return document.getElementById('dwarf_declare_button');
+    } else if (this.side == 't') {
+      return document.getElementById('troll_declare_button');
+    }
+  }
+
+  declare() {
+    var button = this.declare_button();
+    button.dataset.over = button.dataset.over != 'true';
+    this.controller.declare(button.dataset.over == 'true');
   }
 
 }

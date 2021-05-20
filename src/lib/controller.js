@@ -154,6 +154,20 @@ class Controller {
     this.game.report('board_state');
   }
 
+  declare(game_over) {
+    this.declared = game_over;
+    this.game.report('player_declared', {side: this.side, game_over: game_over});
+  }
+
+  opponent_declared() {
+    if (this.side == 'd') {
+      return this.game.troll_controller.declared;
+    } else if (this.side == 't') {
+      return this.game.dwarf_controller.declared;
+    }
+  }
+
+
   wrapper(func) {
     if (this.game.current_side == this.side) {
       return func();

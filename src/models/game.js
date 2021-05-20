@@ -153,8 +153,10 @@ class Game {
       return {reason: 'No more dwarves'}
     } else if (this.trolls.length == 0) {
       return {reason: 'No more trolls'}
+    } else if (this.troll_controller.declared && this.dwarf_controller.declared) {
+      return {reason: 'Players agreed to finish'}
     }
-    // TODO End game by consensus
+
   }
 }
 

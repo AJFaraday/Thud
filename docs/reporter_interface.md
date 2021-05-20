@@ -6,13 +6,14 @@ of the game either to a user or an automated game runner.
 
 * `constructor(board)`
 * `board_state({})`
-* `turn starts({side: 'D', turn: 1})` - Side is 'd' or 't'
+* `turn starts({side: 'd', turn: 1})`
 * `highlight_space({x: 10, y: 10)`
 * `select_space({x: 10, y: 10})`
 * `highlight_move({x: 10, y: 10, type: 'walk'})`
 * `move({side: 't', from: {x:10, y: 10}, to: {x:11, y: 10}})`
 * `piece_taken({taken: {x: 10, y: 10}, side: 'd')`
-* `score({})` - Get score from `game` object.
+* `score({})`
+* `player_declared({side: 't', game_over: true})`  
 * `game_ended({reason: 'timeout'})`
 
 Reporters can ignore any or all of the above events by implementing empty functions,
@@ -97,6 +98,13 @@ Reporters['Dummy'] = class Dummy {
   // Someone's earned soem points
   // this.game.get_score()
   score(args) {
+    
+  }
+  
+  // A player has declared that the game is over (or retracted that declaration
+  // args.side
+  // args.game_over
+  player_declared(args) {
     
   }
   

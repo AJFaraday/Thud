@@ -67,12 +67,19 @@ class Console {
     console.log(`The score is now dwarves: ${score.dwarves}, trolls: ${score.trolls}... ${this.get_side(score.winning)} are winning by ${score.difference}`);
   }
 
+  // A player has declared that the game is over (or retracted that declaration
+  // args.side
+  // args.game_over
+  player_declared(args) {
+    console.log(`${this.get_side(args.side)} declared that the game ${args.game_over ? 'is' : 'is not'} over`);
+  }
+
   // The game's over, awww.
   // args.reason
   // this.game.get_score()
   game_ended(args) {
     var score = this.game.get_score();
-    console.log(`Game over! ${args.reason}! ${this.get_side(score.side)} wins by ${score.difference}`)
+    console.log(`Game over! ${args.reason}! ${this.get_side(score.side)} wins by ${score.difference}`);
   }
 
   get_side(side) {

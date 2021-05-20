@@ -214,7 +214,7 @@ controller.current_space
 ```
 
 
-### TODO declare(game_over)
+### declare(game_over)
 
 Thud often ends in an attritional state where neither side can make any progress.
 The dwarves are huddled together for defence, so the trolls can't get near, so they
@@ -237,7 +237,7 @@ controller.declare(false);
 Note: You will still need to make a valid move to end your turn, because your opponent
 might not agree that it's over.
 
-### TODO opponent_declared()
+### opponent_declared()
 
 Returns a boolean of whether or not your opponent has declared the game over.
 

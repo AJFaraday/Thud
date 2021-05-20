@@ -16,10 +16,11 @@ class Canvas {
     reporter.game = game;
     reporter.board = game.board;
     document.getElementById('thud').style['width'] = `${Canvas.space_size * 15}px`
-    this.build_overlay_canvas();
-    this.build_canvas();
-    this.build_dashboard();
+    reporter.build_overlay_canvas();
+    reporter.build_canvas();
+    reporter.build_dashboard();
     reporter.draw_board();
+    reporter.build_declare_buttons();
   }
 
   build_canvas() {
@@ -64,6 +65,31 @@ class Canvas {
     this.dashboard.append(this.dwarf_side);
     this.dashboard.append(this.centre);
     this.dashboard.append(this.troll_side);
+  }
+
+  build_declare_buttons() {
+    this.dwarf_declare_button = Utils.build_element(
+      'div',
+      {
+        id: 'dwarf_declare_button',
+        class: 'declare_button dwarf',
+        'data-over': false
+      },
+      {float: 'left'}
+    );
+    this.dwarf_declare_button.innerHTML = 'Make Peace';
+    document.getElementById('buttons').append(this.dwarf_declare_button);
+    this.troll_declare_button = Utils.build_element(
+      'div',
+      {
+        id: 'troll_declare_button',
+        class: 'declare_button troll',
+        'data-over': false
+      },
+      {float: 'right'}
+    );
+    this.troll_declare_button.innerHTML = 'Make Peace';
+    document.getElementById('buttons').append(this.troll_declare_button);
   }
 
   build_side(colour, title) {
@@ -174,9 +200,13 @@ class Canvas {
     if (args.side == 'd') {
       this.dwarf_side.style.opacity = 1;
       this.troll_side.style.opacity = 0.6;
+      this.dwarf_declare_button.style.opacity = 1;
+      this.troll_declare_button.style.opacity = 0.4;
     } else if (args.side == 't') {
       this.troll_side.style.opacity = 1;
       this.dwarf_side.style.opacity = 0.6;
+      this.troll_declare_button.style.opacity = 1;
+      this.dwarf_declare_button.style.opacity = 0.4;
     }
     this.draw_board();
   }
@@ -241,6 +271,7 @@ class Canvas {
   // args.side
   piece_taken(args) {
     var reporter = this;
+
     function draw_marker(alpha) {
       reporter.overlay_context.beginPath();
       reporter.overlay_context.arc(
@@ -252,6 +283,7 @@ class Canvas {
       reporter.overlay_context.fillStyle = `rgba(255,0,0,${alpha})`;
       reporter.overlay_context.fill();
     }
+
     function clear_square() {
       reporter.overlay_context.clearRect(
         Canvas.space_size * args.x,
@@ -260,17 +292,20 @@ class Canvas {
         Canvas.space_size
       );
     }
+
     var alpha = 1;
     var delta = 0.02;
     draw_marker(alpha);
+
     function fade() {
       alpha -= delta;
       clear_square();
       draw_marker(alpha);
-      if(alpha >= 0) {
+      if (alpha >= 0) {
         requestAnimationFrame(fade);
       }
     }
+
     fade();
   }
 
@@ -296,6 +331,23 @@ class Canvas {
     this.centre.innerHTML = score.difference;
   }
 
+  // A player has declared that the game is over (or retracted that declaration
+  // args.side
+  // args.game_over
+  player_declared(args) {
+    var button;
+    if (args.side == 'd') {
+      button = this.dwarf_declare_button;
+    } else if (args.side == 't') {
+      button = this.troll_declare_button;
+    }
+    if(args.game_over) {
+      button.innerHTML = 'Make War';
+    } else {
+      button.innerHTML = 'Make Peace';
+    }
+  }
+
   // The game's over, awww.
   // args.reason
   // this.game.get_score()
@@ -307,10 +359,10 @@ class Canvas {
       '?': 'Nobody wins'
     }
     this.overlay_context.font = '45px Arial';
-    if(score.winning=='d') {
+    if (score.winning == 'd') {
       this.overlay_context.fillStyle = 'blue';
       this.overlay_context.strokeStyle = 'white';
-    } else if (score.winning=='t') {
+    } else if (score.winning == 't') {
       this.overlay_context.fillStyle = 'green';
       this.overlay_context.strokeStyle = 'white';
     } else {
