@@ -234,8 +234,8 @@ You can also use this to retract your declaration that the game is over:
 controller.declare(false);
 ```
 
-Note: You will still need to make a valid move to end your turn, because your opponent
-might not agree that it's over.
+Note: If your opponent hasn't already declared the game over, you will still need to
+make a valid move to end your turn, because your opponent might not agree that it's over.
 
 ### opponent_declared()
 

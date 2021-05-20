@@ -1,9 +1,5 @@
 Issues to resolve:
 
-* Add end-game (at least report score and reason)
-* run build task on file changes
-* Use private instance field to lock down Controller
-* Should Board.spaces be a function?
 * Merge Troll and Dwarf classes, just have Piece.
 * Add indexed_dwarves and indexed_trolls to controller interface (index remains static, could return null)
 * ControllerHelper.moves_for should return kills for each space

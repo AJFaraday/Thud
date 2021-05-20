@@ -2,17 +2,14 @@ const MoveCalculator = require('./move_calculator.js');
 
 class ControllerHelper {
 
-  constructor(controller) {
+  constructor(controller, game) {
     this.controller = controller;
     this.side = controller.side;
-  }
-
-  game() {
-    return this.controller.game;
+    this.game = game;
   }
 
   board() {
-    return this.game().board;
+    return this.game.board;
   }
 
   space_proxy(space) {
@@ -34,7 +31,7 @@ class ControllerHelper {
   }
 
   moves_for(space) {
-    var move_calculator = new MoveCalculator(this.board(), space, this.game().current_side);
+    var move_calculator = new MoveCalculator(this.board(), space, this.game.current_side);
     this.controller.checked_space = {
       x: space.x,
       y: space.y,
@@ -48,8 +45,8 @@ class ControllerHelper {
     var space = this.board().space(x, y);
     var nearby_dwarves = space.neighbours.filter(neighbour => neighbour.piece && neighbour.piece.type == 'd');
     nearby_dwarves.forEach(dwarf => {
-      this.game().report('piece_taken', Object.assign(dwarf, {side: 'd'}));
-      this.game().remove_piece(dwarf);
+      this.game.report('piece_taken', Object.assign(dwarf, {side: 'd'}));
+      this.game.remove_piece(dwarf);
     });
   }
 

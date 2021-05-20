@@ -51,23 +51,15 @@ class Board {
         })
       }
     );
+
+    board.spaces = [];
+    board.rows.forEach(
+      row => board.spaces = board.spaces.concat(row.filter(Boolean))
+    );
   }
 
   space(x, y) {
     return this.rows[y] ? this.rows[y][x] : null;
-  }
-
-  spaces() {
-    var board = this;
-    if (typeof board.all_spaces == 'object') {
-      return board.all_spaces;
-    } else {
-      board.all_spaces = [];
-      board.rows.forEach(
-        row => board.all_spaces = board.all_spaces.concat(row.filter(Boolean))
-      );
-      return board.all_spaces;
-    }
   }
 
 
