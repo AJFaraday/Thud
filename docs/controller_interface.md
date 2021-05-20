@@ -9,6 +9,7 @@ contract below:
   * `turn()` - Current turn of the game
   * `scores()` - The current score
   * `spaces()` - Every space, and what's in it
+  * `space_info(x, y)` - Detailed information on any space on the board.
   * `dwarves()` - The location of every dwarf
   * `trolls()` - The location of every troll
   * `previous_move()` - What got moved to where last turn
@@ -61,6 +62,26 @@ controller.spaces();
 ] 
  */
 ```
+
+### space(x, y)
+
+Detailed information on any space on the board.
+
+
+```js 
+space_info(6, 0);
+/*
+{
+  x: 6,
+  y: 0,
+  piece: 'd',
+  moves: [{x: 6, y: 1, type: 'walk'}, ...],
+  nearest_dwarf: {distance: 1, [{x: 5, y: 0}]},
+  nearest_troll: {distance: 6, [{x: 6, y: 6}]}
+}
+*/
+```
+
 
 ### dwarves()
 
