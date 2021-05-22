@@ -9,8 +9,11 @@ contract below:
   * `turn()` - Current turn of the game
   * `scores()` - The current score
   * `spaces()` - Every space, and what's in it
+  * `space_info(x, y)` - Detailed information on any space on the board.
   * `dwarves()` - The location of every dwarf
   * `trolls()` - The location of every troll
+  * `indexed_dwarves()` - The location of every dwarf with a fixed index
+  * `indexed_trolls()` - The location of every troll with a fixed index
   * `previous_move()` - What got moved to where last turn
 * For turns: 
   * `check_space(x, y)`- Find out what moves are available from a given space
@@ -43,7 +46,14 @@ Returns the current score of the game.
 
 ```js
 controller.score();
-// {D: 12, T: 3}
+/* 
+  {
+   dwarves: 12, 
+   trolls: 3,
+   difference: 9,
+   winning: 't'
+ }  
+*/
 ```
 
 ### spaces()
@@ -54,13 +64,33 @@ Returns an array of every space on the board and what's in it.
 controller.spaces();
 /*
 [
-  {x, 5, y: 0, piece: 'D'},
-  {x, 6, y: 0, piece: 'D'},
+  {x, 5, y: 0, piece: 'd'},
+  {x, 6, y: 0, piece: 'd'},
   {x, 6, y: 0, piece: null},
   ...
 ] 
  */
 ```
+
+### space_info(x, y)
+
+Detailed information on any space on the board.
+
+
+```js 
+space_info(6, 0);
+/*
+{
+  x: 6,
+  y: 0,
+  piece: 'd',
+  moves: [{x: 6, y: 1, type: 'walk', kills: 1}, ...],
+  nearest_dwarf: {distance: 1, pieces: [{x: 5, y: 0}]},
+  nearest_troll: {distance: 6, pieces: [{x: 6, y: 6}]}
+}
+*/
+```
+
 
 ### dwarves()
 
@@ -94,6 +124,62 @@ controller.trolls();
 */
 ```
 
+### indexed_dwarves()
+
+Returns the position of every dwarf on the board, with a fixed index.
+
+This means that dwarf 7 will always be the same piece, unless that piece is taken.
+
+```js
+controller.indexed_dwarves();
+/*
+[
+  {x: 5, y: 0},
+  {x: 6, y: 0},
+  {x: 8, y: 0},
+]
+*/
+
+// If the first two dwarves are removed
+
+controller.indexed_dwarves();
+/*
+[
+  null,
+  null,
+  {x: 8, y: 0},
+]
+*/
+```
+
+### indexed_trolls()
+
+Returns the position of every troll on the board, with a fixed index.
+
+This means that troll 7 will always be the same piece, unless that piece is taken.
+
+```js
+controller.indexed_trolls();
+/*
+[
+  {x: 6, y: 6},
+  {x: 7, y: 6},
+  {x: 8, y: 6},
+]
+*/
+
+// If the first two trolls are removed
+
+controller.indexed_dwarves();
+/*
+[
+  null,
+  null,
+  {x: 8, y: 6},
+]
+*/
+```
+
 ### previous_move()
 
 What just happened?
@@ -123,8 +209,8 @@ List the moves available to the piece in the given space.
 controller.check_space(5, 0);
 /*
 [
-  {x: 6, y: 0, type: 'hurl'}
-  {x:5, y: 1, type: 'move'},
+  {x: 6, y: 0, type: 'hurl', kills: 1}
+  {x:5, y: 1, type: 'move', kills: 0},
   ...
 ]
  */
@@ -163,7 +249,7 @@ selected.
 controller.select_space(6, 0);
 // true
 controller.check_move(6, 5);
-/* {valid: true, type: 'move', kills: 0, loses: 1} */
+/* {valid: true, type: 'move', kills: 0} */
 ```
 
 ### move(x, y)
@@ -214,7 +300,7 @@ controller.current_space
 ```
 
 
-### TODO declare(game_over)
+### declare(game_over)
 
 Thud often ends in an attritional state where neither side can make any progress.
 The dwarves are huddled together for defence, so the trolls can't get near, so they
@@ -234,10 +320,10 @@ You can also use this to retract your declaration that the game is over:
 controller.declare(false);
 ```
 
-Note: You will still need to make a valid move to end your turn, because your opponent
-might not agree that it's over.
+Note: If your opponent hasn't already declared the game over, you will still need to
+make a valid move to end your turn, because your opponent might not agree that it's over.
 
-### TODO opponent_declared()
+### opponent_declared()
 
 Returns a boolean of whether or not your opponent has declared the game over.
 

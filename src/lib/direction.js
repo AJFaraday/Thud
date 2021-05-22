@@ -62,3 +62,5 @@ class Direction {
   }
 
 }
+
+module.exports = Direction;

@@ -28,7 +28,7 @@ class MoveCalculator {
         direction.spaces.slice(1, (hurl_distance + 1)).forEach(
           (space, index) => {
             if (space.piece && space.piece.type == 't' && calculator.space_between_is_empty(direction, index)) {
-              moves.push({x: space.x, y: space.y, type: 'hurl'});
+              moves.push({x: space.x, y: space.y, type: 'hurl', kills: 1});
             }
           }
         )
@@ -47,12 +47,18 @@ class MoveCalculator {
     calculator.space.neighbours.filter(
       neighbour => !neighbour.piece
     ).forEach(
-      neighbour => moves.push(moves.push({x: neighbour.x, y: neighbour.y, type: 'walk'}))
+      neighbour => {
+        var kills = neighbour.neighbours_of_type('d');
+        moves.push({x: neighbour.x, y: neighbour.y, type: 'walk', kills: kills})
+      }
     );
     calculator.space.neighbours.filter(
       neighbour => (neighbour.piece && neighbour.piece.type == 'd')
     ).forEach(
-      neighbour => moves.push(moves.push({x: neighbour.x, y: neighbour.y, type: 'take'}))
+      neighbour => {
+        var kills = neighbour.neighbours_of_type('d');
+        moves.push({x: neighbour.x, y: neighbour.y, type: 'take', kills: kills});
+      }
     );
 
     Object.values(calculator.space.directions).forEach(
@@ -67,7 +73,8 @@ class MoveCalculator {
                 calculator.space_has_dwarf_neighours(space)
               )
             ) {
-              moves.push({x: space.x, y: space.y, type: 'shove'});
+              var kills = space.neighbours_of_type('d');
+              moves.push({x: space.x, y: space.y, type: 'shove', kills: kills});
             }
           }
         );
@@ -78,6 +85,8 @@ class MoveCalculator {
 
 
   space_has_dwarf_neighours(space) {
-    return space.neighbours.some(neighbour => neighbour.piece && neighbour.piece.type == 'd');
+    return space.neighbours_of_type('d') > 0;
   }
 }
+
+module.exports = MoveCalculator;

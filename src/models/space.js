@@ -1,3 +1,7 @@
+const Direction = require('./../lib/direction.js');
+const Piece = require('./piece.js');
+
+
 class Space {
 
   static direction_list = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
@@ -10,10 +14,10 @@ class Space {
     this.colour_index = ((this.x + this.y) % 2);
     switch (piece) {
       case 'd':
-        this.piece = new Dwarf(this.game, this.x, this.y);
+        this.piece = new Piece(this.game, this.x, this.y, 'd');
         break;
       case 't':
-        this.piece = new Troll(this.game, this.x, this.y);
+        this.piece = new Piece(this.game, this.x, this.y, 't');
         break;
     }
   }
@@ -50,4 +54,10 @@ class Space {
     );
   }
 
+  neighbours_of_type(type) {
+    return this.neighbours.filter((s) => s.piece && s.piece.type == type).length;
+  }
+
 }
+
+module.exports = Space;

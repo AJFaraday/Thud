@@ -1,3 +1,9 @@
+const Controller = require('./../lib/controller.js');
+const Board = require('./board.js');
+const Reporters = require('../reporters.js');
+const Clients = require('../clients.js');
+const Utils = require('./../lib/utils.js');
+
 class Game {
 
   static max_game_length = 200;
@@ -19,6 +25,8 @@ class Game {
   initialise_properties() {
     this.dwarves = [];
     this.trolls = [];
+    this.indexed_dwarves = [];
+    this.indexed_trolls = [];
     this.turn_number = 0;
     this.dwarf_controller = new Controller(this, 'd');
     this.troll_controller = new Controller(this, 't');
@@ -47,7 +55,12 @@ class Game {
   }
 
   report(event, args = {}) {
-    this.reporters.forEach(reporter => reporter[event](args));
+    this.reporters.forEach(reporter => {
+        if (reporter[event]) {
+          reporter[event](args)
+        }
+      }
+    );
   }
 
   init_clients(attrs) {
@@ -104,6 +117,10 @@ class Game {
     return this.clients[this.current_side];
   }
 
+  current_controller() {
+    return this.current_client().controller;
+  }
+
   swap_side() {
     this.current_side = (this.current_side == 'd') ? 't' : 'd';
   }
@@ -137,17 +154,23 @@ class Game {
   remove_piece(space) {
     Utils.remove_from_array(this.trolls, space.piece);
     Utils.remove_from_array(this.dwarves, space.piece);
+    Utils.nullify_from_array(this.indexed_trolls, space.piece);
+    Utils.nullify_from_array(this.indexed_dwarves, space.piece);
     space.piece = null;
   }
 
   check_ending_conditions() {
-    if(this.turn_number >= Game.max_game_length) {
+    if (this.turn_number >= Game.max_game_length) {
       return {reason: 'Timeout'}
     } else if (this.dwarves.length == 0) {
       return {reason: 'No more dwarves'}
     } else if (this.trolls.length == 0) {
       return {reason: 'No more trolls'}
+    } else if (this.troll_controller.declared && this.dwarf_controller.declared) {
+      return {reason: 'Players agreed to finish'}
     }
-    // TODO End game by consensus
+
   }
 }
+
+module.exports = Game;
