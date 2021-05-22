@@ -1,10 +1,8 @@
 Issues to resolve:
 
-* Add indexed_dwarves and indexed_trolls to controller interface (index remains static, could return null)
-* ControllerHelper.moves_for should return kills for each space
-* Get moves for one of the other side's pieces in controller (have a think)
 * Update interface docs
-
+* controller.check_move can be simplified now (move_calculator tell you of kills)
+* game.previous_move is always it's initial value
 
 Long term thinking:
 * Unit test suite

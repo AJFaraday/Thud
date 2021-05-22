@@ -1,6 +1,5 @@
 const ControllerHelper = require('./controller_helper.js');
 
-
 class Controller {
   #game
   #helper
@@ -22,11 +21,6 @@ class Controller {
   scores() {
     var controller = this;
     return this.wrapper(() => controller.#game.get_score());
-  }
-
-  previous_move() {
-    var controller = this;
-    return this.wrapper(() => Object.assign(controller.#game.previous_move));
   }
 
   spaces() {
@@ -68,6 +62,32 @@ class Controller {
     );
   }
 
+  indexed_dwarves() {
+    var controller = this;
+    return this.wrapper(() => {
+        return Array.from(
+          controller.#game.indexed_dwarves,
+          dwarf => ({x: dwarf.x, y: dwarf.y})
+        );
+      }
+    );
+  }
+
+  indexed_trolls() {
+    var controller = this;
+    return this.wrapper(() => {
+        return Array.from(
+          controller.#game.indexed_trolls,
+          troll => ({x: troll.x, y: troll.y})
+        );
+      }
+    );
+  }
+
+  previous_move() {
+    var controller = this;
+    return this.wrapper(() => Object.assign(controller.#game.previous_move));
+  }
 
 // Actual actions
   check_space(x, y) {
@@ -151,8 +171,10 @@ class Controller {
           }
           controller.clear_space();
           controller.#game.end_turn();
+          return true;
         } else {
           controller.clear_space();
+          return false;
         }
       }
     );

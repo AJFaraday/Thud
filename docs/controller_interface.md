@@ -46,7 +46,14 @@ Returns the current score of the game.
 
 ```js
 controller.score();
-// {D: 12, T: 3}
+/* 
+  {
+   dwarves: 12, 
+   trolls: 3,
+   difference: 9,
+   winning: 't'
+ }  
+*/
 ```
 
 ### spaces()
@@ -57,8 +64,8 @@ Returns an array of every space on the board and what's in it.
 controller.spaces();
 /*
 [
-  {x, 5, y: 0, piece: 'D'},
-  {x, 6, y: 0, piece: 'D'},
+  {x, 5, y: 0, piece: 'd'},
+  {x, 6, y: 0, piece: 'd'},
   {x, 6, y: 0, piece: null},
   ...
 ] 
@@ -77,9 +84,9 @@ space_info(6, 0);
   x: 6,
   y: 0,
   piece: 'd',
-  moves: [{x: 6, y: 1, type: 'walk'}, ...],
-  nearest_dwarf: {distance: 1, [{x: 5, y: 0}]},
-  nearest_troll: {distance: 6, [{x: 6, y: 6}]}
+  moves: [{x: 6, y: 1, type: 'walk', kills: 1}, ...],
+  nearest_dwarf: {distance: 1, pieces: [{x: 5, y: 0}]},
+  nearest_troll: {distance: 6, pieces: [{x: 6, y: 6}]}
 }
 */
 ```
@@ -202,8 +209,8 @@ List the moves available to the piece in the given space.
 controller.check_space(5, 0);
 /*
 [
-  {x: 6, y: 0, type: 'hurl'}
-  {x:5, y: 1, type: 'move'},
+  {x: 6, y: 0, type: 'hurl', kills: 1}
+  {x:5, y: 1, type: 'move', kills: 0},
   ...
 ]
  */
@@ -242,7 +249,7 @@ selected.
 controller.select_space(6, 0);
 // true
 controller.check_move(6, 5);
-/* {valid: true, type: 'move', kills: 0, loses: 1} */
+/* {valid: true, type: 'move', kills: 0} */
 ```
 
 ### move(x, y)

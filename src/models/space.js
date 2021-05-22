@@ -54,6 +54,10 @@ class Space {
     );
   }
 
+  neighbours_of_type(type) {
+    return this.neighbours.filter((s) => s.piece && s.piece.type == type).length;
+  }
+
 }
 
 module.exports = Space;
