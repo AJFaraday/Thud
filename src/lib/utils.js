@@ -34,9 +34,33 @@ Utils = {
   },
 
   remove_from_array: (array, object) => {
-    if(array.includes(object)) {
+    if (array.includes(object)) {
       array.splice(array.indexOf(object), 1);
     }
+  },
+
+
+  distance_box: (x, y, distance) => {
+    var coords = [];
+    var first_row = y - distance;
+    var last_row = y + distance;
+    Utils.index_array((distance * 2) + 1).forEach((idx) => {
+      coords.push([(x - idx + distance), first_row])
+    });
+    Utils.index_array((distance * 2) - 1).forEach((idx) => {
+      coords.push([(x - distance), (first_row + idx + 1)]);
+      coords.push([(x + distance), (first_row + idx + 1)]);
+    });
+    Utils.index_array((distance * 2) + 1).forEach((idx) => {
+      coords.push([(x - idx + distance), last_row])
+    });
+    return coords;
+  },
+
+  index_array: (size) => {
+    return Array.from(new Array(size), (_, i) => {
+      return i;
+    });
   }
 };
 

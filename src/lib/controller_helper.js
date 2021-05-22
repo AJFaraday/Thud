@@ -1,4 +1,5 @@
 const MoveCalculator = require('./move_calculator.js');
+const Utils = require('./utils.js');
 
 class ControllerHelper {
 
@@ -48,6 +49,34 @@ class ControllerHelper {
       this.game.report('piece_taken', Object.assign(dwarf, {side: 'd'}));
       this.game.remove_piece(dwarf);
     });
+  }
+
+  space_info(x, y) {
+    var space = this.board().space(x, y);
+    space = this.space_proxy(space);
+    var move_calculator = new MoveCalculator(this.board(), space, space.piece);
+    space.moves = move_calculator.moves;
+    space.nearest_dwarf = this.nearest(x, y, 'd');
+    space.nearest_troll = this.nearest(x, y, 't');
+    return space;
+  }
+
+  nearest(x, y, side) {
+    var helper = this;
+    var distance = 0;
+    var found_pieces = [];
+    do {
+      distance += 1;
+      var box = Utils.distance_box(x, y, distance);
+      found_pieces = box.filter(coord => {
+        var space = helper.board().space(coord[0], coord[1])
+        return space && space.piece && space.piece.type == side;
+      });
+    } while (found_pieces.length == 0 && distance < 15);
+    return {
+      distance: distance,
+      pieces: found_pieces
+    }
   }
 
 }

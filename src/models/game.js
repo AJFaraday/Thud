@@ -53,7 +53,12 @@ class Game {
   }
 
   report(event, args = {}) {
-    this.reporters.forEach(reporter => reporter[event](args));
+    this.reporters.forEach(reporter => {
+        if (reporter[event]) {
+          reporter[event](args)
+        }
+      }
+    );
   }
 
   init_clients(attrs) {
@@ -147,7 +152,7 @@ class Game {
   }
 
   check_ending_conditions() {
-    if(this.turn_number >= Game.max_game_length) {
+    if (this.turn_number >= Game.max_game_length) {
       return {reason: 'Timeout'}
     } else if (this.dwarves.length == 0) {
       return {reason: 'No more dwarves'}

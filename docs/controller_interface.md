@@ -63,7 +63,7 @@ controller.spaces();
  */
 ```
 
-### space(x, y)
+### space_info(x, y)
 
 Detailed information on any space on the board.
 

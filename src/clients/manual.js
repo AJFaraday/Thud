@@ -56,6 +56,20 @@ class Manual {
     } else {
       console.log(space)
     }
+    var dist = this.game.dwarf_controller.space_info(space.x, space.y).nearest_troll.distance
+    var box = Utils.distance_box(space.x, space.y, dist)
+    box.forEach(
+      (coord) => {
+        this.game.reporters[0].outline_space({x: coord[0], y: coord[1]}, 'green')
+      }
+    );
+    var dist = this.game.dwarf_controller.space_info(space.x, space.y).nearest_dwarf.distance
+    var box = Utils.distance_box(space.x, space.y, dist)
+    box.forEach(
+      (coord) => {
+        this.game.reporters[0].outline_space({x: coord[0], y: coord[1]}, 'blue')
+      }
+    );
   }
 
   space_at(x, y) {

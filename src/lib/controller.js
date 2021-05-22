@@ -34,8 +34,15 @@ class Controller {
     return this.wrapper(() => {
       return Array.from(
         controller.#game.board.spaces(),
-        space => this.#helper.space_proxy(space)
+        space => controller.#helper.space_proxy(space)
       );
+    });
+  }
+
+  space_info(x, y) {
+    var controller = this;
+    return this.wrapper(() => {
+      return controller.#helper.space_info(x, y);
     });
   }
 
