@@ -12,6 +12,8 @@ contract below:
   * `space_info(x, y)` - Detailed information on any space on the board.
   * `dwarves()` - The location of every dwarf
   * `trolls()` - The location of every troll
+  * `indexed_dwarves()` - The location of every dwarf with a fixed index
+  * `indexed_trolls()` - The location of every troll with a fixed index
   * `previous_move()` - What got moved to where last turn
 * For turns: 
   * `check_space(x, y)`- Find out what moves are available from a given space
@@ -111,6 +113,62 @@ controller.trolls();
   {x: 7, y: 6},
   {x: 8, y: 6},
   ...
+]
+*/
+```
+
+### indexed_dwarves()
+
+Returns the position of every dwarf on the board, with a fixed index.
+
+This means that dwarf 7 will always be the same piece, unless that piece is taken.
+
+```js
+controller.indexed_dwarves();
+/*
+[
+  {x: 5, y: 0},
+  {x: 6, y: 0},
+  {x: 8, y: 0},
+]
+*/
+
+// If the first two dwarves are removed
+
+controller.indexed_dwarves();
+/*
+[
+  null,
+  null,
+  {x: 8, y: 0},
+]
+*/
+```
+
+### indexed_trolls()
+
+Returns the position of every troll on the board, with a fixed index.
+
+This means that troll 7 will always be the same piece, unless that piece is taken.
+
+```js
+controller.indexed_trolls();
+/*
+[
+  {x: 6, y: 6},
+  {x: 7, y: 6},
+  {x: 8, y: 6},
+]
+*/
+
+// If the first two trolls are removed
+
+controller.indexed_dwarves();
+/*
+[
+  null,
+  null,
+  {x: 8, y: 6},
 ]
 */
 ```

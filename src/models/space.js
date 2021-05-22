@@ -1,6 +1,6 @@
 const Direction = require('./../lib/direction.js');
-const Dwarf = require('./dwarf.js');
-const Troll = require('./troll.js');
+const Piece = require('./piece.js');
+
 
 class Space {
 
@@ -14,10 +14,10 @@ class Space {
     this.colour_index = ((this.x + this.y) % 2);
     switch (piece) {
       case 'd':
-        this.piece = new Dwarf(this.game, this.x, this.y);
+        this.piece = new Piece(this.game, this.x, this.y, 'd');
         break;
       case 't':
-        this.piece = new Troll(this.game, this.x, this.y);
+        this.piece = new Piece(this.game, this.x, this.y, 't');
         break;
     }
   }

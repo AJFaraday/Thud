@@ -39,6 +39,12 @@ Utils = {
     }
   },
 
+  nullify_from_array: (array, object) => {
+    if (array.includes(object)) {
+      array[array.indexOf(object)] = null;
+    }
+  },
+
 
   distance_box: (x, y, distance) => {
     var coords = [];

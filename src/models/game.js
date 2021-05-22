@@ -25,6 +25,8 @@ class Game {
   initialise_properties() {
     this.dwarves = [];
     this.trolls = [];
+    this.indexed_dwarves = [];
+    this.indexed_trolls = [];
     this.turn_number = 0;
     this.dwarf_controller = new Controller(this, 'd');
     this.troll_controller = new Controller(this, 't');
@@ -115,6 +117,10 @@ class Game {
     return this.clients[this.current_side];
   }
 
+  current_controller() {
+    return this.current_client().controller;
+  }
+
   swap_side() {
     this.current_side = (this.current_side == 'd') ? 't' : 'd';
   }
@@ -148,6 +154,8 @@ class Game {
   remove_piece(space) {
     Utils.remove_from_array(this.trolls, space.piece);
     Utils.remove_from_array(this.dwarves, space.piece);
+    Utils.nullify_from_array(this.indexed_trolls, space.piece);
+    Utils.nullify_from_array(this.indexed_dwarves, space.piece);
     space.piece = null;
   }
 

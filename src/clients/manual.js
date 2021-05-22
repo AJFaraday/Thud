@@ -1,5 +1,6 @@
 const Utils = require('./../lib/utils.js');
 const Reporters = require('./../reporters.js');
+const MoveCalculator = require('./../lib/move_calculator.js');
 
 // This is strongly coupled with Reporters.Canvas
 class Manual {
@@ -53,19 +54,19 @@ class Manual {
     var space = this.space_at(event.offsetX, event.offsetY);
     if (space.piece) {
       console.log(space.piece)
+      var move_calculator = new MoveCalculator(this.game.board, space, space.piece.type)
+      move_calculator.moves.forEach(
+        move => this.game.reporters[0].outline_space(move, Reporters.Canvas.move_colours[move.type])
+      );
     } else {
       console.log(space)
     }
-    var dist = this.game.dwarf_controller.space_info(space.x, space.y).nearest_troll.distance
-    var box = Utils.distance_box(space.x, space.y, dist)
-    box.forEach(
+    this.game.current_controller().space_info(space.x, space.y).nearest_troll.pieces.forEach(
       (coord) => {
         this.game.reporters[0].outline_space({x: coord[0], y: coord[1]}, 'green')
       }
     );
-    var dist = this.game.dwarf_controller.space_info(space.x, space.y).nearest_dwarf.distance
-    var box = Utils.distance_box(space.x, space.y, dist)
-    box.forEach(
+    this.game.current_controller().space_info(space.x, space.y).nearest_dwarf.pieces.forEach(
       (coord) => {
         this.game.reporters[0].outline_space({x: coord[0], y: coord[1]}, 'blue')
       }

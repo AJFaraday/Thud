@@ -1,11 +1,10 @@
 Issues to resolve:
 
-* Merge Troll and Dwarf classes, just have Piece.
 * Add indexed_dwarves and indexed_trolls to controller interface (index remains static, could return null)
 * ControllerHelper.moves_for should return kills for each space
 * Get moves for one of the other side's pieces in controller (have a think)
 * Update interface docs
-* Should `wrapper` be in ControlerHelper?
+
 
 Long term thinking:
 * Unit test suite
