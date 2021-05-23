@@ -16,7 +16,7 @@ var Game;
   \************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("module.exports = {\n  Manual: __webpack_require__(/*! ./clients/manual.js */ \"./src/clients/manual.js\"),\n  Dummy: __webpack_require__(/*! ./clients/dummy.js */ \"./src/clients/dummy.js\")\n};\n\n\n//# sourceURL=webpack://Game/./src/clients.js?");
+eval("module.exports = {\n  Manual: __webpack_require__(/*! ./clients/manual.js */ \"./src/clients/manual.js\"),\n  Dummy: __webpack_require__(/*! ./clients/dummy.js */ \"./src/clients/dummy.js\"),\n  DummyTwo: __webpack_require__(/*! ./clients/dummy.js */ \"./src/clients/dummy.js\")\n};\n\n\n//# sourceURL=webpack://Game/./src/clients.js?");
 
 /***/ }),
 
