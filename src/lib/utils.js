@@ -45,7 +45,6 @@ Utils = {
     }
   },
 
-
   distance_box: (x, y, distance) => {
     var coords = [];
     var first_row = y - distance;
