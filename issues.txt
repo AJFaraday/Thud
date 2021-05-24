@@ -4,6 +4,7 @@ Issues to resolve:
 * controller.check_move can be simplified now (move_calculator tell you of kills)
 * game.previous_move is always it's initial value
 * convenience method to combine select_space and move
+* nearest_troll and nearest_dwarf should return objects, {x:5, y: 0}. Update docs and tests
 
 Long term thinking:
 * Unit test suite

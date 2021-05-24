@@ -63,12 +63,12 @@ class Manual {
     }
     this.game.current_controller().space_info(space.x, space.y).nearest_troll.pieces.forEach(
       (coord) => {
-        this.game.reporters[0].outline_space({x: coord[0], y: coord[1]}, 'green')
+        this.game.reporters[0].outline_space(coord, 'green')
       }
     );
     this.game.current_controller().space_info(space.x, space.y).nearest_dwarf.pieces.forEach(
       (coord) => {
-        this.game.reporters[0].outline_space({x: coord[0], y: coord[1]}, 'blue')
+        this.game.reporters[0].outline_space(coord, 'blue')
       }
     );
   }

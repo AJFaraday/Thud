@@ -31,11 +31,11 @@ it('should have initial properties', () => {
   expect(game.troll_controller.side).toEqual('t');
   expect(game.previous_move).toEqual(
     {
+      side: '?',
       from: {x: 0, y: 0},
       to: {x: 0, y: 0},
       type: 'game_start',
-      killed: 0,
-      lost: 0
+      killed: 0
     }
   )
 });
@@ -211,4 +211,30 @@ test('ends the game if the players are finished', () => {
   game.troll_controller.declared = true;
   game.end_turn();
   expect(game.check_ending_conditions()).toEqual({"reason": "Players agreed to finish"});
+});
+
+test('records the previous move', () => {
+  var game = new_game();
+  expect(game.previous_move).toEqual(
+    {
+      side: '?',
+      from: {x: 0, y: 0},
+      to: {x: 0, y: 0},
+      type: 'game_start',
+      killed: 0
+    }
+  );
+
+  game.dwarf_controller.select_space(4, 1);
+  game.dwarf_controller.move(8, 5);
+
+  expect(game.previous_move).toEqual(
+    {
+      side: 'd',
+      from: {x: 4, y: 1},
+      to: {x: 8, y: 5},
+      type: 'walk',
+      killed: 0
+    }
+  );
 });
