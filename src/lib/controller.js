@@ -131,7 +131,7 @@ class Controller {
       if (move) {
         if (this.side == 'd') {
           var kills;
-          var targets;
+          var targets = [];
           if (move.type == 'hurl') {
             kills = 1;
             targets = [{x: target_space.x, y: target_space.y}]
@@ -140,7 +140,7 @@ class Controller {
           }
           move.side = 'd';
           this.#game.report('highlight_move', move);
-          return {valid: true, type: move.type, kills: kills, targets};
+          return {valid: true, type: move.type, kills: kills, targets: targets};
         } else if (this.side == 't') {
           move.side = 't';
           move.targets = target_space.neighbours

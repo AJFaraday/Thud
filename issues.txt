@@ -1,10 +1,9 @@
 Issues to resolve:
 
-* Update interface docs
-* controller.check_move can be simplified now (move_calculator tell you of kills)
-* game.previous_move is always it's initial value
+* Reverse direction_calculator. To record which moves are dangerous.
 * convenience method to combine select_space and move
-* nearest_troll and nearest_dwarf should return objects, {x:5, y: 0}. Update docs and tests
+* Update interface docs
+* add `is_dwarf()` and `is_troll()` to both space and piece, simplify code wherever we `see == 'd'`.
 
 Long term thinking:
 * Unit test suite
