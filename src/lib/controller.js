@@ -14,7 +14,7 @@ class Controller {
   turn() {
     var controller = this;
     return this.wrapper(() => {
-      controller.#game.turn();
+      return controller.#game.turn_number;
     });
   }
 
@@ -27,7 +27,7 @@ class Controller {
     var controller = this;
     return this.wrapper(() => {
       return Array.from(
-        controller.#game.board.spaces(),
+        controller.#game.board.spaces,
         space => controller.#helper.space_proxy(space)
       );
     });
@@ -67,7 +67,7 @@ class Controller {
     return this.wrapper(() => {
         return Array.from(
           controller.#game.indexed_dwarves,
-          dwarf => ({x: dwarf.x, y: dwarf.y})
+          dwarf => (dwarf ? {x: dwarf.x, y: dwarf.y} : null)
         );
       }
     );
@@ -78,7 +78,7 @@ class Controller {
     return this.wrapper(() => {
         return Array.from(
           controller.#game.indexed_trolls,
-          troll => ({x: troll.x, y: troll.y})
+          troll => (troll ? {x: troll.x, y: troll.y} : null)
         );
       }
     );
@@ -131,7 +131,7 @@ class Controller {
       if (move) {
         if (this.side == 'd') {
           var kills;
-          var targets;
+          var targets = [];
           if (move.type == 'hurl') {
             kills = 1;
             targets = [{x: target_space.x, y: target_space.y}]
@@ -140,7 +140,7 @@ class Controller {
           }
           move.side = 'd';
           this.#game.report('highlight_move', move);
-          return {valid: true, type: move.type, kills: kills, targets};
+          return {valid: true, type: move.type, kills: kills, targets: targets};
         } else if (this.side == 't') {
           move.side = 't';
           move.targets = target_space.neighbours
@@ -163,11 +163,19 @@ class Controller {
       () => {
         var target = controller.checked_space.moves.find(
           space => space.x == x && space.y == y
-        )
+        );
         if (target) {
+
           controller.#game.move_piece(target.x, target.y, target.type);
           if (this.side == 't') {
             controller.#helper.troll_swing(target.x, target.y);
+          }
+          controller.#game.previous_move = {
+            from: {x: controller.current_space.x, y: controller.current_space.y},
+            to: {x: target.x, y: target.y},
+            side: controller.side,
+            type: target.type,
+            killed: target.kills
           }
           controller.clear_space();
           controller.#game.end_turn();

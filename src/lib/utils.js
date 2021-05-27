@@ -45,20 +45,19 @@ Utils = {
     }
   },
 
-
   distance_box: (x, y, distance) => {
     var coords = [];
     var first_row = y - distance;
     var last_row = y + distance;
     Utils.index_array((distance * 2) + 1).forEach((idx) => {
-      coords.push([(x - idx + distance), first_row])
+      coords.push({x: (x - idx + distance), y: first_row});
     });
     Utils.index_array((distance * 2) - 1).forEach((idx) => {
-      coords.push([(x - distance), (first_row + idx + 1)]);
-      coords.push([(x + distance), (first_row + idx + 1)]);
+      coords.push({x: (x - distance), y: (first_row + idx + 1)});
+      coords.push({x: (x + distance), y: (first_row + idx + 1)});
     });
     Utils.index_array((distance * 2) + 1).forEach((idx) => {
-      coords.push([(x - idx + distance), last_row])
+      coords.push({x: (x - idx + distance), y: last_row});
     });
     return coords;
   },

@@ -69,7 +69,7 @@ class ControllerHelper {
       distance += 1;
       var box = Utils.distance_box(x, y, distance);
       found_pieces = box.filter(coord => {
-        var space = helper.board().space(coord[0], coord[1])
+        var space = helper.board().space(coord.x, coord.y)
         return space && space.piece && space.piece.type == side;
       });
     } while (found_pieces.length == 0 && distance < 15);

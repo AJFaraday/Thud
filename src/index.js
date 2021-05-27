@@ -7,3 +7,5 @@ var game = new Game(
     troll_client: 'Manual'
   }
 );
+
+window.game = game;

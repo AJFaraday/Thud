@@ -23,7 +23,7 @@ class MoveCalculator {
     var moves = [];
     Object.values(calculator.space.directions).forEach(
       direction => {
-        direction.empty_spaces().forEach(empty_space => moves.push({x: empty_space.x, y: empty_space.y, type: 'walk'}));
+        direction.empty_spaces().forEach(empty_space => moves.push({x: empty_space.x, y: empty_space.y, type: 'walk', kills: 0}));
         var hurl_distance = direction.opposite.pieces_in_line('d');
         direction.spaces.slice(1, (hurl_distance + 1)).forEach(
           (space, index) => {
@@ -74,6 +74,9 @@ class MoveCalculator {
               )
             ) {
               var kills = space.neighbours_of_type('d');
+              if (space.piece && space.piece.type == 'd') {
+                kills += 1;
+              }
               moves.push({x: space.x, y: space.y, type: 'shove', kills: kills});
             }
           }

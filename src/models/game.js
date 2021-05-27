@@ -31,11 +31,11 @@ class Game {
     this.dwarf_controller = new Controller(this, 'd');
     this.troll_controller = new Controller(this, 't');
     this.previous_move = {
+      side: '?',
       from: {x: 0, y: 0},
       to: {x: 0, y: 0},
       type: 'game_start',
-      killed: 0,
-      lost: 0
+      killed: 0
     }
 
   }
