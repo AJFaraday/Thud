@@ -25,3 +25,13 @@ by running:
 ```shell
 npm run build
 ```
+
+This will keep running and build every time the code in src/ is updated.
+
+## Tests
+
+Thud has a test suite written in Jest. You can run it with 
+
+```shell
+npm run test
+```
