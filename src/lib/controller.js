@@ -142,7 +142,7 @@ class Controller {
         } else if (this.side == 't') {
           move.side = 't';
           move.targets = target_space.neighbours
-            .filter(neighbour => neighbour.piece && neighbour.piece.type == 'd')
+            .filter(neighbour => neighbour.is_dwarf())
             .map(dwarf => ({x: dwarf.x, y: dwarf.y}));
           this.game.report('highlight_move', move);
           return {valid: true, type: move.type, kills: move.targets.length, targets: move.targets};

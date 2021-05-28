@@ -44,7 +44,7 @@ class ControllerHelper {
   // Troll in this space kills all adjacent dwarves
   troll_swing(x, y) {
     var space = this.board().space(x, y);
-    var nearby_dwarves = space.neighbours.filter(neighbour => neighbour.piece && neighbour.piece.type == 'd');
+    var nearby_dwarves = space.neighbours.filter(neighbour => neighbour.is_dwarf());
     nearby_dwarves.forEach(dwarf => {
       this.game.report('piece_taken', Object.assign(dwarf, {side: 'd'}));
       this.game.remove_piece(dwarf);

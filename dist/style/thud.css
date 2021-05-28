@@ -2,6 +2,10 @@ body {
   background-color: black;
 }
 
+* {
+  user-select: none;
+}
+
 #thud {
   margin: auto;
 }

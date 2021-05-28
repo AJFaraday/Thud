@@ -58,6 +58,14 @@ class Space {
     return this.neighbours.filter((s) => s.piece && s.piece.type == type).length;
   }
 
+  is_dwarf() {
+    return this.piece && this.piece.type == 'd';
+  }
+
+  is_troll() {
+    return this.piece && this.piece.type == 't';
+  }
+
 }
 
 module.exports = Space;

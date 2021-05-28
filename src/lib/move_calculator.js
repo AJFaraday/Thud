@@ -53,7 +53,7 @@ class MoveCalculator {
       }
     );
     calculator.space.neighbours.filter(
-      neighbour => (neighbour.piece && neighbour.piece.type == 'd')
+      neighbour => (neighbour.is_dwarf())
     ).forEach(
       neighbour => {
         var kills = neighbour.neighbours_of_type('d');
@@ -67,14 +67,14 @@ class MoveCalculator {
         direction.spaces.slice(2, shove_distance + 1).forEach(
           (space, index) => {
             if (
-              space.piece && space.piece.type == 'd' ||
+              space.is_dwarf() ||
               (
                 calculator.space_between_is_empty(direction, index) &&
                 calculator.space_has_dwarf_neighours(space)
               )
             ) {
               var kills = space.neighbours_of_type('d');
-              if (space.piece && space.piece.type == 'd') {
+              if (space.is_dwarf()) {
                 kills += 1;
               }
               moves.push({x: space.x, y: space.y, type: 'shove', kills: kills});
