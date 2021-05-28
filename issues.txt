@@ -3,9 +3,10 @@ Issues to resolve:
 * Reverse direction_calculator. To record which moves are dangerous.
 * convenience method to combine select_space and move
 * Update interface docs
+* could anything else have is_dwarf() and is_troll() methods? - Controller? Client?
 
 Long term thinking:
-* Unit test suite
+* Write up challenge, put it on sandbox
 * Couple of test clients
 * Tournament runner
 * Import script
