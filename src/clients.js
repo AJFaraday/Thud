@@ -1,8 +1,3 @@
-Clients = {}
-
-
-
-/*
 module.exports = {
   Manual: require('./clients/manual.js'),
   Dummy: require('./clients/dummy.js'),
@@ -11,4 +6,4 @@ module.exports = {
     LastMove: require('./clients/troll/last_move.js')
   }
 };
- */
+
