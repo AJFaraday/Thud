@@ -5,8 +5,8 @@ function new_game() {
   return new Game(
     {
       reporters: [],
-      dwarf_client: 'Dummy',
-      troll_client: 'Dummy'
+      dwarf_client: 'dummy',
+      troll_client: 'dummy'
     }
   );
 }

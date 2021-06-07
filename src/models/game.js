@@ -90,6 +90,7 @@ class Game {
       if (client_type.includes('/')) {
         var parts = client_type.split('/');
         var client_class = Clients[parts[0]][parts[1]];
+        console.log(client_class)
         return new client_class(this, controller);
       } else {
         var client_class = Clients[client_type];

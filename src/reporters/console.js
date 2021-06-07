@@ -83,7 +83,7 @@ class Console {
   // this.game.get_score()
   game_ended(args) {
     var score = this.game.get_score();
-    console.log(`Game over! ${args.reason}! ${this.get_side(score.side)} wins by ${score.difference}`);
+    console.log(`Game over! ${args.reason}! ${this.get_side(score.winning)} win by ${score.difference}`);
   }
 
   get_side(side) {

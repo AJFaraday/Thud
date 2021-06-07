@@ -3,23 +3,37 @@ class Lucky_7 {
     this.game = game;
     this.controller = controller;
     this.side = controller.side;
+    this.it_is_a_day = false;
   }
 
   turn() {
-    var target = this.controller.previous_move().to;
-    var troll = this.controller.space_info(target.x, target.y).nearest_troll.pieces[0];
-    this.controller.select_space(troll.x, troll.y);
-    var moves = this.controller.check_space(troll.x, troll.y);
-    moves.forEach((move) => {
-      move.distance = (Utils.distance_between(move, target));
-    });
-    var closest_move = moves.sort((a,b) => {return a.distance - b.distance})[0];
-    this.controller.move(closest_move.x, closest_move.y);
+    var dwarf = this.controller.dwarves()[7];
+    if(dwarf) {
+      var moves = this.controller.check_space(dwarf.x, dwarf.y);
+      if(moves[7]) {
+        this.controller.select_space(dwarf.x, dwarf.y);
+        this.controller.move(moves[7].x, moves[7].y);
+      } else {
+        this.call_it_a_day();
+      }
+    } else {
+      this.call_it_a_day();
+    }
+  }
+
+  call_it_a_day() {
+    this.it_is_a_day = true;
+    this.controller.declare(true);
+
+    var dwarf = this.controller.dwarves()[0];
+    var moves = this.controller.check_space(dwarf.x, dwarf.y);
+    this.controller.select_space(dwarf.x, dwarf.y);
+    this.controller.move(moves[0].x, moves[0].y);
   }
 
   end_turn() {
     var scores = this.controller.scores();
-    this.controller.declare(scores.winning == 't');
+    this.controller.declare(this.it_is_a_day || scores.winning == 'd');
   }
 
 }
