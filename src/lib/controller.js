@@ -179,9 +179,11 @@ class Controller {
   declare(game_over) {
     this.declared = game_over;
     this.game.report('player_declared', {side: this.side, game_over: game_over});
+    /*
     if (this.opponent_declared()) {
       this.game.end_turn();
     }
+     */
   }
 
   opponent_declared() {
