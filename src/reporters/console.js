@@ -4,6 +4,10 @@ class Console {
     this.board = game.board;
   }
 
+  reinit(args) {
+    console.log("Starting new game.")
+  }
+
   // Reports the current state of the board
   // this.board.spaces
   board_state({}) {

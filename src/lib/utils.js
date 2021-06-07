@@ -66,6 +66,13 @@ Utils = {
     return Array.from(new Array(size), (_, i) => {
       return i;
     });
+  },
+
+  // Source and target both respond to x and y.
+  distance_between(source, target) {
+    var x_dist = Math.abs(source.x - target.x);
+    var y_dist = Math.abs(source.y - target.y);
+    return x_dist + y_dist;
   }
 };
 

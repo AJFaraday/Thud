@@ -18,73 +18,57 @@ class Controller {
 
   scores() {
     var controller = this;
-    return this.wrapper(() => controller.game.get_score());
+    return controller.game.get_score();
   }
 
   spaces() {
     var controller = this;
-    return this.wrapper(() => {
-      return Array.from(
-        controller.game.board.spaces,
-        space => controller.helper.space_proxy(space)
-      );
-    });
+    return Array.from(
+      controller.game.board.spaces,
+      space => controller.helper.space_proxy(space)
+    );
   }
 
   space_info(x, y) {
     var controller = this;
-    return this.wrapper(() => {
-      return controller.helper.space_info(x, y);
-    });
+    return controller.helper.space_info(x, y);
   }
 
   dwarves() {
     var controller = this;
-    return this.wrapper(() => {
-        return Array.from(
-          controller.game.dwarves,
-          dwarf => ({x: dwarf.x, y: dwarf.y})
-        );
-      }
+    return Array.from(
+      controller.game.dwarves,
+      dwarf => ({x: dwarf.x, y: dwarf.y})
     );
   }
 
   trolls() {
     var controller = this;
-    return this.wrapper(() => {
-        return Array.from(
-          controller.game.trolls,
-          troll => ({x: troll.x, y: troll.y})
-        );
-      }
+    return Array.from(
+      controller.game.trolls,
+      troll => ({x: troll.x, y: troll.y})
     );
   }
 
   indexed_dwarves() {
     var controller = this;
-    return this.wrapper(() => {
-        return Array.from(
-          controller.game.indexed_dwarves,
-          dwarf => (dwarf ? {x: dwarf.x, y: dwarf.y} : null)
-        );
-      }
+    return Array.from(
+      controller.game.indexed_dwarves,
+      dwarf => (dwarf ? {x: dwarf.x, y: dwarf.y} : null)
     );
   }
 
   indexed_trolls() {
     var controller = this;
-    return this.wrapper(() => {
-        return Array.from(
-          controller.game.indexed_trolls,
-          troll => (troll ? {x: troll.x, y: troll.y} : null)
-        );
-      }
+    return Array.from(
+      controller.game.indexed_trolls,
+      troll => (troll ? {x: troll.x, y: troll.y} : null)
     );
   }
 
   previous_move() {
     var controller = this;
-    return this.wrapper(() => Object.assign(controller.game.previous_move));
+    return Object.assign(controller.game.previous_move);
   }
 
 // Actual actions
@@ -195,7 +179,7 @@ class Controller {
   declare(game_over) {
     this.declared = game_over;
     this.game.report('player_declared', {side: this.side, game_over: game_over});
-    if(this.opponent_declared()) {
+    if (this.opponent_declared()) {
       this.game.end_turn();
     }
   }

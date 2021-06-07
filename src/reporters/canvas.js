@@ -23,6 +23,17 @@ class Canvas {
     reporter.build_declare_buttons();
   }
 
+  reinit() {
+    document.getElementById('thud_dashboard').innerHTML = "";
+    document.getElementById('thud_board').innerHTML = "";
+    document.getElementById('buttons').innerHTML = "";
+    this.build_overlay_canvas();
+    this.build_canvas();
+    this.build_dashboard();
+    this.draw_board();
+    this.build_declare_buttons();
+  }
+
   build_canvas() {
     this.canvas = Utils.build_element(
       'canvas',
@@ -341,7 +352,7 @@ class Canvas {
     } else if (args.side == 't') {
       button = this.troll_declare_button;
     }
-    if(args.game_over) {
+    if (args.game_over) {
       button.innerHTML = 'Make War';
     } else {
       button.innerHTML = 'Make Peace';

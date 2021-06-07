@@ -18,6 +18,21 @@ class Game {
     this.turn();
   }
 
+  reinit(dwarf_client, troll_client) {
+    this.initialise_properties();
+    this.init_board();
+    this.reporters.forEach((reporter) => {
+      reporter.reinit();
+    });
+    this.clients = {
+      d: this.init_client(dwarf_client, this.dwarf_controller),
+      t: this.init_client(troll_client, this.troll_controller)
+    }
+    this.report('score');
+    this.current_side = 'd';
+    this.turn();
+  }
+
   init_board() {
     this.board = new Board(this);
   }
@@ -72,8 +87,14 @@ class Game {
 
   init_client(client_type, controller) {
     if (typeof client_type == 'string') {
-      var client_class = Clients[client_type];
-      return new client_class(this, controller);
+      if (client_type.includes('/')) {
+        var parts = client_type.split('/');
+        var client_class = Clients[parts[0]][parts[1]];
+        return new client_class(this, controller);
+      } else {
+        var client_class = Clients[client_type];
+        return new client_class(this, controller);
+      }
     } else {
       return new client_type(this, controller);
     }

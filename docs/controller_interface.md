@@ -45,7 +45,7 @@ controller.turn();
 Returns the current score of the game.
 
 ```js
-controller.score();
+controller.scores();
 /* 
   {
    dwarves: 12, 
