@@ -5,9 +5,14 @@ Issues to resolve:
 * could anything else have is_dwarf() and is_troll() methods? - Controller? Client?
 * Stop passing game into client classes
 * troll can be shoved onto another troll. Not great.
+* ms delay attribute between turns. (Allow users to watch)
 
 Long term thinking:
 * Write up challenge, put it on sandbox
 * Couple of test clients
+* UI to customise game
+** which clients
+** speed
+** modify code?!?
 * Tournament runner
 * Import script
