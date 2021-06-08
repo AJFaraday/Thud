@@ -9,7 +9,7 @@ class Game {
   static max_game_length = 200;
 
   constructor(attrs) {
-    this.initialise_properties();
+    this.initialise_properties(attrs);
     this.init_board();
     this.init_reporters(attrs);
     this.init_clients(attrs);
@@ -18,8 +18,8 @@ class Game {
     this.turn();
   }
 
-  reinit(dwarf_client, troll_client) {
-    this.initialise_properties();
+  reinit(dwarf_client, troll_client, delay = 0) {
+    this.initialise_properties({delay: delay});
     this.init_board();
     this.reporters.forEach((reporter) => {
       reporter.reinit();
@@ -37,7 +37,8 @@ class Game {
     this.board = new Board(this);
   }
 
-  initialise_properties() {
+  initialise_properties(attrs) {
+    this.delay = attrs.delay || 0;
     this.dwarves = [];
     this.trolls = [];
     this.indexed_dwarves = [];
@@ -87,17 +88,10 @@ class Game {
 
   init_client(client_type, controller) {
     if (typeof client_type == 'string') {
-      if (client_type.includes('/')) {
-        var parts = client_type.split('/');
-        var client_class = Clients[parts[0]][parts[1]];
-        console.log(client_class)
-        return new client_class(this, controller);
-      } else {
-        var client_class = Clients[client_type];
-        return new client_class(this, controller);
-      }
+      var client_class = Clients[client_type];
+      return new client_class(controller);
     } else {
-      return new client_type(this, controller);
+      return new client_type(controller);
     }
   }
 
@@ -131,7 +125,14 @@ class Game {
     if (ending) {
       this.report('game_ended', ending);
     } else {
-      this.turn();
+      if (this.delay && this.delay > 0) {
+        console.log(this.delay)
+        setTimeout(() => {
+          this.turn()
+        }, this.delay);
+      } else {
+        this.turn();
+      }
     }
   }
 

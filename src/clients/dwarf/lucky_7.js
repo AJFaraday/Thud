@@ -1,6 +1,5 @@
-class Lucky_7 {
-  constructor(game, controller) {
-    this.game = game;
+module.exports = class {
+  constructor(controller) {
     this.controller = controller;
     this.side = controller.side;
     this.it_is_a_day = false;
@@ -37,5 +36,3 @@ class Lucky_7 {
   }
 
 }
-
-module.exports = Lucky_7;

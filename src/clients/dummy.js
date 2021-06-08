@@ -1,6 +1,5 @@
-class Dummy {
-  constructor(game, controller) {
-    this.game = game;
+module.exports = class {
+  constructor(controller) {
     this.controller = controller;
     this.side = controller.side;
   }
@@ -13,5 +12,3 @@ class Dummy {
 
 
 }
-
-module.exports = Dummy;

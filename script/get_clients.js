@@ -1,32 +1,29 @@
 const fs = require('fs');
 
-var string = 'module.exports = {'
 
-function read_file(file) {
-  if (file.includes('.')) {
-    var parts = file.split('.');
-    string += `\n  ${parts[0]}: require('./clients/${file}'),`;
-  } else {
-    read_directory(file);
+function getFiles(path) {
+  const files = []
+  for (const file of fs.readdirSync(path)) {
+    const fullPath = path + '/' + file
+    if(fs.lstatSync(fullPath).isDirectory())
+      getFiles(fullPath).forEach(x => files.push(file + '/' + x))
+    else files.push(file)
   }
+  return files
 }
 
-function read_directory(dir) {
-  string += `\n  ${dir}: {`;
-  var files = fs.readdirSync(`${__dirname}/../src/clients/${dir}`);
-  files.forEach((file) => {
-    var parts = file.split('.');
-    string += `\n    ${parts[0]}: require('./clients/${dir}/${file}')`;
-  });
-  string += '\n  },'
-}
 
-const files = fs.readdirSync(`${__dirname}/../src/clients`);
-files.forEach((file) => {
-  read_file(file)
+
+var string = 'module.exports = {'
+var files = getFiles('./src/clients/');
+files.forEach((path) => {
+  var parts = path.split('./src/clients/');
+  var filename = parts[0];
+  var name = filename.split('.')[0];
+  string += `\n  '${name}': require('./clients/${path}'),`
 });
-
 string += "\n};"
+
 
 fs.writeFile(
   `${__dirname}/../src/clients.js`,

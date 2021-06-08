@@ -1,14 +1,11 @@
 const Utils = require('./../lib/utils.js');
 const Reporters = require('./../reporters.js');
-const MoveCalculator = require('./../lib/move_calculator.js');
 
 // This is strongly coupled with Reporters.Canvas
 class Manual {
-  constructor(game, controller) {
-    this.game = game;
+  constructor(controller) {
     this.controller = controller;
     this.side = controller.side;
-
     this.canvas = document.querySelector("#thud_board canvas");
   }
 
@@ -54,27 +51,26 @@ class Manual {
     var space = this.space_at(event.offsetX, event.offsetY);
     if (space.piece) {
       console.log(space.piece)
-      var move_calculator = new MoveCalculator(this.game.board, space, space.piece.type)
-      move_calculator.moves.forEach(
-        move => this.game.reporters[0].outline_space(move, Reporters.Canvas.move_colours[move.type])
+      space.moves.forEach(
+        move => game.reporters[0].outline_space(move, Reporters.Canvas.move_colours[move.type])
       );
     } else {
       console.log(space)
     }
-    this.game.current_controller().space_info(space.x, space.y).nearest_troll.pieces.forEach(
+    game.current_controller().space_info(space.x, space.y).nearest_troll.pieces.forEach(
       (coord) => {
-        this.game.reporters[0].outline_space(coord, 'green')
+        game.reporters[0].outline_space(coord, 'green')
       }
     );
-    this.game.current_controller().space_info(space.x, space.y).nearest_dwarf.pieces.forEach(
+    game.current_controller().space_info(space.x, space.y).nearest_dwarf.pieces.forEach(
       (coord) => {
-        this.game.reporters[0].outline_space(coord, 'blue')
+        game.reporters[0].outline_space(coord, 'blue')
       }
     );
   }
 
   space_at(x, y) {
-    return this.game.board.space(
+    return this.controller.space_info(
       Math.floor(x / Reporters.Canvas.space_size),
       Math.floor(y / Reporters.Canvas.space_size)
     );
