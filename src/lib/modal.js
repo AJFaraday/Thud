@@ -16,6 +16,8 @@ class Modal {
     this.background.style.display = 'block';
 
     this.modal_div.style.width = '300px';
+    this.modal_div.style.height = '200px';
+    this.modal_div.style.top = `110px`;
     this.modal_div.style.left = `${((window.innerWidth - 300) / 2) - 20}px`;
 
     this.modal_div.style.display = 'block';
@@ -33,7 +35,9 @@ class Modal {
     title.innerHTML = 'Customise Game';
     this.modal_div.append(title);
     this.form = Utils.build_element('form');
-    Utils.addListener(this.form, 'submit', (e) => {this.submit_form(e, this)});
+    Utils.addListener(this.form, 'submit', (e) => {
+      this.submit_form(e, this)
+    });
     this.build_client_select('Dwarf', this.game.dwarf_client_name, ['inert', 'dwarf']);
     this.build_client_select('Troll', this.game.troll_client_name, ['inert', 'troll']);
     this.build_speed_select();
@@ -55,17 +59,23 @@ class Modal {
       select.append(optgroup);
     });
     this.form.append(select);
+
+    var edit_link = Utils.build_element('a', {href: '#'}, {float: 'right'});
+    edit_link.innerHTML = 'Edit';
+    edit_link.addEventListener('mouseup', this.open_edit_form)
+    this.form.append(edit_link);
+
     this.form.append(Utils.build_element('br', {clear: 'both'}));
     this.form.append(Utils.build_element('br', {clear: 'both'}));
   }
 
   build_client_option(select, optgroups, client_name, current_client_name, groups) {
     var parts = client_name.split('/');
-    if(!groups.includes(parts[0])) {
+    if (!groups.includes(parts[0])) {
       return;
     }
     var optgroup = optgroups[parts[0]];
-    if(!optgroup) {
+    if (!optgroup) {
       optgroup = Utils.build_element('optgroup', {label: parts[0]});
       optgroups[parts[0]] = optgroup;
     }
@@ -120,6 +130,42 @@ class Modal {
       form_data.get('speed')
     )
     modal.hide_form();
+  }
+
+  open_edit_form(e) {
+    e.preventDefault();
+    var client_name = e.currentTarget.previousElementSibling.value;
+
+    modal.background.style.width = `${window.innerWidth}px`;
+    modal.background.style.height = `${window.innerHeight}px`;
+    modal.background.style.display = 'block';
+
+    modal.modal_div.style.width = '600px';
+    modal.modal_div.style.top = '50px';
+    modal.modal_div.style.height = `${window.innerHeight - 150}px`;
+    modal.modal_div.style.left = `${((window.innerWidth - 600) / 2) - 20}px`;
+
+    modal.modal_div.style.display = 'block';
+    modal.build_edit_form(client_name);
+  }
+
+  build_edit_form(client_name) {
+
+    this.modal_div.innerHTML = '';
+    var title = Utils.build_element('h2');
+    title.innerHTML = `Edit ${client_name}`;
+    this.modal_div.append(title);
+
+    var area = Utils.build_element(
+      'textarea',
+      {name: 'client_body'},
+      {
+        width: `${this.modal_div.offsetWidth - 45}px`,
+        height: `${this.modal_div.offsetHeight - 150}px`
+      }
+    );
+    area.value = Clients[client_name].toString();
+    this.modal_div.append(area);
   }
 }
 
