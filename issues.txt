@@ -1,15 +1,22 @@
 Issues to resolve:
 
-* Reverse direction_calculator. To record which moves are dangerous.
+
 * convenience method to combine select_space and move
 * could anything else have is_dwarf() and is_troll() methods? - Controller? Client?
 * Stop passing game into client classes
 * troll can be shoved onto another troll. Not great.
-* ms delay attribute between turns. (Allow users to watch)
+* Controller Utils class
+** Distance between (currently in Utils)
+** Move towards
+* Reverse direction_calculator. To record which moves are dangerous.
+* Change canvas reporter - kills always red, dangerous spaces always orange
 
 Long term thinking:
 * Write up challenge, put it on sandbox
-* Couple of test clients
+* moar test clients
+* protect against games halting
+** Mechanism to disqualify if a turn finishes without a move.
+** Some way to mark clients (e.g. manual and dummy) which bypass this.
 * UI to customise game
 ** which clients
 ** speed

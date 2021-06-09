@@ -8,8 +8,8 @@ function new_game() {
   return new Game(
     {
       reporters: [],
-      dwarf_client: 'dummy',
-      troll_client: 'dummy'
+      dwarf_client: 'inert/dummy',
+      troll_client: 'inert/dummy'
     }
   );
 }
@@ -44,8 +44,8 @@ it('should build reporters by name and report to them', () => {
   var game = new Game(
     {
       reporters: ['Console'],
-      dwarf_client: 'dummy',
-      troll_client: 'dummy'
+      dwarf_client: 'inert/dummy',
+      troll_client: 'inert/dummy'
     }
   );
   var reporter = game.reporters[0];
@@ -61,12 +61,12 @@ it('should build clients based on names', () => {
   var game = new Game(
     {
       reporters: [],
-      dwarf_client: 'dummy',
-      troll_client: 'dummy_two'
+      dwarf_client: 'inert/dummy',
+      troll_client: 'inert/dummy_two'
     }
   );
-  expect(game.clients.d).toBeInstanceOf(Clients.dummy)
-  expect(game.clients.t).toBeInstanceOf(Clients.dummy_two)
+  expect(game.clients.d).toBeInstanceOf(Clients['inert/dummy'])
+  expect(game.clients.t).toBeInstanceOf(Clients['inert/dummy_two'])
 });
 
 it('should get the score based on current state', () => {

@@ -1,5 +1,5 @@
-const Utils = require('./../lib/utils.js');
-const Reporters = require('./../reporters.js');
+const Utils = require('./../../lib/utils.js');
+const Reporters = require('./../../reporters.js');
 
 // This is strongly coupled with Reporters.Canvas
 class Manual {

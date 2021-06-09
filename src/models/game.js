@@ -24,10 +24,7 @@ class Game {
     this.reporters.forEach((reporter) => {
       reporter.reinit();
     });
-    this.clients = {
-      d: this.init_client(dwarf_client, this.dwarf_controller),
-      t: this.init_client(troll_client, this.troll_controller)
-    }
+    this.init_clients({dwarf_client: dwarf_client, troll_client: troll_client});
     this.report('score');
     this.current_side = 'd';
     this.turn();
@@ -80,6 +77,8 @@ class Game {
   }
 
   init_clients(attrs) {
+    this.dwarf_client_name = attrs.dwarf_client;
+    this.troll_client_name = attrs.troll_client;
     this.clients = {
       d: this.init_client(attrs.dwarf_client, this.dwarf_controller),
       t: this.init_client(attrs.troll_client, this.troll_controller)
