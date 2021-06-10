@@ -1,7 +1,5 @@
 Issues to resolve:
 
-* convenience method to combine select_space and move
-* could anything else have is_dwarf() and is_troll() methods? - Controller? Client?
 * troll can be shoved onto another troll. Not great.
 * Controller Utils class
 ** Distance between (currently in Utils)
@@ -11,18 +9,21 @@ Issues to resolve:
 
 Nice to haves:
 * Codemirror or similar plugin on code editing
+* convenience method to combine select_space and move
+* Standard way to respond to either (x, y) or ({x: x, y: y}) (lots of places could use this)
 
 Long term thinking:
 * Write up challenge, put it on sandbox
+* Code validator (used on edit and import)
+** Code evaluates
+** Doesn't include forbidden terms (game, rand...)
+** Defines a class
+** Class can finish play a game against a default client (every turn has a move)
+*** This feels heavyweight, but seems to take milliseconds
 * moar test clients
 * protect against games halting
 ** Mechanism to disqualify if a turn finishes without a move.
-** Some way to mark clients (e.g. manual and dummy) which bypass this.
 ** Only if they are in the inert group, we don't enforce this.
 ** Maybe functions: player_name
-* UI to customise game
-** which clients
-** speed
-** modify code?!?
 * Tournament runner
 * Import script
