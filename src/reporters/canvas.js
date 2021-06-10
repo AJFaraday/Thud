@@ -111,8 +111,7 @@ class Canvas {
       {
         id: 'customise_button',
         class: 'customise_button'
-      },
-      {margin: 'auto'}
+      }
     );
     this.customise_button.innerHTML = 'Customise';
     Utils.addListener(this.customise_button, 'mouseup', () => {window.modal.show_form()}, false);
