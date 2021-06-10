@@ -21,6 +21,7 @@ class Canvas {
     reporter.build_dashboard();
     reporter.draw_board();
     reporter.build_declare_buttons();
+    this.build_customise_button();
   }
 
   reinit() {
@@ -32,6 +33,7 @@ class Canvas {
     this.build_dashboard();
     this.draw_board();
     this.build_declare_buttons();
+    this.build_customise_button();
   }
 
   build_canvas() {
@@ -101,6 +103,22 @@ class Canvas {
     );
     this.troll_declare_button.innerHTML = 'Make Peace';
     document.getElementById('buttons').append(this.troll_declare_button);
+  }
+
+  build_customise_button() {
+    this.customise_button = Utils.build_element(
+      'div',
+      {
+        id: 'customise_button',
+        class: 'customise_button'
+      }
+    );
+    this.customise_button.innerHTML = 'Customise';
+    Utils.addListener(this.customise_button, 'mouseup', () => {window.modal.show_form()}, false);
+    var buttons_div =document.getElementById('buttons');
+    buttons_div.append(Utils.build_element('br', {clear: 'both'}));
+    buttons_div.append(Utils.build_element('br', {clear: 'both'}));
+    buttons_div.append(this.customise_button);
   }
 
   build_side(colour, title) {

@@ -62,5 +62,64 @@ body {
   text-align: center;
   font-size: 20px;
   padding-top: 15px;
-  color: white
+  color: white;
+}
+
+.customise_button {
+  margin: auto;
+  width: 150px;
+  height: 40px;
+  border-radius: 20px;
+  text-align: center;
+  font-size: 20px;
+  padding-top: 15px;
+  background-color: darkgray;
+  color: white;
+}
+
+.button {
+  /*float: left;*/
+  width: 150px;
+  height: 40px;
+  border-radius: 20px;
+  text-align: center;
+  font-size: 20px;
+  padding-top: 15px;
+  background-color: darkgray;
+  color: white;
+}
+
+#modal_background {
+  position: absolute;
+  background-color: black;
+  opacity: 0.6;
+  top: 0;
+  left: 0;
+  z-index: 3 ;
+}
+
+#modal {
+  display: none;
+  position: absolute;
+  background-color: white;
+  opacity: 0.8;
+  border-radius: 20px;
+  z-index: 4;
+  left: 15%;
+  padding: 20px;
+  font-size: 17px;
+}
+
+label {
+  width: 100px;
+  float:left;
+  display: block;
+}
+
+#modal > h2 {
+  line-height: 0;
+}
+
+#form {
+
 }
