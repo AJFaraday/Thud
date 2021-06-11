@@ -58,8 +58,14 @@ test('initializes with client_body and path', () => {
   expect(client_validator.client_class()).not.toBeUndefined();
   expect(client_validator.test_client()).toBeInstanceOf(client_validator.client_class());
   expect(client_validator.valid).toBeTruthy();
+  expect(client_validator.messages).toBeInstanceOf(Array);
+  expect(client_validator.messages).toEqual([
+    "Completed game against troll/default/last_move in 75 turns",
+    "Game over! Players agreed to finish! t win by 25"
+  ]);
   expect(client_validator.errors).toBeInstanceOf(Array);
   expect(client_validator.errors.length).toEqual(0);
+
 });
 
 test('should error when the code does not evaluate', () => {
@@ -67,9 +73,9 @@ test('should error when the code does not evaluate', () => {
   var client_validator = new ClientValidator(body, 'dwarf/test/simple');
   expect(client_validator).toBeInstanceOf(ClientValidator);
   expect(client_validator.path).toEqual('dwarf/test/simple');
-  expect(client_validator.client_class()).toBeUndefined();
   expect(client_validator.errors.length).toEqual(1);
   expect(client_validator.errors[0]).toEqual('Error evaluating code: SyntaxError: Unexpected end of input')
+  expect(client_validator.client_class()).toBeUndefined();
   expect(client_validator.test_client()).toBeUndefined();
 });
 
@@ -85,7 +91,8 @@ test('should error when the class does not initialize', () => {
   expect(client_validator.client_class()).not.toBeUndefined();
   expect(client_validator.test_client()).toBeUndefined();
   expect(client_validator.errors.length).toEqual(1);
-  expect(client_validator.errors[0]).toEqual('Error initializing test client: oops')
+  expect(client_validator.errors[0]).toEqual('Error initializing test client: oops');
+  expect(client_validator.is_dwarf()).toEqual(true);
 });
 
 test("should validate it doesn't use `game`", () => {
@@ -101,9 +108,10 @@ test("should validate it doesn't use `game`", () => {
   }
 }`
   var client_validator = new ClientValidator(body, 'dwarf/test/simple');
-  expect(client_validator.validate()).toBeFalsy();
-  expect(client_validator.errors.length).toEqual(1);
+  expect(client_validator.valid).toBeFalsy();
+  expect(client_validator.errors.length).toEqual(2);
   expect(client_validator.errors[0]).toEqual("Use of the `game` global variable is forbidden");
+  expect(client_validator.errors[1]).toEqual("Error while running game against troll/default/last_move: ReferenceError: game is not defined");
 });
 
 test("should validate it doesn't use `Math.random`", () => {
@@ -119,7 +127,70 @@ test("should validate it doesn't use `Math.random`", () => {
   }
 }`
   var client_validator = new ClientValidator(body, 'dwarf/test/simple');
-  expect(client_validator.validate()).toBeFalsy();
-  expect(client_validator.errors.length).toEqual(1);
+  expect(client_validator.valid).toBeFalsy();
+  expect(client_validator.errors.length).toEqual(2);
   expect(client_validator.errors[0]).toEqual("Use of the `Math.random` function is forbidden");
+  expect(client_validator.errors[1]).toEqual("Did not finish game against troll/default/last_move. Probably because this client did not call a valid move within the turn method");
+});
+
+it('should check it can complete a match', () => {
+  // positive case
+  var client_body = `class {
+    constructor(controller) {
+      this.controller = controller;
+      this.side = controller.side;
+    }
+
+    turn() {
+      var dwarf = this.controller.dwarves()[0];
+      if(dwarf) {
+        var moves = this.controller.check_space(dwarf.x, dwarf.y);
+        if(moves[0]) {
+          this.controller.select_space(dwarf.x, dwarf.y);
+          this.controller.move(moves[0].x, moves[0].y);
+        }
+      }
+    }
+
+    end_turn() {
+    }
+
+  }`
+  var client_validator = new ClientValidator(client_body, 'dwarf/test/simple');
+  expect(client_validator.valid).toEqual(true);
+  expect(client_validator.messages.length).toEqual(2);
+  expect(client_validator.messages[0]).toEqual('Completed game against troll/default/last_move in 66 turns');
+  expect(client_validator.messages[1]).toEqual('Game over! No more dwarves! t win by 32')
+
+  // Negative case
+  var client_body = `class {
+    constructor(controller) {
+      this.controller = controller;
+      this.side = controller.side;
+    }
+
+    turn() {
+      var dwarf = this.controller.dwarves()[0];
+      if(this.controller.turn() < 10) {
+        if(dwarf) {
+          var moves = this.controller.check_space(dwarf.x, dwarf.y);
+          if(moves[0]) {
+            this.controller.select_space(dwarf.x, dwarf.y);
+            this.controller.move(moves[0].x, moves[0].y);
+          }
+        }
+      }  
+    }
+
+    end_turn() {
+    }
+
+  }`
+  var client_validator = new ClientValidator(client_body, 'dwarf/test/simple');
+  expect(client_validator.valid).toEqual(false);
+  expect(client_validator.errors.length).toEqual(1);
+  expect(client_validator.errors[0]).toEqual(
+    'Did not finish game against troll/default/last_move. Probably because this client did not call a valid move within the turn method'
+  );
+
 });

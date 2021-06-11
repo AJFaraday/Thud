@@ -122,6 +122,7 @@ class Game {
     this.report('score');
     var ending = this.check_ending_conditions();
     if (ending) {
+      this.end_reason = ending.reason;
       this.report('game_ended', ending);
     } else {
       if (this.delay && this.delay > 0) {
