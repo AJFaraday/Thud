@@ -61,7 +61,7 @@ test('initializes with client_body and path', () => {
   expect(client_validator.messages).toBeInstanceOf(Array);
   expect(client_validator.messages).toEqual([
     "Completed game against troll/default/last_move in 75 turns",
-    "Game over! Players agreed to finish! t win by 25"
+    "Players agreed to finish! t win by 25"
   ]);
   expect(client_validator.errors).toBeInstanceOf(Array);
   expect(client_validator.errors.length).toEqual(0);
@@ -160,7 +160,7 @@ it('should check it can complete a match', () => {
   expect(client_validator.valid).toEqual(true);
   expect(client_validator.messages.length).toEqual(2);
   expect(client_validator.messages[0]).toEqual('Completed game against troll/default/last_move in 66 turns');
-  expect(client_validator.messages[1]).toEqual('Game over! No more dwarves! t win by 32')
+  expect(client_validator.messages[1]).toEqual('No more dwarves! t win by 32')
 
   // Negative case
   var client_body = `class {

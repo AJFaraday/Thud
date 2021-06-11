@@ -99,7 +99,7 @@ class ClientValidator {
             if (game.end_reason) {
               this.messages.push(`Completed game against ${client_path} in ${game.turn_number} turns`);
               var score = game.get_score();
-              this.messages.push(`Game over! ${game.end_reason}! ${score.winning} win by ${score.difference}`);
+              this.messages.push(`${game.end_reason}! ${score.winning} win by ${score.difference}`);
             } else {
               this.add_error(`Did not finish game against ${client_path}. Probably because this client did not call a valid move within the turn method`);
             }

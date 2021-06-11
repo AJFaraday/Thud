@@ -1,6 +1,7 @@
 Issues to resolve:
 
 * troll can be shoved onto another troll. Not great.
+* only show Edit link for non-inert clients
 * Controller Utils class
 ** Distance between (currently in Utils)
 ** Move towards

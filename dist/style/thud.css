@@ -87,6 +87,17 @@ body {
   padding-top: 15px;
   background-color: darkgray;
   color: white;
+  margin-left: 5px;
+}
+
+.green {
+  background-color: lightgreen;
+  color: black;
+}
+
+.red {
+  background-color: pink;
+  color: black;
 }
 
 #modal_background {
