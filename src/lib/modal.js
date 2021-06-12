@@ -7,7 +7,7 @@ class Modal {
     this.game = game;
     this.background = document.getElementById('modal_background');
     this.modal_div = document.getElementById('modal');
-
+    this.validating = false;
   }
 
   show_form() {
@@ -175,7 +175,9 @@ class Modal {
       }
     );
     area.value = Clients[client_name].toString();
-    area.addEventListener('keyup', () => {this.validate_client()});
+    area.addEventListener('keyup', () => {
+      this.validate_client()
+    });
     this.modal_div.append(area);
 
     var save_button = Utils.build_element('div', {class: 'button'}, {float: 'left'});
@@ -192,6 +194,7 @@ class Modal {
 
     this.validate_button = Utils.build_element('div', {class: 'button'}, {float: 'right'});
     this.validate_button.innerHTML = 'Validate';
+    this.validate_button.title = 'Press F12 to see more details in the developer console';
     this.validate_button.addEventListener('mouseup', () => {
       this.validate_client();
     });
@@ -205,31 +208,40 @@ class Modal {
   }
 
   validate_client() {
-    var client_name = document.getElementsByName('client_name')[0].value;
-    var client_body_field = document.getElementsByName('client_body')[0]
-    var client_body = client_body_field.value;
-    var validator = new ClientValidator(client_body, client_name);
-    console.clear();
-    if (validator.valid) {
-      this.validate_button.classList.remove('red');
-      this.validate_button.classList.add('green');
-      console.log("%c Client valid!", 'color: #009900')
+    if (this.validating) {
+      this.validate_again = true;
     } else {
-      this.validate_button.classList.remove('green');
-      this.validate_button.classList.add('red');
+      this.validate_again = false;
+      this.validating = true;
+      var client_name = document.getElementsByName('client_name')[0].value;
+      var client_body_field = document.getElementsByName('client_body')[0]
+      var client_body = client_body_field.value;
+      var validator = new ClientValidator(client_body, client_name);
+      console.clear();
+      if (validator.valid) {
+        this.validate_button.classList.remove('red');
+        this.validate_button.classList.add('green');
+        console.log("%c Client valid!", 'color: #009900')
+      } else {
+        this.validate_button.classList.remove('green');
+        this.validate_button.classList.add('red');
 
-      console.log("%c Client invalid:", 'color: #FF0000')
-      validator.errors.forEach((error) => {
-        console.log(`%c ${error}`, 'color: #FF0000')
-      });
+        console.log("%c Client invalid:", 'color: #FF0000')
+        validator.errors.forEach((error) => {
+          console.log(`%c ${error}`, 'color: #FF0000')
+        });
+      }
+      if (validator.messages.length > 0) {
+        console.log("Messages:")
+        validator.messages.forEach((message) => {
+          console.log(message);
+        });
+      }
+      this.validating = false;
+      if (this.validate_again) {
+        this.validate_client();
+      }
     }
-    if (validator.messages.length > 0) {
-      console.log("Messages:")
-      validator.messages.forEach((message) => {
-        console.log(message);
-      });
-    }
-
   }
 
   copy_edit_form() {
