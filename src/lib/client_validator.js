@@ -57,6 +57,7 @@ class ClientValidator {
     if (this.test_client()) {
       this.validate_game_not_used();
       this.validate_random_not_used();
+      // Validate presence of turn and end_turn functions
       this.validate_completes_games();
     }
     return this.valid;

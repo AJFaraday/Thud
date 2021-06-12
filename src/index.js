@@ -6,8 +6,8 @@ var game = new Game(
   {
     reporters: ['Canvas', 'Console'],
     //dwarf_client: 'dwarf/default/lucky_7',
-    troll_client: 'troll/default/last_move',
-    //troll_client: 'inert/manual',
+    //troll_client: 'troll/default/last_move',
+    troll_client: 'inert/manual',
     dwarf_client: 'inert/manual',
     delay: 0
   }

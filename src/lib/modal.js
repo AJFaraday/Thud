@@ -22,6 +22,7 @@ class Modal {
     this.modal_div.style.left = `${((window.innerWidth - 300) / 2) - 20}px`;
 
     this.modal_div.style.display = 'block';
+    this.show_or_hide_edit();
   }
 
   hide_form() {
@@ -39,8 +40,8 @@ class Modal {
     Utils.addListener(this.form, 'submit', (e) => {
       this.submit_form(e, this)
     });
-    this.build_client_select('Dwarf', this.game.dwarf_client_name, ['inert', 'dwarf']);
-    this.build_client_select('Troll', this.game.troll_client_name, ['inert', 'troll']);
+    this.build_client_select('Dwarf', this.game.dwarf_client_name, ['dwarf']);
+    this.build_client_select('Troll', this.game.troll_client_name, ['troll']);
     this.build_speed_select();
     this.build_submit();
     this.build_close_link();
@@ -51,7 +52,7 @@ class Modal {
     var label = Utils.build_element('label', {for: 'label'});
     label.innerHTML = label_text;
     this.form.append(label);
-    var select = Utils.build_element('select', {name: label_text});
+    var select = Utils.build_element('select', {name: label_text, class: 'client_select'});
     var optgroups = {};
     Object.keys(Clients).forEach((client_name) => {
       this.build_client_option(select, optgroups, client_name, current_client_name, groups);
@@ -60,6 +61,7 @@ class Modal {
       select.append(optgroup);
     });
     this.form.append(select);
+    select.addEventListener('change', this.show_or_hide_edit);
 
     var edit_link = Utils.build_element('a', {href: '#'}, {float: 'right'});
     edit_link.innerHTML = 'Edit';
@@ -70,12 +72,22 @@ class Modal {
     this.form.append(Utils.build_element('br', {clear: 'both'}));
   }
 
+  show_or_hide_edit() {
+    Array.from(document.getElementsByClassName('client_select')).forEach((select) => {
+      if (select.value == 'inert/manual') {
+        select.nextSibling.style.display = 'none';
+      } else {
+        select.nextSibling.style.display = 'block';
+      }
+    });
+  }
+
   build_client_option(select, optgroups, client_path, current_client_name, groups) {
     var parts = client_path.split('/');
     var group_name = parts[0]
     var user_name = parts[parts.length - 2];
     var client_name = parts[parts.length - 1];
-    if (!groups.includes(group_name)) {
+    if (!(groups.includes(group_name) || client_path == 'inert/manual')) {
       return;
     }
     var optgroup = optgroups[user_name];
