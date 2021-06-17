@@ -1,5 +1,7 @@
 Issues to resolve:
 
+* .gitkeep is appearing as 'entry'
+* Validator is running matches against empty 'template'
 * Saving a client sets the select for that player back to 'manual'
 ** Use local storage to keep the client selections?
 * Add validations for turn and end_turn functions
@@ -20,16 +22,6 @@ Nice to haves:
 
 Long term thinking:
 * Write up challenge, put it on sandbox
-* Code validator (used on edit and import)
-** Code evaluates
-** Doesn't include forbidden terms (game, rand...)
-** Defines a class
-** Class can finish play a game against a default client (every turn has a move)
-*** This feels heavyweight, but seems to take milliseconds
 * moar test clients
-* protect against games halting
-** Mechanism to disqualify if a turn finishes without a move.
-** Only if they are in the inert group, we don't enforce this.
-** Maybe functions: player_name
 * Tournament runner
 * Import script

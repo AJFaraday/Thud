@@ -128,6 +128,7 @@ test("should validate it doesn't use `Math.random`", () => {
 }`
   var client_validator = new ClientValidator(body, 'dwarf/test/simple');
   expect(client_validator.valid).toBeFalsy();
+  console.log(client_validator.errors);
   expect(client_validator.errors.length).toEqual(2);
   expect(client_validator.errors[0]).toEqual("Use of the `Math.random` function is forbidden");
   expect(client_validator.errors[1]).toEqual("Did not finish game against troll/default/last_move. Probably because this client did not call a valid move within the turn method");
@@ -157,6 +158,7 @@ it('should check it can complete a match', () => {
 
   }`
   var client_validator = new ClientValidator(client_body, 'dwarf/test/simple');
+
   expect(client_validator.valid).toEqual(true);
   expect(client_validator.messages.length).toEqual(2);
   expect(client_validator.messages[0]).toEqual('Completed game against troll/default/last_move in 66 turns');

@@ -1,7 +1,8 @@
 module.exports = class {
-  constructor(controller) {
+  constructor(controller, utils) {
     this.controller = controller;
     this.side = controller.side;
+    this.utils = utils;
     this.it_is_a_day = false;
   }
 

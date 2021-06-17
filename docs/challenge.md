@@ -2,6 +2,9 @@
 
 Thud is a game described by Terry Pratchett in his novel, Thud!.
 
+The game simulates a battle between the Dwarves (in blue) and the Trolls (in green) on an
+octagonal board with the Thudstone (an impassable space) in the very centre of the board.
+
 I have created an environment to play the game and develop game playing code at: https://ajfaraday.github.io/Thud/dist/index.html
 
 The challenge is to write the most successful dwarf/troll player of this game.
@@ -178,3 +181,16 @@ will be added to the repo.
 
 According to the rules, after playing a game, the players swap sides, so please also write an entry on the 
 Troll challenge.
+
+# Tournament rules
+
+The tournament will pit every available dwarf client (in /src/clients/dwarf) against 
+every available troll client (in /src/clients/troll), and each pairing will play
+exactly one game.
+
+The *difference* between the two players' scores will then be applied to a running total
+for each client. The winner will gain the difference, and the loser will lose the difference.
+
+There are two winners in the tournament, the most successful troll player and the most
+successful dwarf player. 
+

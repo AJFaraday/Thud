@@ -4,7 +4,7 @@ A controller is the component which will make requests of the board to allow
 a player (human or computer) to interact with the game. It will implement the
 contract below:
 
-* `constructor(board, side)`
+* `constructor(board, side, utils)` - utils is a link to ControllerUtils
 * Board state:
   * `turn()` - Current turn of the game
   * `scores()` - The current score
@@ -20,11 +20,16 @@ contract below:
   * `select_space(x, y)` - The player decides to move a piece at space.
   * `check_move(x, y)` - Find out what will happen if you move to a place
   * `move(x, y)` - The player moves the current piece to the selected space.
-* Utility:
+* Decision making:
   * `current_space` - Currently selected space (not a function)
   * `clear_space()` - Empties currently selected space
   * `declare(game_over)` - Say whether or not your player thinks no more progress can be made on the game.
   * `opponent_declared()` - Has the opponent declared the game over?
+* Utils class:
+  * `utils.distance_between(source, target)` - The square distance between two objects which respond to x and y
+  * `utils.distance_between(source, target)` - The square distance between two objects which respond to x and y
+  * `utils.farthest_from(spaces, target)` - From an array of spaces (with x and y), choose the farthest from target (with x and y) 
+  * `utils.closest_to(spaces, target)` - From an array of spaces (with x and y), choose the closest to target (with x and y) 
 
 Every game will have two controllers, dwarf and troll, belonging to two players, 
 dwarf and troll.

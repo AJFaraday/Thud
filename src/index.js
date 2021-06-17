@@ -5,11 +5,11 @@ import Modal from './lib/modal.js';
 var game = new Game(
   {
     reporters: ['Canvas', 'Console'],
-    //dwarf_client: 'dwarf/default/lucky_7',
+    dwarf_client: 'dwarf/default/keep_away',
     //troll_client: 'troll/default/last_move',
     troll_client: 'inert/manual',
-    dwarf_client: 'inert/manual',
-    delay: 0
+    //dwarf_client: 'inert/manual',
+    delay: 100
   }
 );
 

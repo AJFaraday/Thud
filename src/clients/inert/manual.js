@@ -3,10 +3,11 @@ const Reporters = require('./../../reporters.js');
 
 // This is strongly coupled with Reporters.Canvas
 class Manual {
-  constructor(controller) {
+  constructor(controller, utils) {
     this.controller = controller;
     this.side = controller.side;
     this.canvas = document.querySelector("#thud_board canvas");
+    this.utils = utils;
   }
 
   turn() {

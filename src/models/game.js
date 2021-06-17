@@ -3,6 +3,7 @@ const Board = require('./board.js');
 const Reporters = require('../reporters.js');
 const Clients = require('../clients.js');
 const Utils = require('./../lib/utils.js');
+const ControllerUtils = require('./../lib/controller_utils.js');
 
 class Game {
 
@@ -88,9 +89,9 @@ class Game {
   init_client(client_type, controller) {
     if (typeof client_type == 'string') {
       var client_class = Clients[client_type];
-      return new client_class(controller);
+      return new client_class(controller, Object.assign({}, ControllerUtils));
     } else {
-      return new client_type(controller);
+      return new client_type(controller, Object.assign({}, ControllerUtils));
     }
   }
 
