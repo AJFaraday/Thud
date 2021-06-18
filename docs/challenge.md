@@ -3,11 +3,11 @@
 Thud is a game described by Terry Pratchett in his novel, Thud!.
 
 The game simulates a battle between the Dwarves (in blue) and the Trolls (in green) on an
-octagonal board with the Thudstone (an impassable space) in the very centre of the board.
+octagonal board with the Thudstone (an impassable space) in the centre of the board.
 
 I have created an environment to play the game and develop game playing code at: https://ajfaraday.github.io/Thud/dist/index.html
 
-The challenge is to write the most successful dwarf/troll player of this game.
+The challenge is to write the most successful dwarf or troll player of this game (these will be two separate challenges).
 
 # Rules
 
@@ -21,22 +21,24 @@ On the Dwarf player's turn, they can move one dwarf piece either as a walk or a 
 (another dwarf, the edge of the board, or a troll). 
 They can only kill a troll by walking if they are only one space away.
 
-*Hurl*: If two or more dwarves are in a line, they can hurl the number of dwarves the length
-of that line, away from the line. If a dwarf is hurled into a troll, it is able to kill a 
-troll which is more than one space away. 
+*Hurl*: If two or more dwarves are in a line, they can hurl the dwarf on the end of the line, by
+the length of the line (e.g. in a line of 3, the dwarf on the end can be hurled 3 spaces). 
+If a dwarf is hurled into a troll, the troll is killed, reducing the trolls score by 4 points. 
 
 ## Troll Movement
 
 On the Troll player's turn they can  move one troll piece, either as a walk or a shove. 
 
-*Walk*: Trolls can move one space in any direction, unless a dwarf or the edge of the 
+*Walk*: Trolls can move one space in any direction, unless a troll or the edge of the 
 board is in the way. Whenever a troll moves, it kills all dwarves on or adjacent to 
-it's destination space. 
+it's destination space.
 
 *Shove*: If two or more trolls are in a line they can shove the troll at the end of the line
 that number of spaces away, but *only* if the target space, or any of it's immediate 
 neighbours contain a dwarf. Whenever a troll moves, it kills all dwarves on or adjacent to
-it's destination space. 
+it's destination space.
+
+Each dwarf killed reduces the dwarves score by 1 point.
 
 ## Scores
 
@@ -65,14 +67,15 @@ The game ends when any of these conditions is met:
 
 # How to set up a local instance of the game
 
-You don't have to clone the repository and use it locally to make the game work, but it helps. 
-
-If you prefer, you can use the github pages instance at https://ajfaraday.github.io/Thud/dist/index.html
+You don't have to clone the repository and use it locally to make the game work, or to create an entry, 
+but it helps.
 
 * `git clone git@github.com:AJFaraday/Thud.git`
 * `cd Thud`
 * `npm install`
 * You can then call `node script/get_clients.js` to get the latest entries from Stack Exchange
+
+If you prefer, you can use the github pages instance at https://ajfaraday.github.io/Thud/dist/index.html
 
 # How to customize a game
 
@@ -106,9 +109,11 @@ It provides these methods to interrogate the state of the game:
 * `space_info(x, y)` - Detailed information on any space on the board.
 * `dwarves()` - The location of every dwarf
 * `trolls()` - The location of every troll
+* `pieces()` - All pieces belonging to the current player (equivalent of `dwarves()` or `trolls()`)  
 * `indexed_dwarves()` - The location of every dwarf with a fixed index
 * `indexed_trolls()` - The location of every troll with a fixed index
 * `previous_move()` - What got moved to where last turn
+* `killing_moves()` - All moves which can kill one or more opponent
 * `current_space` - Currently selected space (not a function)
 * `clear_space()` - Empties currently selected space
 
@@ -129,13 +134,13 @@ These are concerned with ending the game:
 Warning: There is an issue with the project on Firefox (https://github.com/AJFaraday/Thud/issues/3) 
 which prevents editing the code in the browser. This has been confirmed to work in Chrome.
 
-* Open 'dist/index.html' in your browser 
-* Click 'Customize'
-* Select 'default/template' as the Dwarf player.
+* Open 'dist/index.html' in your browser. 
+* Click 'Customize'.
+* Select 'default/template' as the Dwarf player (or use another client as a starting point).
 * Click 'Edit' beside the Dwarf player select.
 * Write your client code in the text box provided.
 * The Validate button will change colour based on whether or not the client is passes validations (see below).
-* When you're happy with it, click 'Save'. (This can be done before it passes validation, but it may not actually work)
+* When you're happy with it, click 'Save' (This can be done before it passes validation, but it may not actually work).
 * Select a worthy opponent and click 'Run Game' to see the game.
 
 ## Validations
@@ -146,10 +151,12 @@ validations:
 * It must evaluate as Javascript code.
 * The code must return a class, with a constructor which accepts one argument.
 * Instances of this class should have functions named `turn()` and `end_turn()`
-* There must be no references to the global variable `game`.
-* The Math.random function must not be used. (Or any other non-deterministic function, please)
-* The client must play a game until it is over (i.e. it must call `move` during every `turn`).
+* The client must play a game until it is over (i.e. it must call a valid `move` during every `turn` call).
 The validator will run games against default opponents to determine if this happens.
+* Does not have any forbidden terms
+** `game.` - Only interact with the game via controller
+** `Math.random` - Please keep it deterministic
+** `setTimeout` or `setInterval` - Keep it sequential   
   
 You can open the developer console (F12) to see more detailed information on your client's 
 validation process.
@@ -161,7 +168,7 @@ step is not required for entry in the challenge, but it may be helpful.
 
 * Edit a client, as above. 
 * When you're happy with it (preferably if it's passing validation, too), click 'Copy'
-* Create a .js file in /src/clients/dwarf/entry with the name of your entry e.g. great_dwarf_player.js. 
+* Create a .js file in `/src/clients/dwarf/entry` with the name of your entry e.g. `/src/clients/dwarf/entrygreat_dwarf_player.js`. 
   (This folder will not be wiped by `get_clients.js`)
 * Run `node script/get_clients.js` from the Thud directory to make your entry available from
 the Dwarf player select. (This will also import the latest entries from Stack Exchange)
@@ -170,25 +177,25 @@ the Dwarf player select. (This will also import the latest entries from Stack Ex
 
 * Decide on the name of your client, your client_name must only have alpha characters and underscores.
 * Answer this question with your entry
-* The first line of your answer should be your client's name as a title (with = characters under it on the second line)
-* There should be a code block containing the code of your entry (with or without the preceeding `module.exports =`)
-* After that please include a brief explanation of your client's behaviour, and any other information you choose.
+  * The first line of your answer should be your client's name as a title (with = characters under it on the second line)
+  * There should be a code block containing the class for your entry (with or without the preceeding `module.exports =`)
+* After that please include a brief explanation of your client's behaviour, and any other information you'd like to include.
 
 Once this is in place, running `node script/get_clients.js` will make your client available under your username.
 
-The GitHub Pages instance will also be udpated periodically. So by making an entry, your code
+The GitHub Pages instance will also be updated periodically. So by making an entry, your code
 will be added to the repo.
 
 According to the rules, after playing a game, the players swap sides, so please also write an entry on the 
-Troll challenge.
+Troll/Dwarf challenge.
 
 # Tournament rules
 
-The tournament will pit every available dwarf client (in /src/clients/dwarf) against 
-every available troll client (in /src/clients/troll), and each pairing will play
+The tournament will pit every available dwarf client (in `/src/clients/dwarf/(defaut|entry|answers)`) against 
+every available troll client (in `/src/clients/troll/(defaut|entry|answers)`), and each pairing will play
 exactly one game.
 
-The *difference* between the two players' scores will then be applied to a running total
+The *difference* between the two players' scores will then update a running total
 for each client. The winner will gain the difference, and the loser will lose the difference.
 
 There are two winners in the tournament, the most successful troll player and the most

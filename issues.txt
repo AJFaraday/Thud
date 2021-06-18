@@ -8,11 +8,15 @@ Issues to resolve:
 * only show Edit link for non-inert clients
 * Don't show dummy clients, only manual.
 * Controller Utils class
-** Distance between (currently in Utils)
 ** Move towards
 ** farthest_from(moves, target) - moves = [{x:1,y:1}...] - target = {x:1, y:1}
-* Reverse direction_calculator. To record which moves are dangerous.
+* Update `check_space` to use `space_info` (manual.js will need updating)
+* In `space_info`, include `in_danger` boolean for moves.
 * Change canvas reporter - kills always red, dangerous spaces always orange
+
+More forbidden terms
+* setTimeout
+* setInterval
 
 Nice to haves:
 * Codemirror or similar plugin on code editing
@@ -20,7 +24,6 @@ Nice to haves:
 * Standard way to respond to either (x, y) or ({x: x, y: y}) (lots of places could use this)
 
 Long term thinking:
-* Write up challenge, put it on sandbox
 * moar test clients
 * Tournament runner
 * Import script
