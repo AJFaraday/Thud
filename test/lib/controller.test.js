@@ -79,6 +79,12 @@ it('should present detailed information on a specific space', () => {
   expect(space_info.nearest_troll.pieces[0]).toEqual({x: 8, y: 6});
 });
 
+test('should return all the current players pieces', () => {
+  var game = new_game();
+  expect(game.dwarf_controller.pieces()).toEqual(game.dwarf_controller.dwarves());
+  expect(game.troll_controller.pieces()).toEqual(game.dwarf_controller.trolls());
+});
+
 test('should return all dwarves', () => {
   var game = new_game();
   var dwarves = game.dwarf_controller.dwarves();
@@ -147,6 +153,20 @@ test('should return the previous move', () => {
       killed: 0
     }
   );
+});
+
+test('should provide all killing moves', () => {
+  var game = new_game();
+  expect(game.dwarf_controller.killing_moves()).toEqual([]);
+
+  game.dwarf_controller.select_space(5, 0);
+  game.dwarf_controller.move(5, 6);
+
+  expect(game.troll_controller.killing_moves().length).toEqual(10);
+  var killing_move = game.troll_controller.killing_moves()[0];
+  expect(killing_move.from).toEqual({x: 6, y: 6});
+  expect(killing_move.to).toEqual({x: 6, y: 5});
+  expect(killing_move.kills).toEqual(1);
 });
 
 test('should check a chosen space and return avaialble moves', () => {

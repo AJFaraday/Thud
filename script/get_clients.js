@@ -4,15 +4,17 @@ const fs = require('fs');
 function getFiles(path) {
   const files = []
   for (const file of fs.readdirSync(path)) {
-    const fullPath = path + '/' + file
-    if(fs.lstatSync(fullPath).isDirectory())
-      getFiles(fullPath).forEach(x => files.push(file + '/' + x))
-    else files.push(file)
+    if (file != '.gitkeep') {
+      const fullPath = path + '/' + file
+      if (fs.lstatSync(fullPath).isDirectory()) {
+        getFiles(fullPath).forEach(x => files.push(file + '/' + x))
+      } else {
+        files.push(file)
+      }
+    }
   }
   return files
 }
-
-
 
 var string = 'module.exports = {'
 var files = getFiles('./src/clients/');

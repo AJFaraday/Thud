@@ -1,7 +1,6 @@
 Issues to resolve:
 
-* .gitkeep is appearing as 'entry'
-* Validator is running matches against empty 'template'
+* change check_space to return space info (change manual.js to use `moves`
 * Saving a client sets the select for that player back to 'manual'
 ** Use local storage to keep the client selections?
 * Add validations for turn and end_turn functions

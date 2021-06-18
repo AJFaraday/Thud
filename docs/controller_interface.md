@@ -237,6 +237,13 @@ controller.killing_moves()
     }  
   ]
  */
+
+// If we can, kill it
+var killing_moves = this.controller.killing_moves();
+if (killing_moves.length > 0) {
+  this.controller.select_space(killing_moves[0].from.x, killing_moves[0].from.y);
+  this.controller.move(killing_moves[0].to.x, killing_moves[0].to.y);
+}
 ```
 
 ## For actions:

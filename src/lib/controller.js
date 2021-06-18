@@ -7,6 +7,7 @@ class Controller {
     this.side = side;
     this.current_space = null;
     this.helper = new ControllerHelper(this, game);
+    this.turn_cache = {turn: 0};
   }
 
   turn() {
@@ -35,7 +36,7 @@ class Controller {
   }
 
   pieces() {
-    if(this.side == 'd') {
+    if (this.side == 'd') {
       return this.dwarves();
     } else if (this.side == 't') {
       return this.trolls();
@@ -84,7 +85,7 @@ class Controller {
     this.pieces().forEach((piece) => {
       var space_info = this.space_info(piece.x, piece.y);
       space_info.moves.forEach((move) => {
-        if(move.kills > 0) {
+        if (move.kills > 0) {
           killing_moves.push({
             from: {x: piece.x, y: piece.y},
             to: {x: move.x, y: move.y},
@@ -227,6 +228,21 @@ class Controller {
       return null;
     }
   }
+
+  turn_cached(key, func) {
+    if(this.turn_cache.turn != this.turn()) {
+      this.turn_cache = {turn: this.turn()};
+    }
+    if (this.turn_cache[key]) {
+      return this.turn_cache[key];
+    } else {
+      var value = func.call();
+      this.turn_cache[key] = value;
+      return value;
+    }
+  }
+
+
 }
 
 module.exports = Controller;
