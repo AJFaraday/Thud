@@ -9,21 +9,23 @@ contract below:
   * `turn()` - Current turn of the game
   * `scores()` - The current score
   * `spaces()` - Every space, and what's in it
-  * `space_info(x, y)` - Detailed information on any space on the board.
+  * `space_info(x, y)` - Detailed information on any space on the board
+  * `pieces()` - Convenience method, gets all pieces belonging to your current side  
   * `dwarves()` - The location of every dwarf
   * `trolls()` - The location of every troll
   * `indexed_dwarves()` - The location of every dwarf with a fixed index
   * `indexed_trolls()` - The location of every troll with a fixed index
   * `previous_move()` - What got moved to where last turn
+  * `killing_moves()` - All moves which can kill one or more opponent
 * For turns: 
   * `check_space(x, y)`- Find out what moves are available from a given space
-  * `select_space(x, y)` - The player decides to move a piece at space.
+  * `select_space(x, y)` - The player decides to move a piece at space
   * `check_move(x, y)` - Find out what will happen if you move to a place
-  * `move(x, y)` - The player moves the current piece to the selected space.
+  * `move(x, y)` - The player moves the current piece to the selected space
 * Decision making:
   * `current_space` - Currently selected space (not a function)
   * `clear_space()` - Empties currently selected space
-  * `declare(game_over)` - Say whether or not your player thinks no more progress can be made on the game.
+  * `declare(game_over)` - Say whether or not your player thinks no more progress can be made on the game
   * `opponent_declared()` - Has the opponent declared the game over?
 * Utils class:
   * `utils.distance_between(source, target)` - The square distance between two objects which respond to x and y
@@ -96,6 +98,24 @@ space_info(6, 0);
 */
 ```
 
+### pieces()
+
+Convenience method. Returns all the pieces belonging to the current side.
+
+Equivalent of either `dwarves()` or `trolls()`.
+
+```js
+// From dwarf client
+controller.pieces();
+/*
+[
+  {x: 5, y: 0},
+  {x: 6, y: 0},
+  {x: 8, y: 0},
+  ...
+]
+*/
+```
 
 ### dwarves()
 
@@ -199,6 +219,23 @@ controller.previous_move();
   killed: 0,
   lost: 0      
 }
+ */
+```
+
+### killing_moves()
+
+All moves which could currently kill one or more opponent.
+
+```js
+controller.killing_moves()
+/*
+  [
+    {
+      from: {x: 5, y: 6},
+      to: {x: 7, y: 6},
+      kills: 1
+    }  
+  ]
  */
 ```
 

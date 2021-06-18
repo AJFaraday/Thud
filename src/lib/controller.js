@@ -34,6 +34,14 @@ class Controller {
     return controller.helper.space_info(x, y);
   }
 
+  pieces() {
+    if(this.side == 'd') {
+      return this.dwarves();
+    } else if (this.side == 't') {
+      return this.trolls();
+    }
+  }
+
   dwarves() {
     var controller = this;
     return Array.from(
@@ -69,6 +77,23 @@ class Controller {
   previous_move() {
     var controller = this;
     return Object.assign(controller.game.previous_move);
+  }
+
+  killing_moves() {
+    var killing_moves = [];
+    this.pieces().forEach((piece) => {
+      var space_info = this.space_info(piece.x, piece.y);
+      space_info.moves.forEach((move) => {
+        if(move.kills > 0) {
+          killing_moves.push({
+            from: {x: piece.x, y: piece.y},
+            to: {x: move.x, y: move.y},
+            kills: move.kills
+          });
+        }
+      });
+    });
+    return killing_moves.flat();
   }
 
 // Actual actions
