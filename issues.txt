@@ -4,6 +4,7 @@ Issues to resolve:
 * Saving a client sets the select for that player back to 'manual'
 ** Use local storage to keep the client selections?
 * Add validations for turn and end_turn functions
+* Save on modal should be "Apply"
 * troll can be shoved onto another troll. Not great.
 * only show Edit link for non-inert clients
 * Don't show dummy clients, only manual.
