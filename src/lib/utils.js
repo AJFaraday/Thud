@@ -72,7 +72,7 @@ Utils = {
   distance_between(source, target) {
     var x_dist = Math.abs(source.x - target.x);
     var y_dist = Math.abs(source.y - target.y);
-    return x_dist + y_dist;
+    return Math.max(x_dist, y_dist);
   }
 };
 

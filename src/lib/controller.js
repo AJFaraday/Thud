@@ -103,9 +103,14 @@ class Controller {
     return controller.wrapper(
       () => {
         var space = controller.game.board.space(x, y);
-        var moves = controller.helper.moves_for(space);
-        controller.game.report('highlight_space', controller.checked_space);
-        return moves;
+        if(space.piece && space.piece.type == this.side) {
+          // Sets checked_space
+          controller.helper.moves_for(space);
+          controller.game.report('highlight_space', controller.checked_space);
+          return controller.space_info(x, y);
+        } else {
+          return null;
+        }
       }
     );
   }

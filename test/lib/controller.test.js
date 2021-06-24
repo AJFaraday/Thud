@@ -66,7 +66,7 @@ it('should present detailed information on a specific space', () => {
   expect(space_info.piece).toEqual('d');
   expect(space_info.moves).toBeInstanceOf(Array);
   expect(space_info.moves.length).toEqual(21);
-  expect(space_info.moves[0]).toEqual({x: 6, y: 1, type: 'walk', kills: 0});
+  expect(space_info.moves[0]).toEqual({x: 6, y: 1, type: 'walk', kills: 0, in_danger: false});
   expect(space_info.nearest_dwarf).toBeInstanceOf(Object);
   expect(space_info.nearest_dwarf.distance).toEqual(1);
   expect(space_info.nearest_dwarf.pieces).toBeInstanceOf(Array);
@@ -171,16 +171,19 @@ test('should provide all killing moves', () => {
 
 test('should check a chosen space and return avaialble moves', () => {
   var game = new_game();
-  var moves = game.dwarf_controller.check_space(5, 0);
+  var space_info = game.dwarf_controller.check_space(5, 0);
+  var moves = space_info.moves
   expect(moves).toBeInstanceOf(Array);
-  expect(moves[0]).toEqual({x: 6, y: 1, type: 'walk', kills: 0});
+  expect(moves[0]).toEqual({x: 6, y: 1, type: 'walk', kills: 0, in_danger: false});
+  expect(moves[1]).toEqual({x: 7, y: 2, type: 'walk', kills: 0, in_danger: true});
   expect(game.dwarf_controller.checked_space).toEqual({x: 5, y: 0, moves: moves});
-
+  var safe_moves = space_info.safe_moves
+  expect(safe_moves).toBeInstanceOf(Array);
+  expect(safe_moves[0]).toEqual({x: 6, y: 1, type: 'walk', kills: 0, in_danger: false});
+  expect(safe_moves[1]).not.toEqual({x: 7, y: 2, type: 'walk', kills: 0, in_danger: true});
   // Doesn't return moves for a space which isn't a dwarf
-  moves = game.dwarf_controller.check_space(6, 6);
-  expect(moves).toBeInstanceOf(Array);
-  expect(moves).toHaveLength(0);
-  expect(game.dwarf_controller.checked_space).toEqual({x: 6, y: 6, moves: []});
+  space_info = game.dwarf_controller.check_space(6, 6);
+  expect(space_info).toBeNull()
 });
 
 test("should select a space if it's one of yours, or clear the selected space otherwise", () => {

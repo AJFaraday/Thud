@@ -8,7 +8,7 @@ class Canvas {
     walk: 'yellow',
     hurl: 'red',
     take: 'red',
-    shove: 'orange'
+    shove: 'yellow'
   };
 
   constructor(game) {
@@ -114,8 +114,10 @@ class Canvas {
       }
     );
     this.customise_button.innerHTML = 'Customise';
-    Utils.addListener(this.customise_button, 'mouseup', () => {window.modal.show_form()}, false);
-    var buttons_div =document.getElementById('buttons');
+    Utils.addListener(this.customise_button, 'mouseup', () => {
+      window.modal.show_form()
+    }, false);
+    var buttons_div = document.getElementById('buttons');
     buttons_div.append(Utils.build_element('br', {clear: 'both'}));
     buttons_div.append(Utils.build_element('br', {clear: 'both'}));
     buttons_div.append(this.customise_button);
@@ -249,7 +251,13 @@ class Canvas {
     reporter.draw_board();
     reporter.outline_space({x: args.x, y: args.y}, 'lightgreen');
     args.moves.forEach(
-      move => reporter.outline_space(move, Canvas.move_colours[move.type])
+      move => {
+        if (move.in_danger) {
+          reporter.outline_space(move, 'orange');
+        } else {
+          reporter.outline_space(move, Canvas.move_colours[move.type]);
+        }
+      }
     );
   }
 

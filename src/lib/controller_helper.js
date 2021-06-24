@@ -57,6 +57,7 @@ class ControllerHelper {
       space = this.space_proxy(space);
       var move_calculator = new MoveCalculator(this.board(), space, space.piece);
       space.moves = move_calculator.moves;
+      space.safe_moves = move_calculator.safe_moves;
       space.nearest_dwarf = this.nearest(x, y, 'd');
       space.nearest_troll = this.nearest(x, y, 't');
       return space;

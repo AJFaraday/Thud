@@ -26,9 +26,9 @@ module.exports = class {
     this.controller.declare(true);
 
     var dwarf = this.controller.dwarves()[0];
-    var moves = this.controller.check_space(dwarf.x, dwarf.y);
+    var space_info = this.controller.check_space(dwarf.x, dwarf.y);
     this.controller.select_space(dwarf.x, dwarf.y);
-    this.controller.move(moves[0].x, moves[0].y);
+    this.controller.move(space_info.moves[0].x, space_info.moves[0].y);
   }
 
   end_turn() {

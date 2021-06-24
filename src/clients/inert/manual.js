@@ -8,6 +8,7 @@ class Manual {
     this.side = controller.side;
     this.canvas = document.querySelector("#thud_board canvas");
     this.utils = utils;
+    this.checked_coord = {x: 0, y: 0}
   }
 
   turn() {
@@ -26,12 +27,13 @@ class Manual {
 
 
   mouseover(event) {
-    var space = this.space_at(event.offsetX, event.offsetY);
-    if (space) {
+    var coord = this.coord_at(event.offsetX, event.offsetY);
+    if (coord && game.board.space(coord.x, coord.y) && (this.checked_coord.x != coord.x || this.checked_coord.y != coord.y)) {
+      this.checked_coord = coord;
       if (this.controller.current_space) {
-        this.controller.check_move(space.x, space.y);
+        this.controller.check_move(coord.x, coord.y);
       } else {
-        this.controller.check_space(space.x, space.y);
+        this.controller.check_space(coord.x, coord.y);
       }
     }
   }
@@ -68,6 +70,13 @@ class Manual {
         game.reporters[0].outline_space(coord, 'blue')
       }
     );
+  }
+
+  coord_at(x,y) {
+    return {
+      x:  Math.floor(x / Reporters.Canvas.space_size),
+      y:  Math.floor(y / Reporters.Canvas.space_size)
+    }
   }
 
   space_at(x, y) {

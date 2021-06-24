@@ -1,22 +1,18 @@
 Issues to resolve:
 
-* change check_space to return space info (change manual.js to use `moves`
-* Saving a client sets the select for that player back to 'manual'
-** Use local storage to keep the client selections?
-* Add validations for turn and end_turn functions
-* troll can be shoved onto another troll. Not great.
-* only show Edit link for non-inert clients
-* Don't show dummy clients, only manual.
-* Controller Utils class
-** Move towards
-** farthest_from(moves, target) - moves = [{x:1,y:1}...] - target = {x:1, y:1}
-* Update `check_space` to use `space_info` (manual.js will need updating)
-* In `space_info`, include `in_danger` boolean for moves.
-* Change canvas reporter - kills always red, dangerous spaces always orange
 
-More forbidden terms
-* setTimeout
-* setInterval
+* Use local storage to keep the client selections?
+* troll can be shoved onto another troll. Not great.
+
+* In `space_info`, include `in_danger` boolean for moves. - for trolls
+* Also include `safe_moves` to `space_info` (reject all in_danger) - for trolls
+* Change canvas reporter - kills always red, dangerous spaces always orange
+* Add validations for turn and end_turn functions
+* More forbidden terms
+** setTimeout
+** setInterval
+* Revisit troll moves (can not move onto a dwarf)
+* More info about space_info (what are the things?
 
 Nice to haves:
 * Codemirror or similar plugin on code editing
