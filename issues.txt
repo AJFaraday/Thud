@@ -1,19 +1,12 @@
 Issues to resolve:
 
-
 * Use local storage to keep the client selections?
-* troll can be shoved onto another troll. Not great.
-* dwarf can be hurled over a troll into another troll... is that allowed?
-* only the dwarf on the end of the row can be hurled. (currently, others can)
-* In `space_info`, include `in_danger` boolean for moves. - for trolls
-* Also include `safe_moves` to `space_info` (reject all in_danger) - for trolls
-* Change canvas reporter - kills always red, dangerous spaces always orange
 * Add validations for turn and end_turn functions
 * More forbidden terms
 ** setTimeout
 ** setInterval
-* Revisit troll moves (can not move onto a dwarf)
-* More info about space_info (what are the things?
+* Revisit troll moves (can not move onto another piece)
+* More info about space_info (what are the things?)
 
 Nice to haves:
 * Codemirror or similar plugin on code editing

@@ -193,7 +193,7 @@ class Modal {
     this.modal_div.append(area);
 
     var apply_button = Utils.build_element('div', {class: 'button'}, {float: 'left'});
-    apply_button.innerHTML = 'Valid';
+    apply_button.innerHTML = 'Apply';
     apply_button.addEventListener('mouseup', this.apply_edit_form);
     this.modal_div.append(apply_button);
 

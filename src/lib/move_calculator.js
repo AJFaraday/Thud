@@ -193,7 +193,7 @@ class MoveCalculator {
   }
 
   static space_between_is_empty(direction, index) {
-    return direction.spaces.slice(1, (index + 1)).every(space => !space.peice);
+    return direction.spaces.slice(1, (index + 1)).every(space => !space.piece);
   }
 
   static space_has_dwarf_neighours(space) {
