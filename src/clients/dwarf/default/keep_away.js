@@ -13,10 +13,10 @@ module.exports = class {
     } else {
       var closest_dwarf = this.get_closest_dwarf();
       // Go through it's moves, find the one where the nearest troll is farthest away
-      var moves = this.controller.check_space(closest_dwarf.x, closest_dwarf.y);
+      var space_info = this.controller.check_space(closest_dwarf.x, closest_dwarf.y);
       this.controller.select_space(closest_dwarf.x, closest_dwarf.y)
       var move_target, space_info, distance = 0;
-      moves.forEach((move) => {
+      space_info.moves.forEach((move) => {
         var space_info = this.controller.space_info(move.x, move.y);
         if (space_info.nearest_troll.distance > distance) {
           distance = space_info.nearest_troll.distance;

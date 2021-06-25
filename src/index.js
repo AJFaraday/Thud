@@ -19,5 +19,4 @@ game.reinit('dwarf/lucky_7', 'troll/last_move', 100)
 
 window.Clients = Clients;
 window.modal = new Modal(game)
-//window.modal.show_form()
 window.game = game;

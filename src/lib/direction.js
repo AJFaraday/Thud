@@ -61,6 +61,15 @@ class Direction {
     return i;
   }
 
+  first_piece() {
+    var space = this.spaces.find(space => space.piece);
+    if(space) {
+      return space.piece;
+    } else {
+      return null;
+    }
+  }
+
 }
 
 module.exports = Direction;

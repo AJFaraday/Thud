@@ -91,7 +91,8 @@ space_info(6, 0);
   x: 6,
   y: 0,
   piece: 'd',
-  moves: [{x: 6, y: 1, type: 'walk', kills: 1}, ...],
+  moves: [{x: 6, y: 1, type: 'walk', kills: 1, in_danger: false}, ...],
+  safe_moves: [{x: 6, y: 1, type: 'walk', kills: 1, in_danger: false}, ...],
   nearest_dwarf: {distance: 1, pieces: [{x: 5, y: 0}]},
   nearest_troll: {distance: 6, pieces: [{x: 6, y: 6}]}
 }
@@ -254,14 +255,22 @@ I expect these will be used in this order, but probably more than once.
 
 List the moves available to the piece in the given space.
 
+This is the same output as `space_info`, only it will return null if the space does not belong
+to the current player.
+
 ```js
+// Dwarf controlelr
 controller.check_space(5, 0);
 /*
-[
-  {x: 6, y: 0, type: 'hurl', kills: 1}
-  {x:5, y: 1, type: 'move', kills: 0},
-  ...
-]
+{
+  x: 6,
+  y: 0,
+  piece: 'd',
+  moves: [{x: 6, y: 1, type: 'walk', kills: 1}, ...],
+  safe_moves: [{x: 6, y: 1, type: 'walk', kills: 1, in_danger: false}, ...],
+  nearest_dwarf: {distance: 1, pieces: [{x: 5, y: 0}]},
+  nearest_troll: {distance: 6, pieces: [{x: 6, y: 6}]}
+}
  */
 ```
 

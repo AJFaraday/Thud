@@ -21,7 +21,7 @@ On the Dwarf player's turn, they can move one dwarf piece either as a walk or a 
 (another dwarf, the edge of the board, or a troll). 
 They can only kill a troll by walking if they are only one space away.
 
-*Hurl*: If two or more dwarves are in a line, they can hurl the dwarf on the end of the line, by
+*Hurl*: If two or more dwarves are in a line (horizontal, vertical or diagonal), they can hurl the dwarf on the end of the line, by
 the length of the line (e.g. in a line of 3, the dwarf on the end can be hurled 3 spaces). 
 If a dwarf is hurled into a troll, the troll is killed, reducing the trolls score by 4 points. 
 
@@ -33,8 +33,8 @@ On the Troll player's turn they can  move one troll piece, either as a walk or a
 board is in the way. Whenever a troll moves, it kills all dwarves on or adjacent to 
 it's destination space.
 
-*Shove*: If two or more trolls are in a line they can shove the troll at the end of the line
-that number of spaces away, but *only* if the target space, or any of it's immediate 
+*Shove*: If two or more trolls are in a line (horizontal, vertical or diagonal) they can shove the troll 
+at the end of the line that number of spaces away, but *only* if the target space, or any of it's immediate 
 neighbours contain a dwarf. Whenever a troll moves, it kills all dwarves on or adjacent to
 it's destination space.
 

@@ -192,10 +192,10 @@ class Modal {
     });
     this.modal_div.append(area);
 
-    var save_button = Utils.build_element('div', {class: 'button'}, {float: 'left'});
-    save_button.innerHTML = 'Save';
-    save_button.addEventListener('mouseup', this.save_edit_form);
-    this.modal_div.append(save_button);
+    var apply_button = Utils.build_element('div', {class: 'button'}, {float: 'left'});
+    apply_button.innerHTML = 'Apply';
+    apply_button.addEventListener('mouseup', this.apply_edit_form);
+    this.modal_div.append(apply_button);
 
     var close_button = Utils.build_element('div', {class: 'button'}, {float: 'right'});
     close_button.innerHTML = 'Close';
@@ -268,7 +268,7 @@ class Modal {
     client_body_field.value = client_body;
   }
 
-  save_edit_form() {
+  apply_edit_form() {
     var client_name = document.getElementsByName('client_name')[0].value;
     var client_body = document.getElementsByName('client_body')[0].value;
     try {

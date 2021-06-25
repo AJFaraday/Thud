@@ -15,18 +15,19 @@ it('knows a dwarf can walk as far as they like', () => {
   var game = new_game();
   var space = game.board.space(4, 1);
   var move_calculator = new MoveCalculator(game.board, space, 'd');
-  expect(move_calculator.moves).toContainEqual({x: 9, y: 1, type: 'walk', kills: 0}); // east
-  expect(move_calculator.moves).toContainEqual({x: 12, y: 9, type: 'walk', kills: 0}); //south east
-  expect(move_calculator.moves).toContainEqual({x: 4, y: 2, type: 'walk', kills: 0}); // south...
-  expect(move_calculator.moves).toContainEqual({x: 4, y: 3, type: 'walk', kills: 0});
-  expect(move_calculator.moves).toContainEqual({x: 4, y: 4, type: 'walk', kills: 0});
-  expect(move_calculator.moves).toContainEqual({x: 4, y: 5, type: 'walk', kills: 0});
-  expect(move_calculator.moves).toContainEqual({x: 4, y: 6, type: 'walk', kills: 0});
-  expect(move_calculator.moves).toContainEqual({x: 4, y: 7, type: 'walk', kills: 0});
-  expect(move_calculator.moves).toContainEqual({x: 4, y: 8, type: 'walk', kills: 0});
-  expect(move_calculator.moves).toContainEqual({x: 4, y: 9, type: 'walk', kills: 0});
-  expect(move_calculator.moves).toContainEqual({x: 4, y: 10, type: 'walk', kills: 0});
-  expect(move_calculator.moves).toContainEqual({x: 4, y: 11, type: 'walk', kills: 0});
+  expect(move_calculator.moves).toContainEqual({x: 9, y: 1, type: 'walk', kills: 0, in_danger: false}); // east
+  expect(move_calculator.moves).toContainEqual({x: 12, y: 9, type: 'walk', kills: 0, in_danger: true}); //south east
+  expect(move_calculator.moves).toContainEqual({x: 4, y: 2, type: 'walk', kills: 0, in_danger: false}); // south...
+  expect(move_calculator.moves).toContainEqual({x: 4, y: 3, type: 'walk', kills: 0, in_danger: true});
+  expect(move_calculator.moves).toContainEqual({x: 4, y: 4, type: 'walk', kills: 0, in_danger: true});
+  expect(move_calculator.moves).toContainEqual({x: 4, y: 5, type: 'walk', kills: 0, in_danger: true});
+  expect(move_calculator.moves).toContainEqual({x: 4, y: 6, type: 'walk', kills: 0, in_danger: true});
+  expect(move_calculator.moves).toContainEqual({x: 4, y: 7, type: 'walk', kills: 0, in_danger: true});
+  expect(move_calculator.moves).toContainEqual({x: 4, y: 8, type: 'walk', kills: 0, in_danger: true});
+  expect(move_calculator.moves).toContainEqual({x: 4, y: 9, type: 'walk', kills: 0, in_danger: true});
+  expect(move_calculator.moves).toContainEqual({x: 4, y: 10, type: 'walk', kills: 0, in_danger: true});
+  expect(move_calculator.moves).toContainEqual({x: 4, y: 11, type: 'walk', kills: 0, in_danger: true});
+  expect(move_calculator.moves).toContainEqual({x: 4, y: 12, type: 'walk', kills: 0, in_danger: false});
 });
 
 it('knows a troll can only walk one space', () => {
@@ -60,7 +61,7 @@ it("should include the dwarf 'hurl' move", () => {
   var space = game.board.space(6, 3);
   var move_calculator = new MoveCalculator(game.board, space, 'd');
 
-  expect(move_calculator.moves).toContainEqual({x: 6, y: 5, type: 'hurl', kills: 1});
+  expect(move_calculator.moves).toContainEqual({x: 6, y: 5, type: 'hurl', kills: 1, in_danger: true});
 });
 
 it("should include the troll 'shove' move", () => {

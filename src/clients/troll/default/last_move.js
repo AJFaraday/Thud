@@ -9,8 +9,8 @@ module.exports = class {
     var target = this.controller.previous_move().to;
     var troll = this.controller.space_info(target.x, target.y).nearest_troll.pieces[0];
     this.controller.select_space(troll.x, troll.y);
-    var moves = this.controller.check_space(troll.x, troll.y);
-    var closest_move = this.utils.closest_to(moves, target);
+    var space_info = this.controller.check_space(troll.x, troll.y);
+    var closest_move = this.utils.closest_to(space_info.moves, target);
     this.controller.move(closest_move.x, closest_move.y);
   }
 

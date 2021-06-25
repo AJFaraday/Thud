@@ -22,7 +22,7 @@ var dwarf_client = `class {
                      turn() {
                        var dwarf = this.controller.dwarves()[7];
                        if(dwarf) {
-                         var moves = this.controller.check_space(dwarf.x, dwarf.y);
+                         var moves = this.controller.check_space(dwarf.x, dwarf.y).moves;
                          if(moves[7]) {
                            this.controller.select_space(dwarf.x, dwarf.y);
                            this.controller.move(moves[7].x, moves[7].y);
@@ -39,7 +39,7 @@ var dwarf_client = `class {
                        this.controller.declare(true);
 
                        var dwarf = this.controller.dwarves()[0];
-                       var moves = this.controller.check_space(dwarf.x, dwarf.y);
+                       var moves = this.controller.check_space(dwarf.x, dwarf.y).moves;
                        this.controller.select_space(dwarf.x, dwarf.y);
                        this.controller.move(moves[0].x, moves[0].y);
                      }
@@ -145,7 +145,7 @@ it('should check it can complete a match', () => {
     turn() {
       var dwarf = this.controller.dwarves()[0];
       if(dwarf) {
-        var moves = this.controller.check_space(dwarf.x, dwarf.y);
+        var moves = this.controller.check_space(dwarf.x, dwarf.y).moves;
         if(moves[0]) {
           this.controller.select_space(dwarf.x, dwarf.y);
           this.controller.move(moves[0].x, moves[0].y);
@@ -175,7 +175,7 @@ it('should check it can complete a match', () => {
       var dwarf = this.controller.dwarves()[0];
       if(this.controller.turn() < 10) {
         if(dwarf) {
-          var moves = this.controller.check_space(dwarf.x, dwarf.y);
+          var moves = this.controller.check_space(dwarf.x, dwarf.y).moves;
           if(moves[0]) {
             this.controller.select_space(dwarf.x, dwarf.y);
             this.controller.move(moves[0].x, moves[0].y);
