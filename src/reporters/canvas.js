@@ -8,7 +8,7 @@ class Canvas {
     walk: 'yellow',
     hurl: 'red',
     take: 'red',
-    shove: 'yellow'
+    yello: 'red'
   };
 
   constructor(game) {
@@ -252,7 +252,9 @@ class Canvas {
     reporter.outline_space({x: args.x, y: args.y}, 'lightgreen');
     args.moves.forEach(
       move => {
-        if (move.in_danger) {
+        if (move.kills >= 1) {
+          reporter.outline_space(move, 'red');
+        } else if (move.in_danger) {
           reporter.outline_space(move, 'orange');
         } else {
           reporter.outline_space(move, Canvas.move_colours[move.type]);
@@ -261,51 +263,48 @@ class Canvas {
     );
   }
 
-  // The player has decided to move this piece.
-  // In the UI, this is a click.
-  // args.x
-  // args.y
+// The player has decided to move this piece.
+// In the UI, this is a click.
+// args.x
+// args.y
   select_space(args) {
     var reporter = this;
     reporter.draw_board();
     reporter.highlight_space(reporter.game.current_client().current_space);
   }
 
-  // The player is thinking of moving the piece from the selected space to this one.
-  // In the UI, it's a mouse hover.
-  // args.x
-  // args.y
-  // args.type
+// The player is thinking of moving the piece from the selected space to this one.
+// In the UI, it's a mouse hover.
+// args.x
+// args.y
+// args.type
   highlight_move(args) {
     var reporter = this;
     reporter.draw_board();
     reporter.highlight_space(reporter.game.current_client().controller.checked_space);
-    reporter.heavy_outline_space(
-      {x: args.x, y: args.y},
-      Canvas.move_colours[args.type]
-    );
-
-    if (args.targets) {
-      args.targets.forEach(target => {
-        reporter.outline_space(target, 'red')
-      })
+    if (args.kills >= 1) {
+      reporter.heavy_outline_space(args, 'red');
+    } else if (args.in_danger) {
+      reporter.heavy_outline_space(args, 'orange');
+    } else {
+      reporter.heavy_outline_space(args, Canvas.move_colours[args.type]);
     }
   }
 
-  // The player makes a move.
-  // In the UI, it's a click when a space is selected.
-  // args.side
-  // args.from.x
-  // args.from.y
-  // args.to.x
-  // args.to.y
+// The player makes a move.
+// In the UI, it's a click when a space is selected.
+// args.side
+// args.from.x
+// args.from.y
+// args.to.x
+// args.to.y
   move(args) {
   }
 
-  // A piece has taken another piece (takes place after a move)
-  // args.x
-  // args.y
-  // args.side
+// A piece has taken another piece (takes place after a move)
+// args.x
+// args.y
+// args.side
   piece_taken(args) {
     var reporter = this;
 
@@ -346,8 +345,8 @@ class Canvas {
     fade();
   }
 
-  // Someone's earned some points
-  // game.get_score()
+// Someone's earned some points
+// game.get_score()
   score(args) {
     var score = this.game.get_score();
     switch (score.winning) {
@@ -368,9 +367,9 @@ class Canvas {
     this.centre.innerHTML = score.difference;
   }
 
-  // A player has declared that the game is over (or retracted that declaration
-  // args.side
-  // args.game_over
+// A player has declared that the game is over (or retracted that declaration
+// args.side
+// args.game_over
   player_declared(args) {
     var button;
     if (args.side == 'd') {
@@ -385,9 +384,9 @@ class Canvas {
     }
   }
 
-  // The game's over, awww.
-  // args.reason
-  // this.game.get_score()
+// The game's over, awww.
+// args.reason
+// this.game.get_score()
   game_ended(args) {
     var score = this.game.get_score();
     var score_messages = {

@@ -3,7 +3,8 @@ Issues to resolve:
 
 * Use local storage to keep the client selections?
 * troll can be shoved onto another troll. Not great.
-
+* dwarf can be hurled over a troll into another troll... is that allowed?
+* only the dwarf on the end of the row can be hurled. (currently, others can)
 * In `space_info`, include `in_danger` boolean for moves. - for trolls
 * Also include `safe_moves` to `space_info` (reject all in_danger) - for trolls
 * Change canvas reporter - kills always red, dangerous spaces always orange
