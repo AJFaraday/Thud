@@ -6,5 +6,6 @@ module.exports = {
   'inert/dummy_two': require('./clients/inert/dummy_two.js'),
   'inert/manual': require('./clients/inert/manual.js'),
   'troll/default/last_move': require('./clients/troll/default/last_move.js'),
+  'troll/default/spread_out': require('./clients/troll/default/spread_out.js'),
   'troll/template': require('./clients/troll/template.js'),
 };

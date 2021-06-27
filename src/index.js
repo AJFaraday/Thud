@@ -13,9 +13,9 @@ var game = new Game(
   }
 );
 
-/*
-game.reinit('dwarf/lucky_7', 'troll/last_move', 100)
- */
+
+game.reinit('dwarf/default/keep_away', 'troll/default/spread_out', 0)
+
 
 window.Clients = Clients;
 window.modal = new Modal(game)

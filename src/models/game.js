@@ -7,7 +7,7 @@ const ControllerUtils = require('./../lib/controller_utils.js');
 
 class Game {
 
-  static max_game_length = 200;
+  static max_game_length = 500;
 
   constructor(attrs) {
     this.initialise_properties(attrs);

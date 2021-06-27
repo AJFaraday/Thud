@@ -55,7 +55,7 @@ The game ends when any of these conditions is met:
 * There are no dwarves on the board.
 * There are no trolls on the board.
 * Both players have declared the game over.
-* The game has reached it's cut-off length of 200 moves.
+* The game has reached it's cut-off length of 500 moves.
 
 # How to play a game
 
