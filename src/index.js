@@ -14,7 +14,7 @@ var game = new Game(
 );
 
 
-game.reinit('dwarf/default/keep_away', 'troll/default/spread_out', 0)
+//game.reinit('dwarf/default/keep_away', 'troll/default/spread_out', 50)
 
 
 window.Clients = Clients;
