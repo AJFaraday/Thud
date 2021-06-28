@@ -168,7 +168,7 @@ test('ends the game after 200 turns', () => {
   game.end_turn();
   expect(game.check_ending_conditions()).toBeUndefined();
 
-  game.turn_number = 201;
+  game.turn_number = 501;
   game.end_turn();
   expect(game.check_ending_conditions()).toEqual({"reason": "Timeout"});
 })

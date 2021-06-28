@@ -71,8 +71,8 @@ it("should include the troll 'shove' move", () => {
 
   var space = game.board.space(6, 6);
   var move_calculator = new MoveCalculator(game.board, space, 't');
-  expect(move_calculator.moves).toContainEqual({x: 6, y: 4, type: 'shove', kills: 1, in_danger: true});
-  expect(move_calculator.moves).toContainEqual({x: 6, y: 3, type: 'shove', kills: 1, in_danger: true});
+  expect(move_calculator.moves).toContainEqual({x: 6, y: 4, type: 'shove', kills: 1, in_danger: false});
+  expect(move_calculator.moves).toContainEqual({x: 6, y: 3, type: 'shove', kills: 1, in_danger: false});
 });
 
 it('should know that a troll move kills all dwarf neighbours', () => {
@@ -82,7 +82,7 @@ it('should know that a troll move kills all dwarf neighbours', () => {
 
   var space = game.board.space(7, 6);
   var move_calculator = new MoveCalculator(game.board, space, 't');
-  expect(move_calculator.moves).toContainEqual({x: 7, y: 5, type: 'walk', kills: 1, in_danger: true});
+  expect(move_calculator.moves).toContainEqual({x: 7, y: 5, type: 'walk', kills: 1, in_danger: false});
 
   game.troll_controller.select_space(7, 8);
   game.troll_controller.move(7, 9);
@@ -91,5 +91,5 @@ it('should know that a troll move kills all dwarf neighbours', () => {
 
   space = game.board.space(7, 6);
   move_calculator = new MoveCalculator(game.board, space, 't');
-  expect(move_calculator.moves).toContainEqual({x: 7, y: 5, type: 'walk', kills: 2, in_danger: true});
+  expect(move_calculator.moves).toContainEqual({x: 7, y: 5, type: 'walk', kills: 2, in_danger: false});
 });

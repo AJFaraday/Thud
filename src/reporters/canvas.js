@@ -252,9 +252,12 @@ class Canvas {
     reporter.outline_space({x: args.x, y: args.y}, 'lightgreen');
     args.moves.forEach(
       move => {
+        /*
         if (move.kills >= 1) {
           reporter.outline_space(move, 'red');
-        } else if (move.in_danger) {
+        } else
+          */
+          if (move.in_danger) {
           reporter.outline_space(move, 'orange');
         } else {
           reporter.outline_space(move, Canvas.move_colours[move.type]);

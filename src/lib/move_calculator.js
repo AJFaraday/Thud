@@ -56,7 +56,7 @@ class MoveCalculator {
     var hurls = [];
     direction.spaces.slice(1, (hurl_distance + 1)).forEach(
       (space, index) => {
-        if ((hypothetical || space.is_troll()) && MoveCalculator.space_between_is_empty(direction, index)) {
+        if (((hypothetical && index >= 1)  || space.is_troll()) && MoveCalculator.space_between_is_empty(direction, index)) {
           hurls.push(space);
         }
       }
@@ -138,11 +138,6 @@ class MoveCalculator {
 
   in_danger_from_dwarves(space, hurls) {
     var in_danger = false;
-    this.space.game.dwarves.forEach(dwarf => {
-      if (Utils.distance_between(space, dwarf) <= 1) {
-        in_danger = true;
-      }
-    });
     hurls.forEach(hurl => {
       if (!in_danger && Utils.distance_between(space, hurl) == 0) {
         in_danger = true;

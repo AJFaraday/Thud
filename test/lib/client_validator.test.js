@@ -61,7 +61,9 @@ test('initializes with client_body and path', () => {
   expect(client_validator.messages).toBeInstanceOf(Array);
   expect(client_validator.messages).toEqual([
     "Completed game against troll/default/last_move in 75 turns",
-    "Players agreed to finish! t win by 25"
+    "Players agreed to finish! t win by 25",
+    "Completed game against troll/default/spread_out in 84 turns",
+    "No more dwarves! t win by 32"
   ]);
   expect(client_validator.errors).toBeInstanceOf(Array);
   expect(client_validator.errors.length).toEqual(0);
@@ -109,9 +111,11 @@ test("should validate it doesn't use `game`", () => {
 }`
   var client_validator = new ClientValidator(body, 'dwarf/test/simple');
   expect(client_validator.valid).toBeFalsy();
-  expect(client_validator.errors.length).toEqual(2);
+  console.log(client_validator.errors);
+  expect(client_validator.errors.length).toEqual(3);
   expect(client_validator.errors[0]).toEqual("Use of the `game` global variable is forbidden");
   expect(client_validator.errors[1]).toEqual("Error while running game against troll/default/last_move: ReferenceError: game is not defined");
+  expect(client_validator.errors[2]).toEqual("Error while running game against troll/default/spread_out: ReferenceError: game is not defined");
 });
 
 test("should validate it doesn't use `Math.random`", () => {
@@ -129,9 +133,10 @@ test("should validate it doesn't use `Math.random`", () => {
   var client_validator = new ClientValidator(body, 'dwarf/test/simple');
   expect(client_validator.valid).toBeFalsy();
   console.log(client_validator.errors);
-  expect(client_validator.errors.length).toEqual(2);
+  expect(client_validator.errors.length).toEqual(3);
   expect(client_validator.errors[0]).toEqual("Use of the `Math.random` function is forbidden");
   expect(client_validator.errors[1]).toEqual("Did not finish game against troll/default/last_move. Probably because this client did not call a valid move within the turn method");
+  expect(client_validator.errors[2]).toEqual("Did not finish game against troll/default/spread_out. Probably because this client did not call a valid move within the turn method");
 });
 
 it('should check it can complete a match', () => {
@@ -160,9 +165,11 @@ it('should check it can complete a match', () => {
   var client_validator = new ClientValidator(client_body, 'dwarf/test/simple');
 
   expect(client_validator.valid).toEqual(true);
-  expect(client_validator.messages.length).toEqual(2);
+  expect(client_validator.messages.length).toEqual(4);
   expect(client_validator.messages[0]).toEqual('Completed game against troll/default/last_move in 66 turns');
-  expect(client_validator.messages[1]).toEqual('No more dwarves! t win by 32')
+  expect(client_validator.messages[1]).toEqual('No more dwarves! t win by 32');
+  expect(client_validator.messages[2]).toEqual('Completed game against troll/default/spread_out in 80 turns');
+  expect(client_validator.messages[3]).toEqual('No more dwarves! t win by 32');
 
   // Negative case
   var client_body = `class {
@@ -190,9 +197,11 @@ it('should check it can complete a match', () => {
   }`
   var client_validator = new ClientValidator(client_body, 'dwarf/test/simple');
   expect(client_validator.valid).toEqual(false);
-  expect(client_validator.errors.length).toEqual(1);
+  expect(client_validator.errors.length).toEqual(2);
   expect(client_validator.errors[0]).toEqual(
     'Did not finish game against troll/default/last_move. Probably because this client did not call a valid move within the turn method'
   );
-
+  expect(client_validator.errors[1]).toEqual(
+    'Did not finish game against troll/default/spread_out. Probably because this client did not call a valid move within the turn method'
+  );
 });
