@@ -1,13 +1,14 @@
-Issues to resolve:
+Must:
 
 * add single in_danger attribute to space_info
 
+Could:
 
-Nice to haves:
 * Codemirror or similar plugin on code editing
-* Use local storage to keep the client selections?
 * Progress bar (text turn/limit)
+* Use local storage to keep the client selections?
+
+Might:
 * convenience method to combine select_space and move
 * Standard way to respond to either (x, y) or ({x: x, y: y}) (lots of places could use this)
-
 
