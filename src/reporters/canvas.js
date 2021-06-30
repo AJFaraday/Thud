@@ -72,7 +72,7 @@ class Canvas {
 
   build_dashboard() {
     this.dashboard = document.getElementById('thud_dashboard');
-    this.dwarf_side = this.build_side('blue', 'Dwarves');
+    this.dwarf_side = this.build_side('blue', 'Dwarfs');
     this.centre = this.build_centre();
     this.troll_side = this.build_side('green', 'Trolls');
     this.dashboard.append(this.dwarf_side);
@@ -153,7 +153,7 @@ class Canvas {
     reporter.board.rows.forEach(
       row => row.forEach(space => reporter.draw_space(space, reporter))
     );
-    reporter.game.dwarves.forEach(dwarf => reporter.draw_piece(dwarf, 'blue'));
+    reporter.game.dwarfs.forEach(dwarf => reporter.draw_piece(dwarf, 'blue'));
     reporter.game.trolls.forEach(troll => reporter.draw_piece(troll, 'green'));
   }
 
@@ -365,7 +365,7 @@ class Canvas {
         this.centre.classList.remove('dwarf');
         this.centre.classList.remove('troll');
     }
-    this.dwarf_side.innerHTML = `${this.game.dwarves.length} dwarves: ${score.dwarves}`;
+    this.dwarf_side.innerHTML = `${this.game.dwarfs.length} dwarfs: ${score.dwarfs}`;
     this.troll_side.innerHTML = `${this.game.trolls.length} trolls: ${score.trolls}`;
     this.centre.innerHTML = score.difference;
   }
@@ -393,7 +393,7 @@ class Canvas {
   game_ended(args) {
     var score = this.game.get_score();
     var score_messages = {
-      d: `Dwarves win by ${score.difference} points`,
+      d: `Dwarfs win by ${score.difference} points`,
       t: `Trolls win by ${score.difference} points`,
       '?': 'Nobody wins'
     }

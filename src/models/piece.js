@@ -5,8 +5,8 @@ class Piece {
     this.x = x;
     this.y = y;
     if (this.is_dwarf()) {
-      this.game.dwarves.push(this);
-      this.game.indexed_dwarves.push(this);
+      this.game.dwarfs.push(this);
+      this.game.indexed_dwarfs.push(this);
     } else if (this.is_troll()) {
       this.game.trolls.push(this);
       this.game.indexed_trolls.push(this);

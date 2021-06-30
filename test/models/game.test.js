@@ -16,12 +16,12 @@ function new_game() {
 
 it('should have initial properties', () => {
   var game = new_game();
-  expect(game.dwarves).toBeInstanceOf(Array);
-  expect(game.dwarves.length).toEqual(32);
+  expect(game.dwarfs).toBeInstanceOf(Array);
+  expect(game.dwarfs.length).toEqual(32);
   expect(game.trolls).toBeInstanceOf(Array);
   expect(game.trolls.length).toEqual(8);
-  expect(game.indexed_dwarves).toBeInstanceOf(Array);
-  expect(game.indexed_dwarves.length).toEqual(32);
+  expect(game.indexed_dwarfs).toBeInstanceOf(Array);
+  expect(game.indexed_dwarfs.length).toEqual(32);
   expect(game.indexed_trolls).toBeInstanceOf(Array);
   expect(game.indexed_trolls.length).toEqual(8);
   expect(game.turn_number).toEqual(1);
@@ -73,7 +73,7 @@ it('should get the score based on current state', () => {
   var game = new_game();
   expect(game.get_score()).toEqual(
     {
-      dwarves: 32,
+      dwarfs: 32,
       trolls: 32,
       difference: 0,
       winning: '?'
@@ -85,7 +85,7 @@ it('should get the score based on current state', () => {
   game.troll_controller.move(9, 5);
   expect(game.get_score()).toEqual(
     {
-      dwarves: 31,
+      dwarfs: 31,
       trolls: 32,
       difference: 1,
       winning: 't'
@@ -173,14 +173,14 @@ test('ends the game after 200 turns', () => {
   expect(game.check_ending_conditions()).toEqual({"reason": "Timeout"});
 })
 
-test('endsthe game if there are no more dwarves', () => {
+test('endsthe game if there are no more dwarfs', () => {
   var game = new_game();
   game.end_turn();
   expect(game.check_ending_conditions()).toBeUndefined();
 
-  game.dwarves = [];
+  game.dwarfs = [];
   game.end_turn();
-  expect(game.check_ending_conditions()).toEqual({"reason": "No more dwarves"});
+  expect(game.check_ending_conditions()).toEqual({"reason": "No more dwarfs"});
 });
 
 test('endsthe game if there are no more trolls', () => {

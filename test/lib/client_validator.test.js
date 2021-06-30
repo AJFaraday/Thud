@@ -20,7 +20,7 @@ var dwarf_client = `class {
                      }
 
                      turn() {
-                       var dwarf = this.controller.dwarves()[7];
+                       var dwarf = this.controller.dwarfs()[7];
                        if(dwarf) {
                          var moves = this.controller.check_space(dwarf.x, dwarf.y).moves;
                          if(moves[7]) {
@@ -38,7 +38,7 @@ var dwarf_client = `class {
                        this.it_is_a_day = true;
                        this.controller.declare(true);
 
-                       var dwarf = this.controller.dwarves()[0];
+                       var dwarf = this.controller.dwarfs()[0];
                        var moves = this.controller.check_space(dwarf.x, dwarf.y).moves;
                        this.controller.select_space(dwarf.x, dwarf.y);
                        this.controller.move(moves[0].x, moves[0].y);
@@ -63,7 +63,7 @@ test('initializes with client_body and path', () => {
     "Completed game against troll/default/last_move in 77 turns",
     "Players agreed to finish! t win by 25",
     "Completed game against troll/default/spread_out in 84 turns",
-    "No more dwarves! t win by 32"
+    "No more dwarfs! t win by 32"
   ]);
   expect(client_validator.errors).toBeInstanceOf(Array);
   expect(client_validator.errors.length).toEqual(0);
@@ -104,7 +104,7 @@ test("should validate it doesn't use `game`", () => {
     this.side = controller.side;
   }
   turn() {
-  game.score.dwarves = 100;
+  game.score.dwarfs = 100;
   }
   end_turn() {
   }
@@ -148,7 +148,7 @@ it('should check it can complete a match', () => {
     }
 
     turn() {
-      var dwarf = this.controller.dwarves()[0];
+      var dwarf = this.controller.dwarfs()[0];
       if(dwarf) {
         var moves = this.controller.check_space(dwarf.x, dwarf.y).moves;
         if(moves[0]) {
@@ -167,9 +167,9 @@ it('should check it can complete a match', () => {
   expect(client_validator.valid).toEqual(true);
   expect(client_validator.messages.length).toEqual(4);
   expect(client_validator.messages[0]).toEqual('Completed game against troll/default/last_move in 68 turns');
-  expect(client_validator.messages[1]).toEqual('No more dwarves! t win by 32');
+  expect(client_validator.messages[1]).toEqual('No more dwarfs! t win by 32');
   expect(client_validator.messages[2]).toEqual('Completed game against troll/default/spread_out in 80 turns');
-  expect(client_validator.messages[3]).toEqual('No more dwarves! t win by 32');
+  expect(client_validator.messages[3]).toEqual('No more dwarfs! t win by 32');
 
   // Negative case
   var client_body = `class {
@@ -179,7 +179,7 @@ it('should check it can complete a match', () => {
     }
 
     turn() {
-      var dwarf = this.controller.dwarves()[0];
+      var dwarf = this.controller.dwarfs()[0];
       if(this.controller.turn() < 10) {
         if(dwarf) {
           var moves = this.controller.check_space(dwarf.x, dwarf.y).moves;

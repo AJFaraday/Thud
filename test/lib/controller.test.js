@@ -24,7 +24,7 @@ test('should return the current scores', () => {
   var game = new_game();
   expect(game.dwarf_controller.scores()).toEqual(
     {
-      dwarves: 32,
+      dwarfs: 32,
       trolls: 32,
       difference: 0,
       winning: '?'
@@ -38,7 +38,7 @@ test('should return the current scores', () => {
 
   expect(game.dwarf_controller.scores()).toEqual(
     {
-      dwarves: 31,
+      dwarfs: 31,
       trolls: 32,
       difference: 1,
       winning: 't'
@@ -81,19 +81,19 @@ it('should present detailed information on a specific space', () => {
 
 test('should return all the current players pieces', () => {
   var game = new_game();
-  expect(game.dwarf_controller.pieces()).toEqual(game.dwarf_controller.dwarves());
+  expect(game.dwarf_controller.pieces()).toEqual(game.dwarf_controller.dwarfs());
   expect(game.troll_controller.pieces()).toEqual(game.dwarf_controller.trolls());
 });
 
-test('should return all dwarves', () => {
+test('should return all dwarfs', () => {
   var game = new_game();
-  var dwarves = game.dwarf_controller.dwarves();
-  expect(dwarves).toBeInstanceOf(Array);
-  expect(dwarves.length).toEqual(32);
-  expect(dwarves[0]).toEqual({x: 5, y: 0});
+  var dwarfs = game.dwarf_controller.dwarfs();
+  expect(dwarfs).toBeInstanceOf(Array);
+  expect(dwarfs.length).toEqual(32);
+  expect(dwarfs[0]).toEqual({x: 5, y: 0});
   game.remove_piece(game.board.space(5, 0));
-  var dwarves = game.dwarf_controller.dwarves();
-  expect(dwarves[0]).toEqual({x: 6, y: 0});
+  var dwarfs = game.dwarf_controller.dwarfs();
+  expect(dwarfs[0]).toEqual({x: 6, y: 0});
 });
 
 test('should return all trolls', () => {
@@ -107,15 +107,15 @@ test('should return all trolls', () => {
   expect(trolls[0]).toEqual({x: 7, y: 6});
 });
 
-test('should return all dwarves (indexed)', () => {
+test('should return all dwarfs (indexed)', () => {
   var game = new_game();
-  var dwarves = game.dwarf_controller.indexed_dwarves();
-  expect(dwarves).toBeInstanceOf(Array);
-  expect(dwarves.length).toEqual(32);
-  expect(dwarves[0]).toEqual({x: 5, y: 0});
+  var dwarfs = game.dwarf_controller.indexed_dwarfs();
+  expect(dwarfs).toBeInstanceOf(Array);
+  expect(dwarfs.length).toEqual(32);
+  expect(dwarfs[0]).toEqual({x: 5, y: 0});
   game.remove_piece(game.board.space(5, 0));
-  var dwarves = game.dwarf_controller.indexed_dwarves();
-  expect(dwarves[0]).toBeNull();
+  var dwarfs = game.dwarf_controller.indexed_dwarfs();
+  expect(dwarfs[0]).toBeNull();
 });
 
 test('should return all trolls (indexed)', () => {
@@ -218,7 +218,7 @@ test('should check if the selected piece can move to a space', () => {
     {valid: true, type: 'shove', kills: 1, targets: [{x: 4, y: 5}]}
   );
 
-  // Move more dwarves into danger
+  // Move more dwarfs into danger
   game.troll_controller.select_space(8, 8);
   game.troll_controller.move(9, 9);
   game.dwarf_controller.select_space(3, 2);
@@ -258,7 +258,7 @@ test('should move the selected piece', () => {
   expect(game.board.space(5, 5).piece.type).toEqual('t');
   // it killed the dwarf
   expect(game.board.space(7, 2).piece).toBeUndefined();
-  expect(game.dwarves.length).toEqual(31);
+  expect(game.dwarfs.length).toEqual(31);
 });
 
 test("should clear the expected space", () => {

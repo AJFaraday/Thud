@@ -58,7 +58,7 @@ test('has a list of empty spaces', () => {
   );
 });
 
-test('knows how many dwarves are in a line', () => {
+test('knows how many dwarfs are in a line', () => {
   var space = game.board.space(6, 0);
   var direction = space.directions.W;
   expect(direction.pieces_in_line('d')).toEqual(2);

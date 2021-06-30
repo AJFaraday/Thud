@@ -37,9 +37,9 @@ class Game {
 
   initialise_properties(attrs) {
     this.delay = attrs.delay || 0;
-    this.dwarves = [];
+    this.dwarfs = [];
     this.trolls = [];
-    this.indexed_dwarves = [];
+    this.indexed_dwarfs = [];
     this.indexed_trolls = [];
     this.turn_number = 0;
     this.dwarf_controller = new Controller(this, 'd');
@@ -96,14 +96,14 @@ class Game {
   }
 
   get_score() {
-    var dwarf_score = this.dwarves.length
+    var dwarf_score = this.dwarfs.length
     var troll_score = (this.trolls.length * 4)
     var winning = ((dwarf_score > troll_score) ? 'd' : 't')
     if (dwarf_score == troll_score) {
       winning = '?'
     }
     return {
-      dwarves: dwarf_score,
+      dwarfs: dwarf_score,
       trolls: troll_score,
       difference: Math.abs(dwarf_score - troll_score),
       winning: winning
@@ -177,17 +177,17 @@ class Game {
 
   remove_piece(space) {
     Utils.remove_from_array(this.trolls, space.piece);
-    Utils.remove_from_array(this.dwarves, space.piece);
+    Utils.remove_from_array(this.dwarfs, space.piece);
     Utils.nullify_from_array(this.indexed_trolls, space.piece);
-    Utils.nullify_from_array(this.indexed_dwarves, space.piece);
+    Utils.nullify_from_array(this.indexed_dwarfs, space.piece);
     space.piece = null;
   }
 
   check_ending_conditions() {
     if (this.turn_number >= Game.max_game_length) {
       return {reason: 'Timeout'}
-    } else if (this.dwarves.length == 0) {
-      return {reason: 'No more dwarves'}
+    } else if (this.dwarfs.length == 0) {
+      return {reason: 'No more dwarfs'}
     } else if (this.trolls.length == 0) {
       return {reason: 'No more trolls'}
     } else if (this.troll_controller.declared && this.dwarf_controller.declared) {

@@ -11,9 +11,9 @@ contract below:
   * `spaces()` - Every space, and what's in it
   * `space_info(x, y)` - Detailed information on any space on the board
   * `pieces()` - Convenience method, gets all pieces belonging to your current side  
-  * `dwarves()` - The location of every dwarf
+  * `dwarfs()` - The location of every dwarf
   * `trolls()` - The location of every troll
-  * `indexed_dwarves()` - The location of every dwarf with a fixed index
+  * `indexed_dwarfs()` - The location of every dwarf with a fixed index
   * `indexed_trolls()` - The location of every troll with a fixed index
   * `previous_move()` - What got moved to where last turn
   * `killing_moves()` - All moves which can kill one or more opponent
@@ -55,7 +55,7 @@ Returns the current score of the game.
 controller.scores();
 /* 
   {
-   dwarves: 12, 
+   dwarfs: 12, 
    trolls: 3,
    difference: 9,
    winning: 't'
@@ -102,8 +102,8 @@ space_info(6, 0);
 * `piece` denotes what piece, if any is on that space (can be 'd', 't' or null)
 * `moves` is an array of move objects which show moves available from that space (will be empty if no piece is present)
 * `safe_moves` is an array of move objects which show moves which can not then be taken in the following turn.
-* `nearest_dwarf` is an object about the nearest dwarves. `distance` is how far away they are (in a square distance), `pieces` is the coordinates of all dwarves that far away.
-* `nearest_troll` is an object about the nearest trolls. `distance` is how far away they are (in a square distance), `pieces` is the coordinates of all dwarves that far away.
+* `nearest_dwarf` is an object about the nearest dwarfs. `distance` is how far away they are (in a square distance), `pieces` is the coordinates of all dwarfs that far away.
+* `nearest_troll` is an object about the nearest trolls. `distance` is how far away they are (in a square distance), `pieces` is the coordinates of all dwarfs that far away.
 
 Move attributes:
 
@@ -116,7 +116,7 @@ Move attributes:
 
 Convenience method. Returns all the pieces belonging to the current side.
 
-Equivalent of either `dwarves()` or `trolls()`.
+Equivalent of either `dwarfs()` or `trolls()`.
 
 ```js
 // From dwarf client
@@ -131,12 +131,12 @@ controller.pieces();
 */
 ```
 
-### dwarves()
+### dwarfs()
 
 Returns an array of the position of every dwarf.
 
 ```js
-controller.dwarves();
+controller.dwarfs();
 /*
 [
   {x: 5, y: 0},
@@ -163,14 +163,14 @@ controller.trolls();
 */
 ```
 
-### indexed_dwarves()
+### indexed_dwarfs()
 
 Returns the position of every dwarf on the board, with a fixed index.
 
 This means that dwarf 7 will always be the same piece, unless that piece is taken.
 
 ```js
-controller.indexed_dwarves();
+controller.indexed_dwarfs();
 /*
 [
   {x: 5, y: 0},
@@ -179,9 +179,9 @@ controller.indexed_dwarves();
 ]
 */
 
-// If the first two dwarves are removed
+// If the first two dwarfs are removed
 
-controller.indexed_dwarves();
+controller.indexed_dwarfs();
 /*
 [
   null,
@@ -209,7 +209,7 @@ controller.indexed_trolls();
 
 // If the first two trolls are removed
 
-controller.indexed_dwarves();
+controller.indexed_dwarfs();
 /*
 [
   null,
@@ -374,8 +374,8 @@ controller.current_space
 ### declare(game_over)
 
 Thud often ends in an attritional state where neither side can make any progress.
-The dwarves are huddled together for defence, so the trolls can't get near, so they
-don't try. The dwarves can't launch an assault without breaking their defensive huddle,
+The dwarfs are huddled together for defence, so the trolls can't get near, so they
+don't try. The dwarfs can't launch an assault without breaking their defensive huddle,
 so they don't try.
 
 When this happens, both players can agree the game is over and the current score will

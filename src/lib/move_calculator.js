@@ -96,7 +96,7 @@ class MoveCalculator {
             y: neighbour.y,
             type: 'walk',
             kills: kills,
-            in_danger: calculator.in_danger_from_dwarves(neighbour, hurls)
+            in_danger: calculator.in_danger_from_dwarfs(neighbour, hurls)
           }
         );
       }
@@ -113,7 +113,7 @@ class MoveCalculator {
             y: shove.y,
             type: 'shove',
             kills: kills,
-            in_danger: calculator.in_danger_from_dwarves(shove, hurls)
+            in_danger: calculator.in_danger_from_dwarfs(shove, hurls)
           }
         );
       });
@@ -121,7 +121,7 @@ class MoveCalculator {
     return moves;
   }
 
-  in_danger_from_dwarves(space, hurls) {
+  in_danger_from_dwarfs(space, hurls) {
     var in_danger = false;
     hurls.forEach(hurl => {
       if (!in_danger && Utils.distance_between(space, hurl) == 0) {
@@ -133,7 +133,7 @@ class MoveCalculator {
 
   get_all_hurls() {
     this.all_hurls = [];
-    this.board.game.dwarves.forEach(dwarf => {
+    this.board.game.dwarfs.forEach(dwarf => {
       var space = this.board.space(dwarf.x, dwarf.y);
       Object.values(space.directions).forEach(direction => {
         this.all_hurls.push(MoveCalculator.get_hurls(direction, true))

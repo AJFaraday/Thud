@@ -7,7 +7,7 @@ module.exports = class {
   }
 
   turn() {
-    var dwarf = this.controller.dwarves()[0];
+    var dwarf = this.controller.dwarfs()[0];
     if(dwarf) {
       var moves = this.controller.check_space(dwarf.x, dwarf.y).safe_moves;
       if(moves[0]) {
@@ -25,7 +25,7 @@ module.exports = class {
     this.it_is_a_day = true;
     this.controller.declare(true);
 
-    var dwarf = this.controller.dwarves()[0];
+    var dwarf = this.controller.dwarfs()[0];
     var space_info = this.controller.check_space(dwarf.x, dwarf.y);
     this.controller.select_space(dwarf.x, dwarf.y);
     this.controller.move(space_info.moves[0].x, space_info.moves[0].y);

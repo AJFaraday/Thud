@@ -31,8 +31,8 @@ test('should build a dwarf if piece = d', () => {
   expect(space.piece.x).toEqual(6);
   expect(space.piece.y).toEqual(5);
   expect(space.piece.type).toEqual('d');
-  expect(game.dwarves).toContain(space.piece);
-  expect(game.indexed_dwarves).toContain(space.piece);
+  expect(game.dwarfs).toContain(space.piece);
+  expect(game.indexed_dwarfs).toContain(space.piece);
 });
 
 test('should build a troll if piece = t', () => {

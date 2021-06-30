@@ -68,7 +68,7 @@ class Console {
   // this.game.get_score()
   score(args) {
     var score = this.game.get_score();
-    console.log(`The score is now dwarves: ${score.dwarves}, trolls: ${score.trolls}... ${this.get_side(score.winning)} are winning by ${score.difference}`);
+    console.log(`The score is now dwarfs: ${score.dwarfs}, trolls: ${score.trolls}... ${this.get_side(score.winning)} are winning by ${score.difference}`);
   }
 
   // A player has declared that the game is over (or retracted that declaration
@@ -88,7 +88,7 @@ class Console {
 
   get_side(side) {
     if (side == 'd') {
-      return 'dwarves'
+      return 'dwarfs'
     } else if (side == 't') {
       return 'trolls'
     } else {

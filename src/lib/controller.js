@@ -37,16 +37,16 @@ class Controller {
 
   pieces() {
     if (this.side == 'd') {
-      return this.dwarves();
+      return this.dwarfs();
     } else if (this.side == 't') {
       return this.trolls();
     }
   }
 
-  dwarves() {
+  dwarfs() {
     var controller = this;
     return Array.from(
-      controller.game.dwarves,
+      controller.game.dwarfs,
       dwarf => ({x: dwarf.x, y: dwarf.y})
     );
   }
@@ -59,10 +59,10 @@ class Controller {
     );
   }
 
-  indexed_dwarves() {
+  indexed_dwarfs() {
     var controller = this;
     return Array.from(
-      controller.game.indexed_dwarves,
+      controller.game.indexed_dwarfs,
       dwarf => (dwarf ? {x: dwarf.x, y: dwarf.y} : null)
     );
   }

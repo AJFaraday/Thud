@@ -2,7 +2,7 @@
 
 Thud is a game described by Terry Pratchett in his novel, Thud!.
 
-The game simulates a battle between the Dwarves (in blue) and the Trolls (in green) on an
+The game simulates a battle between the Dwarfs (in blue) and the Trolls (in green) on an
 octagonal board with the Thudstone (an impassable space) in the centre of the board.
 
 I have created an environment to play the game and develop game playing code at: https://ajfaraday.github.io/Thud/dist/index.html
@@ -11,17 +11,17 @@ The challenge is to write the most successful dwarf or troll player of this game
 
 # Rules
 
-Starting with the Dwarves, players take it in turns to move.
+Starting with the Dwarfs, players take it in turns to move.
 
 ## Dwarf Movement
 
 On the Dwarf player's turn, they can move one dwarf piece either as a walk or a hurl.
 
-*Walk*: Dwarves can move as far as they like in any direction until they hit an obstacle
+*Walk*: Dwarfs can move as far as they like in any direction until they hit an obstacle
 (another dwarf, the edge of the board, or a troll). 
 They can only kill a troll by walking if they are only one space away.
 
-*Hurl*: If two or more dwarves are in a line (horizontal, vertical or diagonal), they can hurl the dwarf on the end of the line, by
+*Hurl*: If two or more dwarfs are in a line (horizontal, vertical or diagonal), they can hurl the dwarf on the end of the line, by
 the length of the line (e.g. in a line of 3, the dwarf on the end can be hurled 3 spaces). 
 If a dwarf is hurled into a troll, the troll is killed, reducing the trolls score by 4 points. 
 
@@ -30,17 +30,17 @@ If a dwarf is hurled into a troll, the troll is killed, reducing the trolls scor
 On the Troll player's turn they can  move one troll piece, either as a walk or a shove. 
 
 *Walk*: Trolls can move one space in any direction, unless a troll or the edge of the 
-board is in the way. Whenever a troll moves, it kills all dwarves on or adjacent to 
+board is in the way. Whenever a troll moves, it kills all dwarfs on or adjacent to 
 it's destination space.
 
 *Shove*: If two or more trolls are in a line (horizontal, vertical or diagonal) they can shove the troll 
 at the end of the line that number of spaces away, but *only* if the target space, or any of it's immediate 
-neighbours contain a dwarf. Whenever a troll moves, it kills all dwarves on or adjacent to
+neighbours contain a dwarf. Whenever a troll moves, it kills all dwarfs on or adjacent to
 it's destination space.
 
 It is not permitted for a troll to land directly on a dwarf by either walk or shove moves.
 
-Each dwarf killed reduces the dwarves score by 1 point.
+Each dwarf killed reduces the dwarfs score by 1 point.
 
 ## Scores
 
@@ -54,7 +54,7 @@ The score is calculated thus:
 
 The game ends when any of these conditions is met:
 
-* There are no dwarves on the board.
+* There are no dwarfs on the board.
 * There are no trolls on the board.
 * Both players have declared the game over.
 * The game has reached it's cut-off length of 500 moves.
@@ -109,10 +109,10 @@ It provides these methods to interrogate the state of the game:
 * `scores()` - The current score
 * `spaces()` - Every space, and what's in it
 * `space_info(x, y)` - Detailed information on any space on the board.
-* `dwarves()` - The location of every dwarf
+* `dwarfs()` - The location of every dwarf
 * `trolls()` - The location of every troll
-* `pieces()` - All pieces belonging to the current player (equivalent of `dwarves()` or `trolls()`)  
-* `indexed_dwarves()` - The location of every dwarf with a fixed index
+* `pieces()` - All pieces belonging to the current player (equivalent of `dwarfs()` or `trolls()`)  
+* `indexed_dwarfs()` - The location of every dwarf with a fixed index
 * `indexed_trolls()` - The location of every troll with a fixed index
 * `previous_move()` - What got moved to where last turn
 * `killing_moves()` - All moves which can kill one or more opponent

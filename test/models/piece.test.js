@@ -27,14 +27,14 @@ test('should place troll based on map', () => {
   expect(piece.type).toEqual('t');
 });
 
-test('should add a dwarf to indexed_dwarves and dwarves', () => {
+test('should add a dwarf to indexed_dwarfs and dwarfs', () => {
   var game = new_game();
   var piece = game.board.space(5,0).piece;
-  expect(game.dwarves).toContain(piece);
-  expect(game.indexed_dwarves).toContain(piece);
+  expect(game.dwarfs).toContain(piece);
+  expect(game.indexed_dwarfs).toContain(piece);
 });
 
-test('should add a dwarf to indexed_dwarves and dwarves', () => {
+test('should add a dwarf to indexed_dwarfs and dwarfs', () => {
   var game = new_game();
   var piece = game.board.space(6,6).piece;
   expect(game.trolls).toContain(piece);
