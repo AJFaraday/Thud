@@ -58,7 +58,9 @@ class ClientValidator {
       this.validate_game_not_used();
       this.validate_terms_not_used()
       // Validate presence of turn and end_turn functions
-      this.validate_completes_games();
+      if(this.valid) {
+        this.validate_completes_games();
+      }
     }
     return this.valid;
   }
