@@ -56,7 +56,7 @@ class MoveCalculator {
     var hurls = [];
     direction.spaces.slice(1, (hurl_distance + 1)).forEach(
       (space, index) => {
-        if (((hypothetical && index >= 1)  || space.is_troll()) && MoveCalculator.space_between_is_empty(direction, index)) {
+        if (((hypothetical && index >= 1)  || space.is_troll()) && MoveCalculator.space_between_is_empty(direction, (index-1))) {
           hurls.push(space);
         }
       }
@@ -67,12 +67,14 @@ class MoveCalculator {
   in_danger_from_trolls(space, shoves) {
     var in_danger = false;
     this.space.game.trolls.forEach(troll => {
-      if (!in_danger && Utils.distance_between(space, troll) <= 2) {
+      var distance = Utils.distance_between(space, troll);
+      if (!in_danger && distance >= 1 && distance <= 2) {
         in_danger = true;
       }
     });
     shoves.forEach(shove => {
-      if (!in_danger && Utils.distance_between(space, shove) <= 1) {
+      var distance = Utils.distance_between(space, shove);
+      if (!in_danger && distance == 1) {
         in_danger = true;
       }
     });
@@ -84,7 +86,7 @@ class MoveCalculator {
     var moves = [];
     var hurls = this.get_all_hurls();
     calculator.space.neighbours.filter(
-      neighbour => !neighbour.piece
+      neighbour => neighbour.is_empty()
     ).forEach(
       neighbour => {
         var kills = neighbour.neighbours_of_type('d');
@@ -99,23 +101,6 @@ class MoveCalculator {
         );
       }
     );
-    calculator.space.neighbours.filter(
-      neighbour => (neighbour.is_dwarf())
-    ).forEach(
-      neighbour => {
-        var kills = neighbour.neighbours_of_type('d');
-        moves.push(
-          {
-            x: neighbour.x,
-            y: neighbour.y,
-            type: 'take',
-            kills: kills,
-            in_danger: calculator.in_danger_from_dwarves(neighbour, hurls)
-          }
-        );
-      }
-    );
-
     Object.values(calculator.space.directions).forEach((direction) => {
       MoveCalculator.get_shoves(direction).forEach((shove) => {
         var kills = shove.neighbours_of_type('d');
@@ -174,7 +159,7 @@ class MoveCalculator {
     direction.spaces.slice(2, shove_distance + 1).forEach(
       (space, index) => {
         if (
-          space.is_dwarf() ||
+          space.is_empty() &&
           (
             MoveCalculator.space_between_is_empty(direction, index) &&
             (hypothetical || MoveCalculator.space_has_dwarf_neighours(space))
@@ -188,7 +173,7 @@ class MoveCalculator {
   }
 
   static space_between_is_empty(direction, index) {
-    return direction.spaces.slice(1, (index + 1)).every(space => !space.piece);
+    return direction.spaces.slice(1, (index + 2)).every(space => space.is_empty());
   }
 
   static space_has_dwarf_neighours(space) {

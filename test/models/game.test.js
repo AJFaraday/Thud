@@ -81,8 +81,8 @@ it('should get the score based on current state', () => {
   );
   game.dwarf_controller.select_space(4, 1);
   game.dwarf_controller.move(8, 5);
-  game.troll_controller.select_space(7, 6);
-  game.troll_controller.move(9, 4);
+  game.troll_controller.select_space(8, 6);
+  game.troll_controller.move(9, 5);
   expect(game.get_score()).toEqual(
     {
       dwarves: 31,
@@ -119,7 +119,7 @@ test('should run a clients turn method', () => {
   expect(troll_end_turn).not.toHaveBeenCalled();
 
   game.troll_controller.select_space(7, 6);
-  game.troll_controller.move(9, 4);
+  game.troll_controller.move(7, 5);
   expect(game.current_side).toEqual('d');
   expect(troll_end_turn).toHaveBeenCalled();
   expect(dwarf_turn).toHaveBeenCalledTimes(2);

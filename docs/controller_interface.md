@@ -83,7 +83,6 @@ controller.spaces();
 
 Detailed information on any space on the board.
 
-
 ```js 
 space_info(6, 0);
 /*
@@ -98,6 +97,20 @@ space_info(6, 0);
 }
 */
 ```
+
+* `x` and `y` are the coordinates of the space (same as passed in)
+* `piece` denotes what piece, if any is on that space (can be 'd', 't' or null)
+* `moves` is an array of move objects which show moves available from that space (will be empty if no piece is present)
+* `safe_moves` is an array of move objects which show moves which can not then be taken in the following turn.
+* `nearest_dwarf` is an object about the nearest dwarves. `distance` is how far away they are (in a square distance), `pieces` is the coordinates of all dwarves that far away.
+* `nearest_troll` is an object about the nearest trolls. `distance` is how far away they are (in a square distance), `pieces` is the coordinates of all dwarves that far away.
+
+Move attributes:
+
+* `x` and `y` are the coordinates of the target of that move.
+* `type` is the type of move which is taking place (can be 'walk', 'shove' or 'hurl').
+* `kills` is the number of enemy pieces which would be killed if this move is carried out.
+* `in_danger` is a boolean, which will be true if the piece making this move can be killed the following turn. 
 
 ### pieces()
 

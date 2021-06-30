@@ -66,6 +66,10 @@ class Space {
     return this.piece && this.piece.type == 't';
   }
 
+  is_empty() {
+    return !this.piece;
+  }
+
 }
 
 module.exports = Space;

@@ -34,7 +34,7 @@ test('should return the current scores', () => {
   game.dwarf_controller.select_space(6, 0);
   game.dwarf_controller.move(6, 5);
   game.troll_controller.select_space(6, 6);
-  game.troll_controller.move(6, 5);
+  game.troll_controller.move(5, 5);
 
   expect(game.dwarf_controller.scores()).toEqual(
     {
@@ -162,7 +162,7 @@ test('should provide all killing moves', () => {
   game.dwarf_controller.select_space(5, 0);
   game.dwarf_controller.move(5, 6);
 
-  expect(game.troll_controller.killing_moves().length).toEqual(10);
+  expect(game.troll_controller.killing_moves().length).toEqual(6);
   var killing_move = game.troll_controller.killing_moves()[0];
   expect(killing_move.from).toEqual({x: 6, y: 6});
   expect(killing_move.to).toEqual({x: 6, y: 5});
@@ -205,17 +205,17 @@ test('should check if the selected piece can move to a space', () => {
     {valid: false, type: null, kills: 0, targets: []}
   );
   // Move a dwarf into danger
-  game.dwarf_controller.select_space(5, 0);
-  game.dwarf_controller.move(5, 6);
+  game.dwarf_controller.select_space(4, 1);
+  game.dwarf_controller.move(4, 5);
   expect(game.troll_controller.select_space(6, 6)).toBeTruthy();
   expect(game.troll_controller.check_move(5, 1)).toEqual(
     {valid: false, type: null, kills: 0, targets: []}
   )
   expect(game.troll_controller.check_move(5, 5)).toEqual(
-    {valid: true, type: 'walk', kills: 1, targets: [{x: 5, y: 6}]}
+    {valid: true, type: 'walk', kills: 1, targets: [{x: 4, y: 5}]}
   );
   expect(game.troll_controller.check_move(4, 6)).toEqual(
-    {valid: true, type: 'shove', kills: 1, targets: [{x: 5, y: 6}]}
+    {valid: true, type: 'shove', kills: 1, targets: [{x: 4, y: 5}]}
   );
 
   // Move more dwarves into danger
@@ -226,7 +226,7 @@ test('should check if the selected piece can move to a space', () => {
 
   expect(game.troll_controller.select_space(6, 6)).toBeTruthy();
   expect(game.troll_controller.check_move(5, 5)).toEqual(
-    {valid: true, type: 'walk', kills: 2, targets: [{x: 6, y: 5}, {x: 5, y: 6}]}
+    {valid: true, type: 'walk', kills: 2, targets: [{x: 6, y: 5}, {x: 4, y: 5}]}
   );
 });
 

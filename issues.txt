@@ -1,21 +1,13 @@
 Issues to resolve:
 
-* Use local storage to keep the client selections?
-* Add validations for turn and end_turn functions
-* More forbidden terms
-** setTimeout
-** setInterval
-* Revisit troll moves (can not move onto another piece)
-* More info about space_info (what are the things?)
-* in_danger (and safe_moves) don't include moves which are safe after killing the things (for dwarves)
 * add single in_danger attribute to space_info
 
+
 Nice to haves:
+* Codemirror or similar plugin on code editing
+* Use local storage to keep the client selections?
 * Progress bar (text turn/limit)
 * convenience method to combine select_space and move
-* Codemirror or similar plugin on code editing
 * Standard way to respond to either (x, y) or ({x: x, y: y}) (lots of places could use this)
 
-Long term thinking:
-* Import script
 

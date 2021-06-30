@@ -38,6 +38,8 @@ at the end of the line that number of spaces away, but *only* if the target spac
 neighbours contain a dwarf. Whenever a troll moves, it kills all dwarves on or adjacent to
 it's destination space.
 
+It is not permitted for a troll to land directly on a dwarf by either walk or shove moves.
+
 Each dwarf killed reduces the dwarves score by 1 point.
 
 ## Scores

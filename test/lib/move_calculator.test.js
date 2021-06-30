@@ -72,7 +72,8 @@ it("should include the troll 'shove' move", () => {
   var space = game.board.space(6, 6);
   var move_calculator = new MoveCalculator(game.board, space, 't');
   expect(move_calculator.moves).toContainEqual({x: 6, y: 4, type: 'shove', kills: 1, in_danger: false});
-  expect(move_calculator.moves).toContainEqual({x: 6, y: 3, type: 'shove', kills: 1, in_danger: false});
+  // It's not permitted for a troll to land directly on a dwarf
+  expect(move_calculator.moves).not.toContainEqual({x: 6, y: 3, type: 'shove', kills: 1, in_danger: false});
 });
 
 it('should know that a troll move kills all dwarf neighbours', () => {
