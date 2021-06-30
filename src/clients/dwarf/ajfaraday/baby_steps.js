@@ -10,9 +10,9 @@ module.exports = class {
     var dwarf = this.controller.dwarves()[7];
     if(dwarf) {
       var moves = this.controller.check_space(dwarf.x, dwarf.y).safe_moves;
-      if(moves[7]) {
+      if(moves[0]) {
         this.controller.select_space(dwarf.x, dwarf.y);
-        this.controller.move(moves[7].x, moves[7].y);
+        this.controller.move(moves[0].x, moves[0].y);
       } else {
         this.call_it_a_day();
       }

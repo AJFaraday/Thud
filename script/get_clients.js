@@ -1,6 +1,5 @@
 const fs = require('fs');
 
-
 function getFiles(path) {
   const files = []
   for (const file of fs.readdirSync(path)) {
@@ -17,7 +16,7 @@ function getFiles(path) {
 }
 
 var string = 'module.exports = {'
-var files = getFiles('./src/clients/');
+var files = getFiles(`${__dirname}/../src/clients/`);
 files.forEach((path) => {
   var parts = path.split('./src/clients/');
   var filename = parts[0];
@@ -35,3 +34,4 @@ fs.writeFile(
     console.log('The file has been saved!');
   }
 );
+

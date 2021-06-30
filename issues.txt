@@ -17,9 +17,5 @@ Nice to haves:
 * Standard way to respond to either (x, y) or ({x: x, y: y}) (lots of places could use this)
 
 Long term thinking:
-* Tournament runner
 * Import script
 
-Tournament runner:
-* Collect all clients (both sides)
-*
