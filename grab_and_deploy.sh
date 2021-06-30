@@ -9,6 +9,4 @@ git add src/clients/*
 now=`date '+%F_%H:%M:%S'`;
 commit_message="Automated deploy: ${now}"
 git commit -am "$commit_message"
-
-
-
+git push
