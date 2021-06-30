@@ -1,8 +1,8 @@
 #! /bin/bash
 
-#node script/fetch_answers.js;
-#node script/get_clients.js;
-#node script/run_tournament.js;
+node script/fetch_answers.js;
+node script/get_clients.js;
+node script/run_tournament.js;
 
 git add src/clients/*
 
