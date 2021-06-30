@@ -7,7 +7,7 @@ module.exports = class {
   }
 
   turn() {
-    var dwarf = this.controller.dwarves()[7];
+    var dwarf = this.controller.dwarves()[0];
     if(dwarf) {
       var moves = this.controller.check_space(dwarf.x, dwarf.y).safe_moves;
       if(moves[0]) {
