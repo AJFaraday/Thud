@@ -56,22 +56,24 @@ class ClientValidator {
   validate() {
     if (this.test_client()) {
       this.validate_game_not_used();
-      this.validate_random_not_used();
+      this.validate_terms_not_used()
       // Validate presence of turn and end_turn functions
       this.validate_completes_games();
     }
     return this.valid;
   }
 
+  validate_terms_not_used() {
+    ['Math.random', 'setTimeout', 'setInterval'].forEach(term => {
+      if (this.client_body.includes(term)) {
+        this.add_error(`Use of \`${term}\` is forbidden`);
+      }
+    });
+  }
+
   validate_game_not_used() {
     if (this.client_body.includes('game.')) {
       this.add_error('Use of the `game` global variable is forbidden');
-    }
-  }
-
-  validate_random_not_used() {
-    if (this.client_body.includes('Math.random')) {
-      this.add_error('Use of the `Math.random` function is forbidden');
     }
   }
 

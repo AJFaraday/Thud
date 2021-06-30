@@ -126,17 +126,20 @@ test("should validate it doesn't use `Math.random`", () => {
   }
   turn() {
     Math.random()
+    setInterval()
+    setTimeout()
   }
   end_turn() {
   }
 }`
   var client_validator = new ClientValidator(body, 'dwarf/test/simple');
   expect(client_validator.valid).toBeFalsy();
-  console.log(client_validator.errors);
-  expect(client_validator.errors.length).toEqual(3);
-  expect(client_validator.errors[0]).toEqual("Use of the `Math.random` function is forbidden");
-  expect(client_validator.errors[1]).toEqual("Did not finish game against troll/default/last_move. Probably because this client did not call a valid move within the turn method");
-  expect(client_validator.errors[2]).toEqual("Did not finish game against troll/default/spread_out. Probably because this client did not call a valid move within the turn method");
+  expect(client_validator.errors.length).toEqual(5);
+  expect(client_validator.errors).toContainEqual("Use of `Math.random` is forbidden");
+  expect(client_validator.errors).toContainEqual("Use of `setTimeout` is forbidden");
+  expect(client_validator.errors).toContainEqual("Use of `setInterval` is forbidden");
+  expect(client_validator.errors).toContainEqual("Did not finish game against troll/default/last_move. Probably because this client did not call a valid move within the turn method");
+  expect(client_validator.errors).toContainEqual("Did not finish game against troll/default/spread_out. Probably because this client did not call a valid move within the turn method");
 });
 
 it('should check it can complete a match', () => {
