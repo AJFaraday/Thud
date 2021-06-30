@@ -1,4 +1,6 @@
 #! /bin/bash
+echo "Starting automated deploy"
+date
 
 node script/fetch_answers.js;
 node script/get_clients.js;
