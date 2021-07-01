@@ -76,7 +76,7 @@ test('should error when the code does not evaluate', () => {
   expect(client_validator).toBeInstanceOf(ClientValidator);
   expect(client_validator.path).toEqual('dwarf/test/simple');
   expect(client_validator.errors.length).toEqual(1);
-  expect(client_validator.errors[0]).toEqual('Error evaluating code: SyntaxError: Unexpected end of input')
+  expect(client_validator.errors).toContainEqual('Error evaluating code: SyntaxError: Unexpected end of input')
   expect(client_validator.client_class()).toBeUndefined();
   expect(client_validator.test_client()).toBeUndefined();
 });
@@ -111,11 +111,10 @@ test("should validate it doesn't use `game`", () => {
 }`
   var client_validator = new ClientValidator(body, 'dwarf/test/simple');
   expect(client_validator.valid).toBeFalsy();
-  console.log(client_validator.errors);
-  expect(client_validator.errors.length).toEqual(3);
+  expect(client_validator.errors.length).toEqual(1);
   expect(client_validator.errors[0]).toEqual("Use of the `game` global variable is forbidden");
-  expect(client_validator.errors[1]).toEqual("Error while running game against troll/default/last_move: ReferenceError: game is not defined");
-  expect(client_validator.errors[2]).toEqual("Error while running game against troll/default/spread_out: ReferenceError: game is not defined");
+  //expect(client_validator.errors[1]).toEqual("Error while running game against troll/default/last_move: ReferenceError: game is not defined");
+  //expect(client_validator.errors[2]).toEqual("Error while running game against troll/default/spread_out: ReferenceError: game is not defined");
 });
 
 test("should validate it doesn't use `Math.random`", () => {
@@ -128,18 +127,39 @@ test("should validate it doesn't use `Math.random`", () => {
     Math.random()
     setInterval()
     setTimeout()
+    eval(import('dangerous_library'))
   }
   end_turn() {
   }
 }`
   var client_validator = new ClientValidator(body, 'dwarf/test/simple');
   expect(client_validator.valid).toBeFalsy();
-  expect(client_validator.errors.length).toEqual(5);
+  //expect(client_validator.errors.length).toEqual(5);
   expect(client_validator.errors).toContainEqual("Use of `Math.random` is forbidden");
   expect(client_validator.errors).toContainEqual("Use of `setTimeout` is forbidden");
   expect(client_validator.errors).toContainEqual("Use of `setInterval` is forbidden");
-  expect(client_validator.errors).toContainEqual("Did not finish game against troll/default/last_move. Probably because this client did not call a valid move within the turn method");
-  expect(client_validator.errors).toContainEqual("Did not finish game against troll/default/spread_out. Probably because this client did not call a valid move within the turn method");
+  expect(client_validator.errors).toContainEqual("Use of `eval` is forbidden");
+  expect(client_validator.errors).toContainEqual("Use of `import` is forbidden");
+  //expect(client_validator.errors).toContainEqual("Did not finish game against troll/default/last_move. Probably because this client did not call a valid move within the turn method");
+  //expect(client_validator.errors).toContainEqual("Did not finish game against troll/default/spread_out. Probably because this client did not call a valid move within the turn method");
+});
+
+it('should not evaluate the code if it contains a forbidden turn', () => {
+  var body = `class {
+  constructor(controller) {
+    this.controller = controller;
+    this.side = controller.side;
+  }
+  turn() {
+    import('dangerous_library );
+    //                       ^ syntax error                       
+  }
+  end_turn() {
+  }
+}`
+  var client_validator = new ClientValidator(body, 'dwarf/test/simple');
+  expect(client_validator.valid).toBeFalsy();
+  expect(client_validator.errors).toContainEqual("Use of `import` is forbidden");
 });
 
 it('should check it can complete a match', () => {

@@ -77,6 +77,11 @@ it('should present detailed information on a specific space', () => {
   expect(space_info.nearest_troll.pieces).toBeInstanceOf(Array);
   expect(space_info.nearest_troll.pieces.length).toEqual(3);
   expect(space_info.nearest_troll.pieces[0]).toEqual({x: 8, y: 6});
+  expect(space_info.in_danger).toEqual(false);
+
+  space_info = game.dwarf_controller.space_info(6, 5);
+  expect(space_info.in_danger).toEqual(true);
+
 });
 
 test('should return all the current players pieces', () => {
@@ -176,7 +181,7 @@ test('should check a chosen space and return avaialble moves', () => {
   expect(moves).toBeInstanceOf(Array);
   expect(moves[0]).toEqual({x: 6, y: 1, type: 'walk', kills: 0, in_danger: false});
   expect(moves[1]).toEqual({x: 7, y: 2, type: 'walk', kills: 0, in_danger: true});
-  expect(game.dwarf_controller.checked_space).toEqual({x: 5, y: 0, moves: moves});
+  expect(game.dwarf_controller.checked_space).toEqual({x: 5, y: 0, moves: moves, in_danger: false});
   var safe_moves = space_info.safe_moves
   expect(safe_moves).toBeInstanceOf(Array);
   expect(safe_moves[0]).toEqual({x: 6, y: 1, type: 'walk', kills: 0, in_danger: false});

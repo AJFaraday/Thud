@@ -108,7 +108,7 @@ class Modal {
     label.innerHTML = 'Turn Time (ms)';
     this.form.append(label);
     var select = Utils.build_element('select', {name: 'speed'});
-    [0, 100, 200, 500, 1000].forEach((opt) => {
+    [0, 10, 50, 100, 200, 500, 1000].forEach((opt) => {
       var option = Utils.build_element('option', {value: opt});
       if (opt == 200) {
         option.setAttribute('selected', 'true');

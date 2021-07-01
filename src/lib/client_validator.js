@@ -9,12 +9,6 @@ class ClientValidator {
     this.errors = [];
     this.valid = true;
     this.messages = [];
-    this.game = new Game(
-      {
-        dwarf_client: 'inert/dummy',
-        troll_client: 'inert/dummy'
-      }
-    );
     this.validate();
   }
 
@@ -35,13 +29,19 @@ class ClientValidator {
     if (this.cached_client) {
       return this.cached_client
     } else {
+      var game = new Game(
+        {
+          dwarf_client: 'inert/dummy',
+          troll_client: 'inert/dummy'
+        }
+      );
       var kls = this.client_class();
       if (this.valid) {
         var controller;
         if (this.is_dwarf()) {
-          controller = this.game.dwarf_controller;
+          controller = game.dwarf_controller;
         } else {
-          controller = this.game.troll_controller;
+          controller = game.troll_controller;
         }
         try {
           this.cached_client = new kls(controller);
@@ -54,19 +54,17 @@ class ClientValidator {
   }
 
   validate() {
-    if (this.test_client()) {
-      this.validate_game_not_used();
-      this.validate_terms_not_used()
-      // Validate presence of turn and end_turn functions
-      if(this.valid) {
-        this.validate_completes_games();
-      }
+    this.validate_game_not_used();
+    this.validate_terms_not_used()
+    // Validate presence of turn and end_turn functions
+    if (this.test_client() && this.valid) {
+      this.validate_completes_games();
     }
     return this.valid;
   }
 
   validate_terms_not_used() {
-    ['Math.random', 'setTimeout', 'setInterval'].forEach(term => {
+    ['Math.random', 'setTimeout', 'setInterval', 'eval', 'import'].forEach(term => {
       if (this.client_body.includes(term)) {
         this.add_error(`Use of \`${term}\` is forbidden`);
       }

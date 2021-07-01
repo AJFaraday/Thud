@@ -1,14 +1,19 @@
 Must:
 
-* add single in_danger attribute to space_info
+* Present the result of the tournament as JSON (to dispaly on question)
+* Create page of leaderboards (all, dwarf and troll)
+* Create page of matches (Filter by client)
+* * turn
+* * score
+* * Completion time
 
 Could:
 
+* Use local storage to keep the client selections
 * Codemirror or similar plugin on code editing
 * Progress bar (text turn/limit)
-* Use local storage to keep the client selections?
 
-Might:
+Won't (but it would be nice if I did):
 * convenience method to combine select_space and move
 * Standard way to respond to either (x, y) or ({x: x, y: y}) (lots of places could use this)
 

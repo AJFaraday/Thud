@@ -32,13 +32,15 @@ class ControllerHelper {
   }
 
   moves_for(space) {
-    var move_calculator = new MoveCalculator(this.board(), space, this.game.current_side);
+    //var move_calculator = new MoveCalculator(this.board(), space, this.game.current_side);
+    var space_info = this.controller.space_info(space.x, space.y)
     this.controller.checked_space = {
       x: space.x,
       y: space.y,
-      moves: move_calculator.moves
+      moves: space_info.moves,
+      in_danger: space_info.in_danger
     };
-    return move_calculator.moves;
+    return space_info.moves;
   }
 
   // Troll in this space kills all adjacent dwarfs
@@ -60,6 +62,13 @@ class ControllerHelper {
       space.safe_moves = move_calculator.safe_moves;
       space.nearest_dwarf = this.nearest(x, y, 'd');
       space.nearest_troll = this.nearest(x, y, 't');
+      if (this.side == 't') {
+        space.in_danger = MoveCalculator.in_danger_from_dwarfs(space, MoveCalculator.get_all_hurls(this.game))
+      } else if (this.side == 'd') {
+        space.in_danger = MoveCalculator.in_danger_from_trolls(space, MoveCalculator.get_all_shoves(this.game), this.game)
+      } else {
+        space.in_danger = false;
+      }
       return space;
     } else {
       return null;

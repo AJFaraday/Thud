@@ -29,7 +29,6 @@ contract below:
   * `opponent_declared()` - Has the opponent declared the game over?
 * Utils class:
   * `utils.distance_between(source, target)` - The square distance between two objects which respond to x and y
-  * `utils.distance_between(source, target)` - The square distance between two objects which respond to x and y
   * `utils.farthest_from(spaces, target)` - From an array of spaces (with x and y), choose the farthest from target (with x and y) 
   * `utils.closest_to(spaces, target)` - From an array of spaces (with x and y), choose the closest to target (with x and y) 
 
@@ -93,7 +92,8 @@ space_info(6, 0);
   moves: [{x: 6, y: 1, type: 'walk', kills: 1, in_danger: false}, ...],
   safe_moves: [{x: 6, y: 1, type: 'walk', kills: 1, in_danger: false}, ...],
   nearest_dwarf: {distance: 1, pieces: [{x: 5, y: 0}]},
-  nearest_troll: {distance: 6, pieces: [{x: 6, y: 6}]}
+  nearest_troll: {distance: 6, pieces: [{x: 6, y: 6}]},
+  in_danger: false
 }
 */
 ```
@@ -104,6 +104,7 @@ space_info(6, 0);
 * `safe_moves` is an array of move objects which show moves which can not then be taken in the following turn.
 * `nearest_dwarf` is an object about the nearest dwarfs. `distance` is how far away they are (in a square distance), `pieces` is the coordinates of all dwarfs that far away.
 * `nearest_troll` is an object about the nearest trolls. `distance` is how far away they are (in a square distance), `pieces` is the coordinates of all dwarfs that far away.
+* `in_danger` is a boolean. If there were a member of the current side on that space, it could be killed by the opponent on the next turn.
 
 Move attributes:
 

@@ -246,17 +246,18 @@ class Canvas {
   // In the UI, this is a mouse hover, before a space is selected.
   // args.x
   // args.y
+  // args.moves
+  // args.in_danger
   highlight_space(args) {
     var reporter = this;
     reporter.draw_board();
-    reporter.outline_space({x: args.x, y: args.y}, 'lightgreen');
+    if(args.in_danger) {
+      reporter.heavy_outline_space(args, 'orange');
+    } else {
+      reporter.outline_space(args, 'lightgreen');
+    }
     args.moves.forEach(
       move => {
-        /*
-        if (move.kills >= 1) {
-          reporter.outline_space(move, 'red');
-        } else
-          */
           if (move.in_danger) {
           reporter.outline_space(move, 'orange');
         } else {

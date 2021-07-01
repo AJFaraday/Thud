@@ -26,7 +26,7 @@ class MoveCalculator {
   dwarf_moves() {
     var calculator = this;
     var moves = [];
-    var shoves = this.get_all_shoves()
+    var shoves = MoveCalculator.get_all_shoves(this.board.game);
     Object.values(calculator.space.directions).forEach(
       direction => {
         direction.empty_spaces().forEach(empty_space => moves.push({
@@ -34,7 +34,7 @@ class MoveCalculator {
           y: empty_space.y,
           type: 'walk',
           kills: 0,
-          in_danger: calculator.in_danger_from_trolls(empty_space, shoves)
+          in_danger: MoveCalculator.in_danger_from_trolls(empty_space, shoves, this.space.game)
         }));
         MoveCalculator.get_hurls(direction).forEach(hurl => {
           moves.push({
@@ -42,7 +42,7 @@ class MoveCalculator {
             y: hurl.y,
             type: 'hurl',
             kills: 1,
-            in_danger: this.in_danger_from_trolls(hurl, shoves)
+            in_danger: MoveCalculator.in_danger_from_trolls(hurl, shoves, this.space.game)
           });
         });
       }
@@ -56,7 +56,7 @@ class MoveCalculator {
     var hurls = [];
     direction.spaces.slice(1, (hurl_distance + 1)).forEach(
       (space, index) => {
-        if (((hypothetical && index >= 1)  || space.is_troll()) && MoveCalculator.space_between_is_empty(direction, (index-1))) {
+        if (((hypothetical && index >= 1) || space.is_troll()) && MoveCalculator.space_between_is_empty(direction, (index - 1))) {
           hurls.push(space);
         }
       }
@@ -64,9 +64,9 @@ class MoveCalculator {
     return hurls;
   }
 
-  in_danger_from_trolls(space, shoves) {
+  static in_danger_from_trolls(space, shoves, game) {
     var in_danger = false;
-    this.space.game.trolls.forEach(troll => {
+    game.trolls.forEach(troll => {
       var distance = Utils.distance_between(space, troll);
       if (!in_danger && distance >= 1 && distance <= 2) {
         in_danger = true;
@@ -84,7 +84,7 @@ class MoveCalculator {
   troll_moves() {
     var calculator = this;
     var moves = [];
-    var hurls = this.get_all_hurls();
+    var hurls = MoveCalculator.get_all_hurls(this.board.game);
     calculator.space.neighbours.filter(
       neighbour => neighbour.is_empty()
     ).forEach(
@@ -96,7 +96,7 @@ class MoveCalculator {
             y: neighbour.y,
             type: 'walk',
             kills: kills,
-            in_danger: calculator.in_danger_from_dwarfs(neighbour, hurls)
+            in_danger: MoveCalculator.in_danger_from_dwarfs(neighbour, hurls)
           }
         );
       }
@@ -113,7 +113,7 @@ class MoveCalculator {
             y: shove.y,
             type: 'shove',
             kills: kills,
-            in_danger: calculator.in_danger_from_dwarfs(shove, hurls)
+            in_danger: MoveCalculator.in_danger_from_dwarfs(shove, hurls)
           }
         );
       });
@@ -121,7 +121,7 @@ class MoveCalculator {
     return moves;
   }
 
-  in_danger_from_dwarfs(space, hurls) {
+  static in_danger_from_dwarfs(space, hurls) {
     var in_danger = false;
     hurls.forEach(hurl => {
       if (!in_danger && Utils.distance_between(space, hurl) == 0) {
@@ -131,26 +131,26 @@ class MoveCalculator {
     return in_danger;
   }
 
-  get_all_hurls() {
-    this.all_hurls = [];
-    this.board.game.dwarfs.forEach(dwarf => {
-      var space = this.board.space(dwarf.x, dwarf.y);
+  static get_all_hurls(game) {
+    var all_hurls = [];
+    game.dwarfs.forEach(dwarf => {
+      var space = game.board.space(dwarf.x, dwarf.y);
       Object.values(space.directions).forEach(direction => {
-        this.all_hurls.push(MoveCalculator.get_hurls(direction, true))
+        all_hurls.push(MoveCalculator.get_hurls(direction, true))
       });
     });
-    return this.all_hurls.flat();
+    return all_hurls.flat();
   }
 
-  get_all_shoves() {
-    this.all_shoves = [];
-    this.board.game.trolls.forEach(troll => {
-      var space = this.board.space(troll.x, troll.y);
+  static get_all_shoves(game) {
+    var all_shoves = [];
+    game.trolls.forEach(troll => {
+      var space = game.board.space(troll.x, troll.y);
       Object.values(space.directions).forEach(direction => {
-        this.all_shoves.push(MoveCalculator.get_shoves(direction, true))
+        all_shoves.push(MoveCalculator.get_shoves(direction, true))
       });
     });
-    return this.all_shoves.flat();
+    return all_shoves.flat();
   }
 
   static get_shoves(direction, hypothetical = false) {

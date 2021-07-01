@@ -48,7 +48,8 @@ The score is calculated thus:
 
 * The dwarf player has one point for every dwarf remaining on the board.
 * The troll player has four points for every troll remaining on the board.
-* The key figure is the difference between these two.
+* The key figure is the difference between these two. This will be used to calculate 
+players' scores in the tournament.
 
 ## Ending the game
 
@@ -59,7 +60,7 @@ The game ends when any of these conditions is met:
 * Both players have declared the game over.
 * The game has reached it's cut-off length of 500 moves.
 
-# How to play a game
+# How to manually play a game
 
 * Go to https://ajfaraday.github.io/Thud/dist/index.html
 * Hover the mouse over a piece to see it's available moves.
@@ -131,6 +132,12 @@ These are concerned with ending the game:
 * `declare(game_over)` - Say whether or not your player thinks the game is over.
 * `opponent_declared()` - Has the opponent declared the game over?
 
+Your client will also have a `utils` object which will provide these helpful geometry functions:
+
+* `utils.distance_between(source, target)` - The square distance between two objects which respond to x and y
+* `utils.farthest_from(spaces, target)` - From an array of spaces (with x and y), choose the farthest from target (with x and y)
+* `utils.closest_to(spaces, target)` - From an array of spaces (with x and y), choose the closest to target (with x and y)
+
 # How to write a client
 
 Warning: There is an issue with the project on Firefox (https://github.com/AJFaraday/Thud/issues/3) 
@@ -138,11 +145,11 @@ which prevents editing the code in the browser. This has been confirmed to work 
 
 * Open 'dist/index.html' in your browser. 
 * Click 'Customize'.
-* Select 'default/template' as the Dwarf player (or use another client as a starting point).
+* Select 'dwarf/template' as the Dwarf player (or use another client as a starting point).
 * Click 'Edit' beside the Dwarf player select.
 * Write your client code in the text box provided.
 * The Validate button will change colour based on whether or not the client is passes validations (see below).
-* When you're happy with it, click 'Save' (This can be done before it passes validation, but it may not actually work).
+* When you're happy with it, click 'Apply' (This can be done before it passes validation, but it may not actually work).
 * Select a worthy opponent and click 'Run Game' to see the game.
 
 ## Validations
@@ -159,6 +166,7 @@ The validator will run games against default opponents to determine if this happ
 ** `game.` - Only interact with the game via controller
 ** `Math.random` - Please keep it deterministic
 ** `setTimeout` or `setInterval` - Keep it sequential   
+** `eval`, `require` or `import` - Just don't
   
 You can open the developer console (F12) to see more detailed information on your client's 
 validation process.
@@ -169,11 +177,12 @@ If you have cloned the git repository, you can save your entry for future tinker
 step is not required for entry in the challenge, but it may be helpful.
 
 * Edit a client, as above. 
-* When you're happy with it (preferably if it's passing validation, too), click 'Copy'
+* When you're happy with it (preferably if it's passing validation, too), click 'Copy' from the edit interface.
 * Create a .js file in `/src/clients/dwarf/entry` with the name of your entry e.g. `/src/clients/dwarf/entrygreat_dwarf_player.js`. 
   (This folder will not be wiped by `get_clients.js`)
 * Run `node script/get_clients.js` from the Thud directory to make your entry available from
-the Dwarf player select. (This will also import the latest entries from Stack Exchange)
+the Dwarf player select. You only need to do this once to make it avilable.
+* `npm run build` - this will keep watching for changes in your entry and updating the package.
   
 ## How to enter your client in the competition
 
@@ -181,20 +190,17 @@ the Dwarf player select. (This will also import the latest entries from Stack Ex
 * Answer this question with your entry
   * The first line of your answer should be your client's name as a title (with = characters under it on the second line)
   * There should be a code block containing the class for your entry (with or without the preceeding `module.exports =`)
-* After that please include a brief explanation of your client's behaviour, and any other information you'd like to include.
+  * After that please include a brief explanation of your client's behaviour, and any other information you'd like to include.
 
-Once this is in place, running `node script/get_clients.js` will make your client available under your username.
+Once this is in place, anyone running `./get_answers.sh` will see your client available under your username.
 
 The GitHub Pages instance will also be updated periodically. So by making an entry, your code
 will be added to the repo.
 
-According to the rules, after playing a game, the players swap sides, so please also write an entry on the 
-Troll/Dwarf challenge.
-
 # Tournament rules
 
-The tournament will pit every available dwarf client (in `/src/clients/dwarf/(defaut|entry|answers)`) against 
-every available troll client (in `/src/clients/troll/(defaut|entry|answers)`), and each pairing will play
+The tournament will pit every available dwarf client (in `/src/clients/dwarf/`) against 
+every available troll client (in `/src/clients/troll/`), and each pairing will play
 exactly one game.
 
 The *difference* between the two players' scores will then update a running total
@@ -202,4 +208,7 @@ for each client. The winner will gain the difference, and the loser will lose th
 
 There are two winners in the tournament, the most successful troll player and the most
 successful dwarf player. 
+
+According to the rules, after playing a game, the players swap sides, so please also write an entry on the
+Troll challenge.
 

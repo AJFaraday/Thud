@@ -56,6 +56,8 @@ Reporters['Dummy'] = class Dummy {
   // In the UI, this is a mouse hover, before a space is selected.
   // args.x
   // args.y
+  // args.moves
+  // args.in_danger
   highlight_space(args) {
   
   }
