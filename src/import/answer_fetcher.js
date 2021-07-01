@@ -1,14 +1,16 @@
-const ClientValidator = require('./../lib/client_validator.js')
 const Answer = require('./answer.js');
-//const Request = require('request');
 const Request = require('sync-request');
 const FS = require('fs');
+const key = require('./key.js');
 
 class AnswerFetcher {
   constructor(site, question_id, side) {
     this.side = side;
     this.url = 'https://api.stackexchange.com/2.2/questions/' + question_id +
       '/answers?site=' + site + '&filter=!.FjsvG2X2tViZPCgDuGvW88wrGptD';
+    if (key && key != 'missing') {
+      this.url = `${this.url}&key=${key}`
+    }
     FS.truncateSync(`${__dirname}/../../data/invalid_${side}.txt`);
   }
 
