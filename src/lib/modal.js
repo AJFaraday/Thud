@@ -150,6 +150,10 @@ class Modal {
 
   open_edit_form(e) {
     e.preventDefault();
+    var form_data = new FormData(modal.form);
+    game.dwarf_client_name = form_data.get('Dwarf');
+    game.troll_client_name = form_data.get('Troll');
+
     var client_name = e.currentTarget.previousElementSibling.value;
 
     modal.background.style.width = `${window.innerWidth}px`;

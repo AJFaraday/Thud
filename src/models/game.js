@@ -89,9 +89,15 @@ class Game {
   init_client(client_type, controller) {
     if (typeof client_type == 'string') {
       var client_class = Clients[client_type];
-      return new client_class(controller, Object.assign({}, ControllerUtils));
+      var client = new client_class(controller, Object.assign({}, ControllerUtils));
+      // belt, meet braces
+      client.controller = controller;
+      return client
     } else {
-      return new client_type(controller, Object.assign({}, ControllerUtils));
+      var client = new client_type(controller, Object.assign({}, ControllerUtils));
+      // belt, meet braces
+      client.controller = controller;
+      return client
     }
   }
 

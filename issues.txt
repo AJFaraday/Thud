@@ -1,7 +1,5 @@
 Must:
 
-* Automated deploy will just empty everything if there's a rate-limiting error. That's not ideal.
-* The Razetime issue, shortening controller, side and utils breaks things.
 * Present the result of the tournament as JSON (to dispaly on question)
 * Create page of leaderboards (all, dwarf and troll)
 * Create page of matches (Filter by client)
