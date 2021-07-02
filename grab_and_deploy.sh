@@ -12,5 +12,5 @@ webpack --no-watch
 git add src/clients/*
 now=`date '+%F_%H:%M:%S'`;
 commit_message="Automated deploy: ${now}"
-git commit dist/thud.js src/clients.js data/* src/clients/* -m "$commit_message"
+git commit dist/data/* dist/thud.js src/clients.js data/* src/clients/* -m "$commit_message"
 git push
