@@ -1,6 +1,7 @@
 const Game = require('./game.js');
 const Match = require('./match.js');
 const Clients = require('../clients.js');
+const FS = require('fs');
 
 class Tournament {
 
@@ -56,6 +57,18 @@ class Tournament {
         loser.score -= match.score.difference;
       }
     });
+    this.save_data();
+  }
+
+  save_data() {
+    FS.writeFileSync(
+      `${__dirname}/../../dist/data/tables.json`,
+      JSON.stringify(this.tables())
+    );
+    FS.writeFileSync(
+      `${__dirname}/../../dist/data/matches.json`,
+      JSON.stringify(this.matches.map(match => match.report()))
+    );
   }
 
   tables() {
