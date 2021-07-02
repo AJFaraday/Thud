@@ -2,6 +2,7 @@ module.exports = {
   'dwarf/ajfaraday/baby_steps': require('./clients/dwarf/ajfaraday/baby_steps.js'),
   'dwarf/default/keep_away': require('./clients/dwarf/default/keep_away.js'),
   'dwarf/default/lucky_7': require('./clients/dwarf/default/lucky_7.js'),
+  'dwarf/shaggy/baby_steps_duplicate': require('./clients/dwarf/shaggy/baby_steps_duplicate.js'),
   'dwarf/template': require('./clients/dwarf/template.js'),
   'inert/dummy': require('./clients/inert/dummy.js'),
   'inert/dummy_two': require('./clients/inert/dummy_two.js'),
