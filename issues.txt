@@ -1,6 +1,6 @@
 Must:
 
-
+* Make the customize dialog wider
 * Create page of leaderboards (all, dwarf and troll)
 * Create page of matches (Filter by client)
 * * turn

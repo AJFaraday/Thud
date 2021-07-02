@@ -18,24 +18,24 @@ Starting with the Dwarfs, players take it in turns to move.
 On the Dwarf player's turn, they can move one dwarf piece either as a walk or a hurl.
 
 *Walk*: Dwarfs can move as far as they like in any direction until they hit an obstacle
-(another dwarf, the edge of the board, or a troll). 
+(another dwarf, the edge of the board, or a troll).
 They can only kill a troll by walking if they are only one space away.
 
 *Hurl*: If two or more dwarfs are in a line (horizontal, vertical or diagonal), they can hurl the dwarf on the end of the line, by
-the length of the line (e.g. in a line of 3, the dwarf on the end can be hurled 3 spaces). 
-If a dwarf is hurled into a troll, the troll is killed, reducing the trolls score by 4 points. 
+the length of the line (e.g. in a line of 3, the dwarf on the end can be hurled 3 spaces).
+If a dwarf is hurled into a troll, the troll is killed, reducing the trolls score by 4 points.
 
 ## Troll Movement
 
-On the Troll player's turn they can  move one troll piece, either as a walk or a shove. 
+On the Troll player's turn they can  move one troll piece, either as a walk or a shove.
 
-*Walk*: Trolls can move one space in any direction, unless a troll or the edge of the 
-board is in the way. Whenever a troll moves, it kills all dwarfs on or adjacent to 
+*Walk*: Trolls can move one space in any direction, unless a troll, dwarf or the edge of the
+board is in the way. Whenever a troll moves, it kills all dwarfs adjacent to
 it's destination space.
 
-*Shove*: If two or more trolls are in a line (horizontal, vertical or diagonal) they can shove the troll 
-at the end of the line that number of spaces away, but *only* if the target space, or any of it's immediate 
-neighbours contain a dwarf. Whenever a troll moves, it kills all dwarfs on or adjacent to
+*Shove*: If two or more trolls are in a line (horizontal, vertical or diagonal) they can shove the troll
+at the end of the line that number of spaces away, but *only* if any of the target space's immediate  
+neighbours contain a dwarf. When a troll is shoved, it kills all dwarfs on or adjacent to
 it's destination space.
 
 It is not permitted for a troll to land directly on a dwarf by either walk or shove moves.
