@@ -36,6 +36,8 @@ class Canvas {
     this.draw_board();
     this.build_declare_buttons();
     this.build_customise_button();
+    this.build_league_table_button();
+    this.build_matches_button();
   }
 
   build_canvas() {

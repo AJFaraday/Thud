@@ -1,16 +1,5 @@
 Must:
 
-* filter matches page
-* Feed clients into index URL
-* Links between pages
-* * From index to league tables
-* * From index to matches
-* * From league tables to matches
-* * From client in league talbe to filtered matches
-* * From matches to run a match
-* * From matches to index
-* * From matches to league
-
 Could:
 
 * Show better errors from validator? (can we get a line no?)

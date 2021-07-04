@@ -27,4 +27,13 @@
 </div>
 
 <script src="thud.js"></script>
+
+<script type="text/javascript">
+  var search = new URLSearchParams(window.location.search);
+  var dwarf_client = search.get('dwarf_client');
+  var troll_client = search.get('troll_client');
+  if(dwarf_client && troll_client) {
+    game.reinit(dwarf_client, troll_client, 100);
+  }
+</script>
 </body>

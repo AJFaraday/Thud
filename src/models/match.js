@@ -31,7 +31,8 @@ class Match {
       troll_client: this.troll_client,
       length: this.length,
       score: this.score,
-      end_reason: this.end_reason
+      end_reason: this.end_reason,
+      sort_score: this.sort_score
     }
   }
 

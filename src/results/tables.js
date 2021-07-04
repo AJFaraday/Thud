@@ -33,7 +33,15 @@ class Tables {
   draw_row(data) {
     var kls = data.name.startsWith('dwarf/') ? 'dwarf' : 'troll';
     var tr = Utils.build_element('tr', {class: kls});
-    ['name', 'win', 'lose', 'score'].forEach(attr => {
+
+    var td = Utils.build_element('td');
+    var link = Utils.build_element('a');
+    link.href = `./matches.html?client=${data.name}`;
+    link.innerHTML = data.name;
+    td.append(link);
+    tr.append(td);
+
+    ['win', 'lose', 'score'].forEach(attr => {
       var td = Utils.build_element('td');
       td.innerHTML = data[attr];
       tr.append(td);
