@@ -1,0 +1,86 @@
+body {
+  background-color: black;
+}
+
+.row {
+  width: 100%;
+}
+
+.table_holder {
+  width: 50%;
+  float: left;
+}
+
+#dwarf_table {
+  margin: 10px;
+}
+
+#troll_table {
+  margin: 10px;
+}
+
+.wide {
+  margin: 10px;
+}
+
+table {
+  width: 100%;
+  color: white;
+}
+
+tr.dwarf:nth-child(even) {
+  background-color: blue;
+}
+
+tr.dwarf:nth-child(odd) {
+  background-color: darkblue;
+}
+
+tr.troll:nth-child(even) {
+  background-color: green;
+}
+
+tr.troll:nth-child(odd) {
+  background-color: darkgreen;
+}
+
+.button_holder {
+  margin: auto;
+}
+
+.grey_button {
+  margin: auto;
+  margin-bottom: 5px;
+  width: 150px;
+  height: 40px;
+  border-radius: 20px;
+  text-align: center;
+  font-size: 20px;
+  padding-top: 15px;
+  background-color: darkgray;
+  color: white;
+  text-decoration: none !important;
+}
+
+a.button {
+  text-decoration: none !important;
+}
+
+a {
+  color: white;
+}
+
+select.client_select {
+  width: 300px;
+  text-align: center;
+  text-align-last: center;
+}
+
+option {
+  text-align: center;
+}
+
+.vis {
+  height: 5px;
+  float: left;
+}

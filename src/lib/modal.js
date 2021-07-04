@@ -16,10 +16,10 @@ class Modal {
     this.background.style.height = `${window.innerHeight}px`;
     this.background.style.display = 'block';
 
-    this.modal_div.style.width = '300px';
+    this.modal_div.style.width = '400px';
     this.modal_div.style.height = '200px';
     this.modal_div.style.top = `110px`;
-    this.modal_div.style.left = `${((window.innerWidth - 300) / 2) - 20}px`;
+    this.modal_div.style.left = `${((window.innerWidth - 400) / 2) - 20}px`;
 
     this.modal_div.style.display = 'block';
     this.show_or_hide_edit();

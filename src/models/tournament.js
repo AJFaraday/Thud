@@ -62,12 +62,13 @@ class Tournament {
 
   save_data() {
     FS.writeFileSync(
-      `${__dirname}/../../dist/data/tables.json`,
-      JSON.stringify(this.tables())
+      `${__dirname}/../results/data/tables.js`,
+      `module.exports = ${JSON.stringify(this.tables())}`
     );
+    this.matches = this.matches.sort((a,b) => {return a.sort_score > b.sort_score ? 1 : -1});
     FS.writeFileSync(
-      `${__dirname}/../../dist/data/matches.json`,
-      JSON.stringify(this.matches.map(match => match.report()))
+      `${__dirname}/../results/data/matches.js`,
+      `module.exports = ${JSON.stringify(this.matches.map(match => match.report()))}`
     );
   }
 

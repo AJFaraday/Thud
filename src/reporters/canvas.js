@@ -22,6 +22,8 @@ class Canvas {
     reporter.draw_board();
     reporter.build_declare_buttons();
     this.build_customise_button();
+    this.build_league_table_button();
+    this.build_matches_button();
   }
 
   reinit() {
@@ -34,6 +36,8 @@ class Canvas {
     this.draw_board();
     this.build_declare_buttons();
     this.build_customise_button();
+    this.build_league_table_button();
+    this.build_matches_button();
   }
 
   build_canvas() {
@@ -110,7 +114,7 @@ class Canvas {
       'div',
       {
         id: 'customise_button',
-        class: 'customise_button'
+        class: 'grey_button'
       }
     );
     this.customise_button.innerHTML = 'Customise';
@@ -118,9 +122,39 @@ class Canvas {
       window.modal.show_form()
     }, false);
     var buttons_div = document.getElementById('buttons');
-    buttons_div.append(Utils.build_element('br', {clear: 'both'}));
-    buttons_div.append(Utils.build_element('br', {clear: 'both'}));
     buttons_div.append(this.customise_button);
+  }
+
+  build_league_table_button() {
+    this.league_table_button = Utils.build_element(
+      'div',
+      {
+        id: 'league_button',
+        class: 'grey_button'
+      }
+    );
+    this.league_table_button.innerHTML = 'League Table';
+    Utils.addListener(this.league_table_button, 'mouseup', () => {
+      window.location.href = './tables.html'
+    }, false);
+    var buttons_div = document.getElementById('buttons');
+    buttons_div.append(this.league_table_button);
+  }
+
+  build_matches_button() {
+    this.matches_button = Utils.build_element(
+      'div',
+      {
+        id: 'matches_button',
+        class: 'grey_button'
+      }
+    );
+    this.matches_button.innerHTML = 'Matches';
+    Utils.addListener(this.matches_button, 'mouseup', () => {
+      window.location.href = './matches.html'
+    }, false);
+    var buttons_div = document.getElementById('buttons');
+    buttons_div.append(this.matches_button);
   }
 
   build_side(colour, title) {

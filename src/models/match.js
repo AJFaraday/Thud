@@ -18,15 +18,21 @@ class Match {
     this.length = this.game.turn_number;
     this.score = this.game.get_score();
     this.end_reason = this.game.end_reason;
+    if (this.score.winning == 't') {
+      this.sort_score = this.score.difference;
+    } else {
+      this.sort_score = this.score.difference * -1;
+    }
   }
 
   report() {
     return {
       dwarf_client: this.dwarf_client,
-      troll_info: this.troll_client,
+      troll_client: this.troll_client,
       length: this.length,
       score: this.score,
-      end_reason: this.end_reason
+      end_reason: this.end_reason,
+      sort_score: this.sort_score
     }
   }
 

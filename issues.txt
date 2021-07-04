@@ -1,15 +1,8 @@
 Must:
 
-* Make the customize dialog wider
-* Create page of leaderboards (all, dwarf and troll)
-* Create page of matches (Filter by client)
-* * turn
-* * score
-* * Completion time
-* Show better errors from validator? (can we get a line no?)
-
 Could:
 
+* Show better errors from validator? (can we get a line no?)
 * Use local storage to keep the client selections
 * Codemirror or similar plugin on code editing
 * Progress bar (text turn/limit)
