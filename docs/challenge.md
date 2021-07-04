@@ -1,21 +1,21 @@
 # Play Thud
 
-Thud is a game described by Terry Pratchett in his novel, Thud!.
+*Thud* is a game described by Terry Pratchett in his novel, *Thud!*
 
 The game simulates a battle between the Dwarfs (in blue) and the Trolls (in green) on an
 octagonal board with the Thudstone (an impassable space) in the centre of the board.
 
-I have created an environment to play the game and develop game playing code at: https://ajfaraday.github.io/Thud/dist/index.html
+I have created an environment to play the game and create your automated player at: https://ajfaraday.github.io/Thud/dist/index.html
 
 The challenge is to write the most successful dwarf or troll player of this game (these will be two separate challenges).
 
 # Rules
 
-Starting with the Dwarfs, players take it in turns to move.
+Starting with the dwarf player, players take it in turns to move.
 
 ## Dwarf Movement
 
-On the Dwarf player's turn, they can move one dwarf piece either as a walk or a hurl.
+On the dwarf player's turn, they can move one dwarf piece either as a walk or a hurl.
 
 *Walk*: Dwarfs can move as far as they like in any direction until they hit an obstacle
 (another dwarf, the edge of the board, or a troll).
@@ -23,7 +23,7 @@ They can only kill a troll by walking if they are only one space away.
 
 *Hurl*: If two or more dwarfs are in a line (horizontal, vertical or diagonal), they can hurl the dwarf on the end of the line, by
 the length of the line (e.g. in a line of 3, the dwarf on the end can be hurled 3 spaces).
-If a dwarf is hurled into a troll, the troll is killed, reducing the trolls score by 4 points.
+If a dwarf is hurled into a troll, the troll is killed, reducing the troll player's score by 4 points.
 
 ## Troll Movement
 
@@ -31,16 +31,16 @@ On the Troll player's turn they can  move one troll piece, either as a walk or a
 
 *Walk*: Trolls can move one space in any direction, unless a troll, dwarf or the edge of the
 board is in the way. Whenever a troll moves, it kills all dwarfs adjacent to
-it's destination space.
+its destination space.
 
 *Shove*: If two or more trolls are in a line (horizontal, vertical or diagonal) they can shove the troll
 at the end of the line that number of spaces away, but *only* if any of the target space's immediate  
 neighbours contain a dwarf. When a troll is shoved, it kills all dwarfs on or adjacent to
 it's destination space.
 
-It is not permitted for a troll to land directly on a dwarf by either walk or shove moves.
+A troll may not land directly on a dwarf by either walk or shove moves.
 
-Each dwarf killed reduces the dwarfs score by 1 point.
+Each dwarf killed reduces the dwarf player's score by 1 point.
 
 ## Scores
 
@@ -58,14 +58,14 @@ The game ends when any of these conditions is met:
 * There are no dwarfs on the board.
 * There are no trolls on the board.
 * Both players have declared the game over.
-* The game has reached it's cut-off length of 500 moves.
+* The game has reached its cut-off length of 500 moves.
 
 # How to manually play a game
 
 * Go to https://ajfaraday.github.io/Thud/dist/index.html
 * Hover the mouse over a piece to see it's available moves.
-* Click a piece to select it for the current move.
-* Click one of the available moves to move the piece.
+* Click on a piece to select it for the current move.
+* Click on one of the available moves to move the piece.
 * (You can click the relevant 'Make Peace' button to declare the game over according to that player, during their turn)
 
 # How to set up a local instance of the game
@@ -104,7 +104,7 @@ JavaScript class which must have these three functions:
 The `controller` object is your client's interface with the game itself. You can find full documentation
 for the controller class here: https://github.com/AJFaraday/Thud/blob/main/docs/controller_interface.md
 
-It provides these methods to interrogate the state of the game:
+It provides these functions to interrogate the state of the game:
 
 * `turn()` - Current turn of the game
 * `scores()` - The current score
@@ -120,7 +120,7 @@ It provides these methods to interrogate the state of the game:
 * `current_space` - Currently selected space (not a function)
 * `clear_space()` - Empties currently selected space
 
-These methods are used to actually make your move:
+These functions are used to actually make your move:
 
 * `check_space(x, y)`- Find out what moves are available from a given space
 * `select_space(x, y)` - The player decides to move a piece at space.
@@ -158,7 +158,7 @@ In order for a client to work, and therefore be enterable in the challenge, it h
 validations:
 
 * It must evaluate as Javascript code.
-* The code must return a class, with a constructor which accepts one argument.
+* The code must return a class with a constructor which accepts one argument.
 * Instances of this class should have functions named `turn()` and `end_turn()`
 * The client must play a game until it is over (i.e. it must call a valid `move` during every `turn` call).
 The validator will run games against default opponents to determine if this happens.
@@ -194,7 +194,7 @@ the Dwarf player select. You only need to do this once to make it avilable.
 
 Once this is in place, anyone running `./get_answers.sh` will see your client available under your username.
 
-The GitHub Pages instance will also be updated periodically. So by making an entry, your code
+The GitHub Pages instance will also be updated periodically, so by making an entry, your code
 will be added to the repo.
 
 # Tournament rules
@@ -206,8 +206,22 @@ exactly one game.
 The *difference* between the two players' scores will then update a running total
 for each client. The winner will gain the difference, and the loser will lose the difference.
 
-There are two winners in the tournament, the most successful troll player and the most
+There are two winners in the tournament: the most successful troll player and the most
 successful dwarf player. 
+
+# Seeing the result of the tournament
+
+You can use the 'League Table' button to see the overall results of the clients. If
+you click on a client, you will see all the matches for that client.
+
+You can use the 'Matches' button to see the result of all matches. If you click 
+on a match, the game will replay the match for you. You can change the select at the 
+bottom of the screen to highlight specific clients.
+
+To rerun the tournament (including changes on Stack Exchange and your own entries in /src/clients/dwarf/entry) you
+can run `.get_answers.sh`. This will update the 'League Table' and 'Matches' screens.
+
+---
 
 According to the rules, after playing a game, the players swap sides, so please also write an entry on the
 Troll challenge.
