@@ -65,8 +65,9 @@ body {
   color: white;
 }
 
-.customise_button {
+.grey_button {
   margin: auto;
+  margin-bottom: 5px;
   width: 150px;
   height: 40px;
   border-radius: 20px;
