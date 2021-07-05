@@ -70,6 +70,14 @@ class Tournament {
       `${__dirname}/../results/data/matches.js`,
       `module.exports = ${JSON.stringify(this.matches.map(match => match.report()))}`
     );
+    FS.writeFileSync(
+      `${__dirname}/../../dist/data/tables.js`,
+      `league_table =  ${JSON.stringify(this.tables())}`
+    );
+    FS.writeFileSync(
+      `${__dirname}/../../dist/data/matches.js`,
+      `matches = ${JSON.stringify(this.matches.map(match => match.report()))}`
+    );
   }
 
   tables() {

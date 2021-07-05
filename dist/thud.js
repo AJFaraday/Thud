@@ -16,17 +16,7 @@ var Game;
   \************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("module.exports = {\n  'dwarf/ajfaraday/baby_steps': __webpack_require__(/*! ./clients/dwarf/ajfaraday/baby_steps.js */ \"./src/clients/dwarf/ajfaraday/baby_steps.js\"),\n  'dwarf/default/keep_away': __webpack_require__(/*! ./clients/dwarf/default/keep_away.js */ \"./src/clients/dwarf/default/keep_away.js\"),\n  'dwarf/default/lucky_7': __webpack_require__(/*! ./clients/dwarf/default/lucky_7.js */ \"./src/clients/dwarf/default/lucky_7.js\"),\n  'dwarf/shaggy/baby_steps_duplicate': __webpack_require__(/*! ./clients/dwarf/shaggy/baby_steps_duplicate.js */ \"./src/clients/dwarf/shaggy/baby_steps_duplicate.js\"),\n  'dwarf/template': __webpack_require__(/*! ./clients/dwarf/template.js */ \"./src/clients/dwarf/template.js\"),\n  'inert/dummy': __webpack_require__(/*! ./clients/inert/dummy.js */ \"./src/clients/inert/dummy.js\"),\n  'inert/dummy_two': __webpack_require__(/*! ./clients/inert/dummy_two.js */ \"./src/clients/inert/dummy_two.js\"),\n  'inert/manual': __webpack_require__(/*! ./clients/inert/manual.js */ \"./src/clients/inert/manual.js\"),\n  'troll/ajfaraday/_imported': __webpack_require__(/*! ./clients/troll/ajfaraday/_imported.js */ \"./src/clients/troll/ajfaraday/_imported.js\"),\n  'troll/default/last_move': __webpack_require__(/*! ./clients/troll/default/last_move.js */ \"./src/clients/troll/default/last_move.js\"),\n  'troll/default/spread_out': __webpack_require__(/*! ./clients/troll/default/spread_out.js */ \"./src/clients/troll/default/spread_out.js\"),\n  'troll/shaggy/_imported_duplicate': __webpack_require__(/*! ./clients/troll/shaggy/_imported_duplicate.js */ \"./src/clients/troll/shaggy/_imported_duplicate.js\"),\n  'troll/template': __webpack_require__(/*! ./clients/troll/template.js */ \"./src/clients/troll/template.js\"),\n};\n\n//# sourceURL=webpack://Game/./src/clients.js?");
-
-/***/ }),
-
-/***/ "./src/clients/dwarf/ajfaraday/baby_steps.js":
-/*!***************************************************!*\
-  !*** ./src/clients/dwarf/ajfaraday/baby_steps.js ***!
-  \***************************************************/
-/***/ ((module) => {
-
-eval("module.exports = class {\n  constructor(controller, utils) {\n    this.controller = controller;\n    this.side = controller.side;\n    this.utils = utils;\n    this.it_is_a_day = false;\n  }\n\n  turn() {\n    var dwarf = this.controller.dwarfs()[0];\n    if(dwarf) {\n      var moves = this.controller.check_space(dwarf.x, dwarf.y).safe_moves;\n      if(moves[0]) {\n        this.controller.select_space(dwarf.x, dwarf.y);\n        this.controller.move(moves[0].x, moves[0].y);\n      } else {\n        this.call_it_a_day();\n      }\n    } else {\n      this.call_it_a_day();\n    }\n  }\n\n  call_it_a_day() {\n    this.it_is_a_day = true;\n    this.controller.declare(true);\n\n    var dwarf = this.controller.dwarfs()[0];\n    var space_info = this.controller.check_space(dwarf.x, dwarf.y);\n    this.controller.select_space(dwarf.x, dwarf.y);\n    this.controller.move(space_info.moves[0].x, space_info.moves[0].y);\n  }\n\n  end_turn() {\n    var scores = this.controller.scores();\n    this.controller.declare(this.it_is_a_day || scores.winning == 'd');\n  }\n\n}\n\n\n//# sourceURL=webpack://Game/./src/clients/dwarf/ajfaraday/baby_steps.js?");
+eval("module.exports = {\n  'dwarf/default/keep_away': __webpack_require__(/*! ./clients/dwarf/default/keep_away.js */ \"./src/clients/dwarf/default/keep_away.js\"),\n  'dwarf/default/lucky_7': __webpack_require__(/*! ./clients/dwarf/default/lucky_7.js */ \"./src/clients/dwarf/default/lucky_7.js\"),\n  'dwarf/template': __webpack_require__(/*! ./clients/dwarf/template.js */ \"./src/clients/dwarf/template.js\"),\n  'inert/dummy': __webpack_require__(/*! ./clients/inert/dummy.js */ \"./src/clients/inert/dummy.js\"),\n  'inert/dummy_two': __webpack_require__(/*! ./clients/inert/dummy_two.js */ \"./src/clients/inert/dummy_two.js\"),\n  'inert/manual': __webpack_require__(/*! ./clients/inert/manual.js */ \"./src/clients/inert/manual.js\"),\n  'troll/default/last_move': __webpack_require__(/*! ./clients/troll/default/last_move.js */ \"./src/clients/troll/default/last_move.js\"),\n  'troll/default/spread_out': __webpack_require__(/*! ./clients/troll/default/spread_out.js */ \"./src/clients/troll/default/spread_out.js\"),\n  'troll/template': __webpack_require__(/*! ./clients/troll/template.js */ \"./src/clients/troll/template.js\"),\n};\n\n//# sourceURL=webpack://Game/./src/clients.js?");
 
 /***/ }),
 
@@ -47,16 +37,6 @@ eval("module.exports = class {\n  constructor(controller, utils) {\n    this.con
 /***/ ((module) => {
 
 eval("module.exports = class {\n  constructor(controller, utils) {\n    this.controller = controller;\n    this.side = controller.side;\n    this.utils = utils;\n    this.it_is_a_day = false;\n  }\n\n  turn() {\n    var dwarf = this.controller.dwarfs()[7];\n    if(dwarf) {\n      var moves = this.controller.check_space(dwarf.x, dwarf.y).safe_moves;\n      if(moves[7]) {\n        this.controller.select_space(dwarf.x, dwarf.y);\n        this.controller.move(moves[7].x, moves[7].y);\n      } else {\n        this.call_it_a_day();\n      }\n    } else {\n      this.call_it_a_day();\n    }\n  }\n\n  call_it_a_day() {\n    this.it_is_a_day = true;\n    this.controller.declare(true);\n\n    var dwarf = this.controller.dwarfs()[0];\n    var space_info = this.controller.check_space(dwarf.x, dwarf.y);\n    this.controller.select_space(dwarf.x, dwarf.y);\n    this.controller.move(space_info.moves[0].x, space_info.moves[0].y);\n  }\n\n  end_turn() {\n    var scores = this.controller.scores();\n    this.controller.declare(this.it_is_a_day || scores.winning == 'd');\n  }\n\n}\n\n\n//# sourceURL=webpack://Game/./src/clients/dwarf/default/lucky_7.js?");
-
-/***/ }),
-
-/***/ "./src/clients/dwarf/shaggy/baby_steps_duplicate.js":
-/*!**********************************************************!*\
-  !*** ./src/clients/dwarf/shaggy/baby_steps_duplicate.js ***!
-  \**********************************************************/
-/***/ ((module) => {
-
-eval("module.exports = class {\n  constructor(controller, utils) {\n    this.controller = controller;\n    this.side = controller.side;\n    this.utils = utils;\n    this.it_is_a_day = false;\n  }\n\n  turn() {\n    var dwarf = this.controller.dwarfs()[0];\n    if(dwarf) {\n      var moves = this.controller.check_space(dwarf.x, dwarf.y).safe_moves;\n      if(moves[0]) {\n        this.controller.select_space(dwarf.x, dwarf.y);\n        this.controller.move(moves[0].x, moves[0].y);\n      } else {\n        this.call_it_a_day();\n      }\n    } else {\n      this.call_it_a_day();\n    }\n  }\n\n  call_it_a_day() {\n    this.it_is_a_day = true;\n    this.controller.declare(true);\n\n    var dwarf = this.controller.dwarfs()[0];\n    var space_info = this.controller.check_space(dwarf.x, dwarf.y);\n    this.controller.select_space(dwarf.x, dwarf.y);\n    this.controller.move(space_info.moves[0].x, space_info.moves[0].y);\n  }\n\n  end_turn() {\n    var scores = this.controller.scores();\n    this.controller.declare(this.it_is_a_day || scores.winning == 'd');\n  }\n\n}\n\n\n//# sourceURL=webpack://Game/./src/clients/dwarf/shaggy/baby_steps_duplicate.js?");
 
 /***/ }),
 
@@ -100,16 +80,6 @@ eval("const Utils = __webpack_require__(/*! ./../../lib/utils.js */ \"./src/lib/
 
 /***/ }),
 
-/***/ "./src/clients/troll/ajfaraday/_imported.js":
-/*!**************************************************!*\
-  !*** ./src/clients/troll/ajfaraday/_imported.js ***!
-  \**************************************************/
-/***/ ((module) => {
-
-eval("module.exports = class {\n  constructor(controller, utils) {\n    this.controller = controller;\n    this.side = controller.side;\n    this.utils = utils;\n  }\n\n  turn() {\n    var target = this.controller.previous_move().to;\n    var troll = this.controller.space_info(target.x, target.y).nearest_troll.pieces[0];\n    this.controller.select_space(troll.x, troll.y);\n    var space_info = this.controller.check_space(troll.x, troll.y);\n    var closest_move = this.utils.closest_to(space_info.moves, target);\n    this.controller.move(closest_move.x, closest_move.y);\n  }\n\n  end_turn() {\n    var scores = this.controller.scores();\n    this.controller.declare(scores.winning == 't');\n  }\n\n}\n\n\n//# sourceURL=webpack://Game/./src/clients/troll/ajfaraday/_imported.js?");
-
-/***/ }),
-
 /***/ "./src/clients/troll/default/last_move.js":
 /*!************************************************!*\
   !*** ./src/clients/troll/default/last_move.js ***!
@@ -127,16 +97,6 @@ eval("module.exports = class {\n  constructor(controller, utils) {\n    this.con
 /***/ ((module) => {
 
 eval("module.exports = class {\n  constructor(controller, utils) {\n    this.controller = controller;\n    this.side = controller.side;\n    this.utils = utils;\n    this.troll_index = -1;\n    // Correspond to indexed_trolls\n    this.troll_info = [\n      {attack: false, step: [-1, -1]}, //NW\n      {attack: false, step: [0, -1]}, //N\n      {attack: false, step: [1, -1]}, //NE\n      {attack: false, step: [-1, 0]}, //W\n      {attack: false, step: [1, 0]}, //E\n      {attack: false, step: [-1, 1]}, //SW\n      {attack: false, step: [0, 1]}, //S\n      {attack: false, step: [1, 1]} //SE\n    ]\n    this.troll_index = 0;\n  }\n\n  turn() {\n    var killing_moves = this.controller.killing_moves();\n    if (killing_moves.length > 0) {\n      this.controller.select_space(killing_moves[0].from.x, killing_moves[0].from.y);\n      this.controller.move(killing_moves[0].to.x, killing_moves[0].to.y);\n    } else {\n      var space = this.controller.trolls()[this.troll_index % this.controller.trolls().length];\n      this.troll_index += 1;\n      var indexed_trolls = this.controller.indexed_trolls();\n      var index = indexed_trolls.indexOf(\n        indexed_trolls.find(troll => {\n          return troll && troll.x == space.x && troll.y == space.y\n        })\n      );\n      var troll_info = this.troll_info[index];\n      var troll = this.controller.space_info(space.x, space.y);\n      if (troll_info.attack) {\n        this.attack(troll);\n      } else {\n        // Look one step towards the edge\n        var move_target = {\n          x: (troll.x + troll_info.step[0]),\n          y: (troll.y + troll_info.step[1])\n        }\n        // If you can walk that way, go there\n        if (troll.moves.some(move => move.x == move_target.x && move.y == move_target.y)) {\n          this.controller.select_space(troll.x, troll.y);\n          this.controller.move(move_target.x, move_target.y);\n        } else {\n          // Change to attack mode\n          troll_info.attack = true;\n          this.attack(troll);\n        }\n      }\n    }\n  }\n\n  // troll is space_info\n  // If there's no more moves in the step direction to take, just go towards the nearest dwarf\n  attack(troll) {\n    var target = troll.nearest_dwarf.pieces[0];\n    var closest_move = this.utils.closest_to(troll.moves, target);\n    this.controller.select_space(troll.x, troll.y);\n    this.controller.move(closest_move.x, closest_move.y);\n  }\n\n  end_turn() {\n\n  }\n\n}\n\n\n//# sourceURL=webpack://Game/./src/clients/troll/default/spread_out.js?");
-
-/***/ }),
-
-/***/ "./src/clients/troll/shaggy/_imported_duplicate.js":
-/*!*********************************************************!*\
-  !*** ./src/clients/troll/shaggy/_imported_duplicate.js ***!
-  \*********************************************************/
-/***/ ((module) => {
-
-eval("module.exports = class {\n  constructor(controller, utils) {\n    this.controller = controller;\n    this.side = controller.side;\n    this.utils = utils;\n  }\n\n  turn() {\n    var target = this.controller.previous_move().to;\n    var troll = this.controller.space_info(target.x, target.y).nearest_troll.pieces[0];\n    this.controller.select_space(troll.x, troll.y);\n    var space_info = this.controller.check_space(troll.x, troll.y);\n    var closest_move = this.utils.closest_to(space_info.moves, target);\n    this.controller.move(closest_move.x, closest_move.y);\n  }\n\n  end_turn() {\n    var scores = this.controller.scores();\n    this.controller.declare(scores.winning == 't');\n  }\n\n}\n\n\n//# sourceURL=webpack://Game/./src/clients/troll/shaggy/_imported_duplicate.js?");
 
 /***/ }),
 

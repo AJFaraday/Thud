@@ -1,7 +1,0 @@
-ajfaraday/Invalid is invalid
-Did not finish game against dwarf/default/keep_away. Probably because this client did not call a valid move within the turn method
-Did not finish game against dwarf/default/lucky_7. Probably because this client did not call a valid move within the turn method
-
-ajfaraday/MoreJunk is invalid
-Error evaluating code: SyntaxError: Unexpected token 'throw'
-
