@@ -10,7 +10,7 @@ of the game the most successfully.
 ## Installation
 
 ```shell
-git clone git@github.com:AJFaraday/Thud.git
+git clone https://github.com/AJFaraday/Thud.git
 cd Thud
 npm install
 ```
