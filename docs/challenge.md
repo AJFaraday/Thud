@@ -73,7 +73,7 @@ The game ends when any of these conditions is met:
 You don't have to clone the repository and use it locally to make the game work, or to create an entry, 
 but it helps.
 
-* `git clone git@github.com:AJFaraday/Thud.git`
+* `git clone https://github.com/AJFaraday/Thud.git`
 * `cd Thud`
 * `npm install`
 * You can then call `node script/get_clients.js` to get the latest entries from Stack Exchange
